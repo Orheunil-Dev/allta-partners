@@ -31,24 +31,24 @@ export default function StoreList() {
 
   return (
     <div className="flex flex-col h-full px-[20px] pt-[60px] pb-[40px]  md:p-[40px] overflow-y-auto">
-      <div className="grid grid-cols-2 gap-x-[24px]">
+      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-[24px]">
         {data?.data.map((value, index) => (
           <div
-            key={index}
+            key={`store_${index}`}
             onClick={() => router.push(`/store/${value.id}`)}
-            className="flex flex-col p-[16px]  bg-white rounded-[20px] cursor-pointer"
+            className="flex flex-col p-[20px] bg-white rounded-[20px] cursor-pointer"
           >
             <div
-              className="w-full h-[200px] rounded-[8px]"
+              className="w-full h-[160px] lg:h-[198px] rounded-[12px]"
               style={{
                 backgroundImage: `url(${value?.mainImage})`,
                 backgroundPosition: "center",
                 backgroundSize: "cover",
               }}
             />
-            <p>{value.name}</p>
-            <p>{value.phoneNumber}</p>
-            <p>{value.address}</p>
+            <p className="mt-[20px] text-[16px] font-semibold">{value.name}</p>
+            <p className="mt-[4px] text-[14px]">{value.address}</p>
+            <p className="text-[14px]">{value.phoneNumber}</p>
           </div>
         ))}
       </div>
