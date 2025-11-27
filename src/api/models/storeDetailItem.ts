@@ -5,7 +5,7 @@
  * Allta Partners 서버 문서입니다.
  * OpenAPI spec version: 1.0
  */
-import type { StoreDetailItemStoreGroup } from "./storeDetailItemStoreGroup";
+import type { StoreDetailItemStoreGroup } from './storeDetailItemStoreGroup';
 
 export interface StoreDetailItem {
   /** ID */
