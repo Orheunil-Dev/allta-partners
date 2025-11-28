@@ -20,7 +20,7 @@
 # production
 /build
 /cert
-/nginx
+/etc
 
 # misc
 .DS_Store
