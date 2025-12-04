@@ -184,13 +184,13 @@ export const ServiceChart = () => {
             y: {
               type: "linear",
               position: "left",
-              title: { display: true, text: "누적 회원 수" },
+              title: { display: true, text: "누적 세차 수" },
               beginAtZero: true,
             },
             y1: {
               type: "linear",
               position: "right",
-              title: { display: true, text: "신규/탈퇴 회원 수" },
+              title: { display: true, text: "신규 세차 수" },
               beginAtZero: true,
               grid: { drawOnChartArea: false },
             },
