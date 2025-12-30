@@ -299,7 +299,7 @@ export default function UserList() {
         sorting={sorting}
         setSorting={setSorting}
         // onDownload={handleDownload}
-        clickable
+        // clickable
       />
 
       {/* 페이지네이션 */}
