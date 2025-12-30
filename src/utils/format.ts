@@ -91,6 +91,9 @@ export const formatPassType = (value: string) => {
     case "PREMIUM":
       return "프리미엄";
 
+    case "OFFLINE_TICKET":
+      return "현장권";
+
     default:
       return value;
   }
@@ -151,6 +154,9 @@ export const formatProductType = (value: string) => {
     case "PREMIUM":
       return "프리미엄";
 
+    case "OFFLINE_TICKET":
+      return "현장권";
+
     default:
       return value;
   }
@@ -201,6 +207,29 @@ export const formatDiscountValue = (type: string, value: number) => {
 
     case "FIXED":
       return `${value}원 특가`;
+
+    default:
+      return value;
+  }
+};
+
+// 결제수단 포매팅
+export const formatPaymentMethod = (value: string) => {
+  switch (value) {
+    case "CARD":
+      return "카드";
+
+    case "KIOSK_CARD":
+      return "카드";
+
+    case "KIOSK_CASH":
+      return `현금`;
+
+    case "KIOSK_VOUCHER":
+      return "현금보관증";
+
+    case "REWASH":
+      return "재세차";
 
     default:
       return value;

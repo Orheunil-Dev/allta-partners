@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import { usePaymentControllerGetPaymentList } from "@/api/payment/payment";
 import { PaymentListItem } from "@/api/models";
 import {
+  formatPaymentMethod,
   formatPaymentStatus,
   formatProductType,
   formatServiceType,
@@ -122,26 +123,26 @@ export default function PaymentList() {
     []
   );
 
-  const selectKeys = useMemo<SelectKey[]>(
-    () => [
-      {
-        key: "isDeleted",
-        label: "탈퇴 여부",
-        options: userDeletedOptions,
-      },
-      {
-        key: "isBanned",
-        label: "정지 여부",
-        options: userBannedOptions,
-      },
-      {
-        key: "isMarketing",
-        label: "마케팅 수신 여부",
-        options: userMarketingOptions,
-      },
-    ],
-    []
-  );
+  // const selectKeys = useMemo<SelectKey[]>(
+  //   () => [
+  //     {
+  //       key: "isDeleted",
+  //       label: "탈퇴 여부",
+  //       options: userDeletedOptions,
+  //     },
+  //     {
+  //       key: "isBanned",
+  //       label: "정지 여부",
+  //       options: userBannedOptions,
+  //     },
+  //     {
+  //       key: "isMarketing",
+  //       label: "마케팅 수신 여부",
+  //       options: userMarketingOptions,
+  //     },
+  //   ],
+  //   []
+  // );
 
   const columns = useMemo<ColumnDef<PaymentListItem>[]>(
     () => [
@@ -151,6 +152,23 @@ export default function PaymentList() {
         accessorFn: (row) => row.createdAt,
         cell: (info: CellContext<PaymentListItem, unknown>) =>
           dayjs(info.getValue() as string).format("YYYY.MM.DD HH:mm"),
+      },
+      {
+        id: "storeName",
+        header: "매장명",
+        accessorFn: (row) => row.storeName,
+        cell: ({ row }) => (
+          <a
+            href={`/store/${row.original.store.id}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="hover:underline cursor-pointer"
+          >
+            {row.original.storeName}
+          </a>
+        ),
+        enableSorting: false,
       },
       {
         id: "productType",
@@ -184,20 +202,11 @@ export default function PaymentList() {
         enableSorting: false,
       },
       {
-        id: "storeName",
-        header: "매장명",
-        accessorFn: (row) => row.storeName,
-        cell: ({ row }) => (
-          <a
-            href={`/store/${row.original.store.id}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={(e) => e.stopPropagation()}
-            className="hover:underline cursor-pointer"
-          >
-            {row.original.storeName}
-          </a>
-        ),
+        id: "paymentMethod",
+        header: "결제수단",
+        accessorFn: (row) => row.paymentMethod,
+        cell: (info: CellContext<PaymentListItem, unknown>) =>
+          formatPaymentMethod(info.getValue() as string),
         enableSorting: false,
       },
       {
@@ -209,15 +218,35 @@ export default function PaymentList() {
         enableSorting: false,
       },
       {
+        id: "serviceOptions",
+        header: "서비스 옵션",
+        accessorFn: (row) => row.serviceOptions ?? "-",
+        enableSorting: false,
+      },
+      {
         id: "userName",
         header: "회원명",
         accessorFn: (row) => row.user?.name,
+        cell: ({ row }) =>
+          row.original.user ? (
+            <a
+              href={`/user/${row.original.user.id}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="hover:underline cursor-pointer"
+            >
+              {row.original.user.name}
+            </a>
+          ) : (
+            "-"
+          ),
         enableSorting: false,
       },
       {
         id: "userPhoneNumber",
         header: "회원 전화번호",
-        accessorFn: (row) => row.user?.phoneNumber,
+        accessorFn: (row) => row.user?.phoneNumber ?? "-",
         enableSorting: false,
       },
       {
@@ -308,7 +337,7 @@ export default function PaymentList() {
         rangeKeys={rangeKeys}
         rangeFilter={draftRangeFilter}
         setRangeFilter={setDraftRangeFilter}
-        selectKeys={selectKeys}
+        // selectKeys={selectKeys}
         onSearch={handleSearch}
         onReset={handleReset}
       />

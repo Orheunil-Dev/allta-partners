@@ -12,9 +12,11 @@ export type MenuItem = {
   category: string;
   route?: string;
   icon?: StaticImageData;
+  minLevel?: number;
   menus?: {
     name: string;
     route: string;
+    minLevel?: number;
   }[];
 };
 
@@ -23,6 +25,12 @@ export const menuItems: MenuItem[] = [
     category: "대시보드",
     route: "/dashboard",
     icon: dashboardIcon,
+  },
+  {
+    category: "회원 관리",
+    route: "/user",
+    icon: userIcon,
+    minLevel: 3,
   },
   {
     category: "매장 관리",
@@ -45,6 +53,11 @@ export const menuItems: MenuItem[] = [
       {
         name: "일회권 현황",
         route: "/ticket",
+      },
+      {
+        name: "현장권 현황",
+        route: "/offline-ticket",
+        minLevel: 2,
       },
     ],
   },
