@@ -15,3 +15,11 @@ export type PassPrice = Partial<
     Partial<Record<PassType, Record<CarType, number | undefined>>>
   >
 >;
+
+export type MemberType = "MEMBER" | "NON_MEMBER";
+export type OfflinePriceItem = {
+  index: number;
+  label: string;
+  price: Record<CarType, number>;
+};
+export type OfflinePrice = Partial<Record<MemberType, OfflinePriceItem[]>>;

@@ -6,6 +6,8 @@
  * OpenAPI spec version: 1.0
  */
 import type { UpdateStoreRequestBusinessHours } from './updateStoreRequestBusinessHours';
+import type { UpdateStoreRequestOfflinePrice } from './updateStoreRequestOfflinePrice';
+import type { UpdateServiceOptionDto } from './updateServiceOptionDto';
 
 export interface UpdateStoreRequest {
   /** ID */
@@ -42,4 +44,8 @@ export interface UpdateStoreRequest {
   holidays?: string | null;
   /** 영업 시간 */
   businessHours?: UpdateStoreRequestBusinessHours;
+  /** 현장권 가격 */
+  offlinePrice?: UpdateStoreRequestOfflinePrice;
+  /** 서비스 옵션 목록 */
+  serviceOptions?: UpdateServiceOptionDto[];
 }
