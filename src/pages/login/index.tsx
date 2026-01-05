@@ -47,7 +47,8 @@ export default function Login() {
 
             router.push("/dashboard");
           },
-          onError: (error) => {
+          onError: (error: any) => {
+            alert(error.message ?? "로그인 중 에러가 발생했습니다.");
             console.log(error);
           },
         }
