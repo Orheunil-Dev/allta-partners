@@ -63,7 +63,7 @@ export default function NoticeDetail() {
     setNotice((prev) => (prev ? { ...prev, [key]: value } : prev));
   };
 
-  // 문의 답변 수정
+  // 공지사항 수정
   const handleUpdate = () => {
     if (!id) return;
 
@@ -160,7 +160,7 @@ export default function NoticeDetail() {
 
             <button
               onClick={handleUpdate}
-              className="w-[84px] h-[44px] bg-main text-white font-semibold rounded-[8px] cursor-pointer"
+              className="w-[84px] h-[44px] bg-partners text-white font-semibold rounded-[8px] cursor-pointer"
             >
               수정
             </button>
