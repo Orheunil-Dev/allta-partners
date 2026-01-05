@@ -71,4 +71,19 @@ export const menuItems: MenuItem[] = [
       },
     ],
   },
+  {
+    category: "CS 관리",
+    icon: purchaseIcon,
+    minLevel: 3,
+    menus: [
+      {
+        name: "공지사항",
+        route: "/notice",
+      },
+      {
+        name: "이벤트",
+        route: "/event",
+      },
+    ],
+  },
 ];

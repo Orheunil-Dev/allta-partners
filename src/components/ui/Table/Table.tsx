@@ -9,8 +9,8 @@ import {
   SortingState,
   useReactTable,
 } from "@tanstack/react-table";
-import { createIcon, downloadIcon } from "../../../../public/images";
 import { useResizeHandler } from "@/hooks";
+import { createIcon, downloadIcon } from "../../../../public/images";
 
 const positiveStatus = ["ACTIVE", "APPROVED"];
 const neutralityStatus = ["STOPPED", "REFUNDED", "USED", "DELETED"];
@@ -128,7 +128,10 @@ export const Table = <TData,>({
         style={{ boxShadow: "0 4px 10px 2px rgba(38, 38, 39, 0.04)" }}
         className="flex-1 mt-[12px] md:mt-[16px] bg-white rounded-[20px] overflow-x-auto"
       >
-        <table className="min-w-full text-sm text-left table-fixed">
+        <table
+          style={{ width: table.getCenterTotalSize() }}
+          className="min-w-full text-sm text-left table-fixed"
+        >
           <thead className="text-black text-[13px] md:text-[15px] font-medium bg-white whitespace-nowrap">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
@@ -147,10 +150,11 @@ export const Table = <TData,>({
                   return (
                     <th
                       key={header.id}
-                      className="px-[32px] h-[56px] cursor-pointer select-none bg-white z-10"
                       onClick={() =>
                         canSort && handleSortToggle(header.column.id)
                       }
+                      style={{ width: header.column.getSize() }}
+                      className="px-[32px] h-[56px] cursor-pointer select-none bg-white z-10"
                     >
                       {flexRender(
                         header.column.columnDef.header,
@@ -201,6 +205,7 @@ export const Table = <TData,>({
                   return (
                     <td
                       key={cell.id}
+                      style={{ width: cell.column.getSize() }}
                       className={`px-[32px] h-[56px] whitespace-nowrap ${textColor} ${fontWeight}`}
                     >
                       {flexRender(
