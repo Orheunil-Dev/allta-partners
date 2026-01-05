@@ -1,5 +1,6 @@
 import { StaticImageData } from "next/image";
 import {
+  csIcon,
   dashboardIcon,
   passIcon,
   purchaseIcon,
@@ -73,7 +74,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     category: "CS 관리",
-    icon: purchaseIcon,
+    icon: csIcon,
     minLevel: 3,
     menus: [
       {

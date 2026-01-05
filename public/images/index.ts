@@ -31,3 +31,4 @@ export { default as salesStatIcon } from "./sales-stat-icon.png";
 export { default as serviceStatIcon } from "./service-stat-icon.png";
 export { default as sidebarLogo } from "./sidebar-logo.png";
 export { default as deleteIcon } from "./delete-icon.png";
+export { default as csIcon } from "./cs-icon.png";
