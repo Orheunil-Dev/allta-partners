@@ -13,6 +13,7 @@ import { RangeKey, SearchKey, SelectKey } from "@/types";
 import { Table } from "@/components/ui/Table";
 import { Filter } from "@/components/ui/Filter";
 import { Pagination } from "@/components/ui/Pagination";
+import { usePurchaseControllerRefundCashPurchase } from "@/api/purchase/purchase";
 
 type SearchTerms = {
   userName?: string;
@@ -79,6 +80,30 @@ export default function PurchaseList() {
         ? "asc"
         : undefined,
     });
+
+  // 현장권 환불(현금, 보관증)
+  const {
+    mutate: refundCash,
+    isPending: refundCashLoading,
+    isError: refundCashError,
+  } = usePurchaseControllerRefundCashPurchase();
+
+  const handleRefund = (purchaseId: string) => () => {
+    if (!confirm("해당 결제를 환불처리 하시겠습니까?")) return;
+
+    refundCash(
+      { data: { id: purchaseId } },
+      {
+        onSuccess: () => {
+          refetch();
+          alert("환불처리가 완료되었습니다.");
+        },
+        onError: (error: any) => {
+          alert(error.message ?? "환불 처리 중 오류가 발생했습니다.");
+        },
+      }
+    );
+  };
 
   const searchKeys = useMemo<SearchKey[]>(
     () => [
@@ -241,6 +266,33 @@ export default function PurchaseList() {
         id: "userPhoneNumber",
         header: "회원 전화번호",
         accessorFn: (row) => row.user?.phoneNumber ?? "-",
+        enableSorting: false,
+      },
+      {
+        id: "refund",
+        header: "",
+        cell: ({ row }) => {
+          const created = dayjs(row.original.createdAt).startOf("day");
+          const today = dayjs().startOf("day");
+
+          const dayDiff = today.diff(created, "day"); // 날짜만 비교
+          const disabled =
+            dayDiff > 6 ||
+            row.original.purchase.amount <= 0 ||
+            row.original.paymentMethod === "KIOSK_CARD";
+
+          return (
+            <button
+              onClick={handleRefund(row.original.purchase.id)}
+              disabled={disabled}
+              className={`px-[8px] py-[5px] font-semibold  bg-[#FEF1F1] rounded-[6px] cursor-pointer
+                      ${disabled ? "text-red/30" : "text-red"}
+                    `}
+            >
+              환불
+            </button>
+          );
+        },
         enableSorting: false,
       },
     ],

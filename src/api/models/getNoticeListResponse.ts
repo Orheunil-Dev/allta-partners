@@ -11,7 +11,7 @@ import type { PaginationMetaEntity } from './paginationMetaEntity';
 export interface GetNoticeListResponse {
   /** 결과 여부 */
   ok: boolean;
-  /** 문의 목록 */
+  /** 공지사항 목록 */
   data: NoticeListItem[];
   /** 메타 정보 */
   meta: PaginationMetaEntity;

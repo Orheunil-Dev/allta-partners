@@ -9,6 +9,8 @@
 export interface PaymentListPurchaseItem {
   /** ID */
   id: string;
+  /** 결제 상태 */
+  status: string;
   /** 할인 전 금액 */
   originalAmount: number;
   /** 할인 금액 */
