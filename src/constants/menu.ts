@@ -14,10 +14,12 @@ export type MenuItem = {
   route?: string;
   icon?: StaticImageData;
   minLevel?: number;
+  maxLevel?: number;
   menus?: {
     name: string;
     route: string;
     minLevel?: number;
+    maxLevel?: number;
   }[];
 };
 
@@ -42,10 +44,12 @@ export const menuItems: MenuItem[] = [
     category: "이용 내역",
     route: "/service-history",
     icon: serviceHistoryIcon,
+    maxLevel: 2,
   },
   {
     category: "이용권 현황",
     icon: passIcon,
+    maxLevel: 2,
     menus: [
       {
         name: "구독권 현황",
@@ -58,13 +62,19 @@ export const menuItems: MenuItem[] = [
       {
         name: "현장권 현황",
         route: "/offline-ticket",
-        minLevel: 2,
       },
     ],
   },
   {
+    category: "결제 내역",
+    icon: purchaseIcon,
+    route: "/purchase",
+    minLevel: 3,
+  },
+  {
     category: "결제 관리",
     icon: purchaseIcon,
+    maxLevel: 2,
     menus: [
       {
         name: "회원 결제 내역",
@@ -80,10 +90,6 @@ export const menuItems: MenuItem[] = [
       {
         name: "공지사항",
         route: "/notice",
-      },
-      {
-        name: "이벤트",
-        route: "/event",
       },
     ],
   },

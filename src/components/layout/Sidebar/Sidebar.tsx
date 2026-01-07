@@ -14,6 +14,16 @@ export const Sidebar = () => {
 
   const [admin, setAdmin] = useState<AdminCookie | null>(null);
 
+  const hasPermission = (
+    level: number,
+    minLevel?: number,
+    maxLevel?: number
+  ) => {
+    if (minLevel !== undefined && level < minLevel) return false;
+    if (maxLevel !== undefined && level > maxLevel) return false;
+    return true;
+  };
+
   const isCurrentPathname = (item: MenuItem) => {
     if (item.route) {
       return currentPath.startsWith(item.route);
@@ -50,10 +60,9 @@ export const Sidebar = () => {
 
       <div className="flex flex-col flex-1 mt-[40px] px-[20px] pb-[40px] gap-y-[8px] text-white text-[14px] font-semibold overflow-y-auto">
         {menuItems
-          .filter((item) => {
-            if (!item.minLevel) return true;
-            return (admin?.level ?? 0) >= item.minLevel;
-          })
+          .filter((item) =>
+            hasPermission(admin?.level ?? 0, item.minLevel, item.maxLevel)
+          )
           .map((item, index) => (
             <div key={index}>
               <div

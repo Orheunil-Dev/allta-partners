@@ -13,11 +13,6 @@ import { RangeKey, SearchKey, SelectKey } from "@/types";
 import { Table } from "@/components/ui/Table";
 import { Filter } from "@/components/ui/Filter";
 import { Pagination } from "@/components/ui/Pagination";
-import {
-  userBannedOptions,
-  userDeletedOptions,
-  userMarketingOptions,
-} from "@/constants";
 
 type SearchTerms = {
   userName?: string;
@@ -34,7 +29,7 @@ type RangeFilter = {
   lte?: string;
 };
 
-export default function PaymentList() {
+export default function PurchaseList() {
   const [page, setPage] = useState<number>(0);
   const [searchTerms, setSearchTerms] = useState<SearchTerms>({
     userName: undefined,
@@ -170,14 +165,6 @@ export default function PaymentList() {
         ),
         enableSorting: false,
         size: 220,
-      },
-      {
-        id: "productType",
-        header: "상품종류",
-        accessorFn: (row) => row.productType,
-        cell: (info: CellContext<PaymentListItem, unknown>) =>
-          formatProductType(info.getValue() as string),
-        enableSorting: false,
       },
       {
         id: "amount",
