@@ -1,5 +1,6 @@
 export const colors = {
   main: "#6865e7",
+  white: "#ffffff",
   black: "#212122",
   partner: "#3d3d3d",
   line: "#ececee",

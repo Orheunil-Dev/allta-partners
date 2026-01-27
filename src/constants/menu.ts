@@ -36,11 +36,6 @@ export const menuItems: MenuItem[] = [
     minLevel: 3,
   },
   {
-    category: "매장 관리",
-    route: "/store",
-    icon: storeIcon,
-  },
-  {
     category: "이용 내역",
     route: "/service-history",
     icon: serviceHistoryIcon,
@@ -79,6 +74,20 @@ export const menuItems: MenuItem[] = [
       {
         name: "회원 결제 내역",
         route: "/payment",
+      },
+    ],
+  },
+  {
+    category: "매장 관리",
+    icon: storeIcon,
+    menus: [
+      {
+        name: "매장 정보",
+        route: "/store",
+      },
+      {
+        name: "직원 관리",
+        route: "/staff",
       },
     ],
   },

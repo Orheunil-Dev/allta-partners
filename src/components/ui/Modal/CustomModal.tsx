@@ -4,9 +4,17 @@ interface Props {
   children: React.ReactNode;
   visible: boolean;
   onClose: () => void;
+  width?: string;
+  padding?: string;
 }
 
-export const CustomModal = ({ children, visible, onClose }: Props) => {
+export const CustomModal = ({
+  children,
+  visible,
+  onClose,
+  width,
+  padding,
+}: Props) => {
   if (!visible) return;
 
   return (
@@ -16,7 +24,11 @@ export const CustomModal = ({ children, visible, onClose }: Props) => {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="flex flex-col justify-center items-center p-[24px] bg-white rounded-[20px] cursor-default"
+        className="flex flex-col justify-center items-center bg-white rounded-[20px] cursor-default"
+        style={{
+          width,
+          padding,
+        }}
       >
         {children}
       </div>

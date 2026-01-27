@@ -25,7 +25,7 @@ interface Props<TData> {
   sorting: SortingState;
   setSorting: Dispatch<SetStateAction<SortingState>>;
   onDownload?: () => void;
-  registrable?: boolean;
+  onRegister?: () => void;
   clickable?: boolean;
 }
 
@@ -38,7 +38,7 @@ export const Table = <TData,>({
   sorting,
   setSorting,
   onDownload,
-  registrable,
+  onRegister,
   clickable,
 }: Props<TData>) => {
   const router = useRouter();
@@ -71,11 +71,6 @@ export const Table = <TData,>({
     }
   };
 
-  // 등록 페이지 이동
-  const handleRegister = () => {
-    router.push(`${basePath}/register`);
-  };
-
   useEffect(() => {
     if (tableRef.current) {
       tableRef.current.scrollTop = 0;
@@ -105,9 +100,9 @@ export const Table = <TData,>({
             </button>
           )}
 
-          {registrable && (
+          {onRegister && (
             <div
-              onClick={handleRegister}
+              onClick={onRegister}
               style={{ boxShadow: "0 4px 10px 2px rgba(38, 38, 39, 0.04)" }}
               className="flex justify-center items-center w-[88px] h-[36px] bg-white text-gray7 text-[14px] font-semibold rounded-[8px] cursor-pointer"
             >
@@ -158,7 +153,7 @@ export const Table = <TData,>({
                     >
                       {flexRender(
                         header.column.columnDef.header,
-                        header.getContext()
+                        header.getContext(),
                       )}
 
                       {sortDirection ? (
@@ -178,7 +173,7 @@ export const Table = <TData,>({
                 onClick={() => {
                   clickable
                     ? router.push(
-                        `/${basePath}/${(row.original as { id: string }).id}`
+                        `/${basePath}/${(row.original as { id: string }).id}`,
                       )
                     : {};
                 }}
@@ -210,7 +205,7 @@ export const Table = <TData,>({
                     >
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext()
+                        cell.getContext(),
                       )}
                     </td>
                   );
