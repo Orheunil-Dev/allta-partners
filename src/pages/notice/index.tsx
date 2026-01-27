@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { useRouter } from "next/router";
 import { CellContext, ColumnDef, SortingState } from "@tanstack/react-table";
 import dayjs from "dayjs";
 import { NoticeListItem } from "@/api/models";
@@ -7,6 +8,8 @@ import { Table } from "@/components/ui/Table";
 import { Pagination } from "@/components/ui/Pagination";
 
 export default function NoticeList() {
+  const router = useRouter();
+
   const [page, setPage] = useState<number>(0);
   const [sorting, setSorting] = useState<SortingState>([
     { id: "createdAt", desc: true },
@@ -21,8 +24,8 @@ export default function NoticeList() {
       sortOrder: sorting[0]?.desc
         ? "desc"
         : !sorting[0]?.desc
-        ? "asc"
-        : undefined,
+          ? "asc"
+          : undefined,
     });
 
   const columns = useMemo<ColumnDef<NoticeListItem>[]>(
@@ -64,7 +67,7 @@ export default function NoticeList() {
         enableSorting: false,
       },
     ],
-    []
+    [],
   );
 
   return (
@@ -78,7 +81,7 @@ export default function NoticeList() {
         columns={columns}
         sorting={sorting}
         setSorting={setSorting}
-        registrable
+        onRegister={() => router.push("/notice/register")}
         clickable
       />
 
