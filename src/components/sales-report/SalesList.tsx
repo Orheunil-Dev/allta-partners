@@ -1,5 +1,4 @@
 import { useMemo, useState } from "react";
-import { useRouter } from "next/router";
 import Image from "next/image";
 import { CellContext, ColumnDef } from "@tanstack/react-table";
 import dayjs from "dayjs";
@@ -7,8 +6,8 @@ import { useSalesControllerGetSalesStatByProductType } from "@/api/sales/sales";
 import { ProductTypeSalesStatItem } from "@/api/models";
 import { Callout } from "../ui/Callout";
 import { SmallTable } from "../ui/Table";
-import { grayRightArrowIcon } from "../../../public/images";
 import { Pagination } from "../ui/Pagination";
+import { downloadIcon } from "../../../public/images";
 
 interface Props {
   storeId: string | null;
@@ -17,8 +16,6 @@ interface Props {
 }
 
 export const SalesList = ({ storeId, startDate, endDate }: Props) => {
-  const router = useRouter();
-
   const [page, setPage] = useState<number>(0);
 
   // 매출 통계 조회 API
@@ -119,16 +116,15 @@ export const SalesList = ({ storeId, startDate, endDate }: Props) => {
           <p className="text-[18px] font-semibold">일자별 매출 내역</p>
 
           <button
-            onClick={() => router.push("/payment")}
-            type="button"
-            className="flex items-center cursor-pointer"
+            onClick={() => {}}
+            className="flex justify-center items-center w-[84px] h-[30px] bg-white text-gray7 text-[14px] font-semibold rounded-[8px] border border-gray2 cursor-pointer"
           >
-            <p className="text-gray5 text-[14px]">더보기</p>
             <Image
-              src={grayRightArrowIcon}
-              alt="더보기"
-              className="w-[20px] h-[20px]"
+              src={downloadIcon}
+              alt="다운로드"
+              className="w-[14px] h-[14px] md:w-[16px] md:h-[16px] mr-[4px]"
             />
+            <p className="text-[12px] md:text-[13px]">다운로드</p>
           </button>
         </div>
 
