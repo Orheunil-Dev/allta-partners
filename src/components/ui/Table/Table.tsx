@@ -22,8 +22,6 @@ interface Props<TData> {
   totalCount: number;
   page: number;
   columns: ColumnDef<TData>[];
-  sorting: SortingState;
-  setSorting: Dispatch<SetStateAction<SortingState>>;
   onDownload?: () => void;
   onRegister?: () => void;
   clickable?: boolean;
@@ -35,8 +33,6 @@ export const Table = <TData,>({
   totalCount,
   page,
   columns,
-  sorting,
-  setSorting,
   onDownload,
   onRegister,
   clickable,
@@ -50,32 +46,15 @@ export const Table = <TData,>({
     columns,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    state: {
-      sorting,
-    },
-    onSortingChange: setSorting,
   });
 
   const { isMobile } = useResizeHandler();
-
-  // 정렬
-  const handleSortToggle = (columnId: string) => {
-    const currentSort = sorting.find((s) => s.id === columnId);
-
-    if (!currentSort) {
-      setSorting([{ id: columnId, desc: true }]);
-    } else if (currentSort.desc) {
-      setSorting([{ id: columnId, desc: false }]);
-    } else {
-      setSorting([]);
-    }
-  };
 
   useEffect(() => {
     if (tableRef.current) {
       tableRef.current.scrollTop = 0;
     }
-  }, [page, sorting]);
+  }, [page]);
 
   return (
     <div className="flex flex-col mt-[16px] z-[1]">
@@ -145,11 +124,8 @@ export const Table = <TData,>({
                   return (
                     <th
                       key={header.id}
-                      onClick={() =>
-                        canSort && handleSortToggle(header.column.id)
-                      }
                       style={{ width: header.column.getSize() }}
-                      className="px-[32px] h-[56px] cursor-pointer select-none bg-white z-10"
+                      className="px-[32px] h-[56px] bg-white z-10"
                     >
                       {flexRender(
                         header.column.columnDef.header,

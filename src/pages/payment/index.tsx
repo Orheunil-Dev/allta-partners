@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { CellContext, ColumnDef, SortingState } from "@tanstack/react-table";
+import { CellContext, ColumnDef } from "@tanstack/react-table";
 import dayjs from "dayjs";
 import { usePaymentControllerGetPaymentList } from "@/api/payment/payment";
 import { PaymentListItem } from "@/api/models";
@@ -9,15 +9,10 @@ import {
   formatProductType,
   formatServiceType,
 } from "@/utils";
-import { RangeKey, SearchKey, SelectKey } from "@/types";
+import { RangeKey, SearchKey } from "@/types";
 import { Table } from "@/components/ui/Table";
 import { Filter } from "@/components/ui/Filter";
 import { Pagination } from "@/components/ui/Pagination";
-import {
-  userBannedOptions,
-  userDeletedOptions,
-  userMarketingOptions,
-} from "@/constants";
 
 type SearchTerms = {
   userName?: string;
@@ -53,9 +48,6 @@ export default function PaymentList() {
   });
   const [draftRangeFilter, setDraftRangeFilter] =
     useState<RangeFilter>(rangeFilter);
-  const [sorting, setSorting] = useState<SortingState>([
-    { id: "createdAt", desc: true },
-  ]);
 
   // 결제내역 목록 조회 API
   const { data, isLoading, isError, refetch } =
@@ -101,32 +93,11 @@ export default function PaymentList() {
     [],
   );
 
-  // const selectKeys = useMemo<SelectKey[]>(
-  //   () => [
-  //     {
-  //       key: "isDeleted",
-  //       label: "탈퇴 여부",
-  //       options: userDeletedOptions,
-  //     },
-  //     {
-  //       key: "isBanned",
-  //       label: "정지 여부",
-  //       options: userBannedOptions,
-  //     },
-  //     {
-  //       key: "isMarketing",
-  //       label: "마케팅 수신 여부",
-  //       options: userMarketingOptions,
-  //     },
-  //   ],
-  //   []
-  // );
-
   const columns = useMemo<ColumnDef<PaymentListItem>[]>(
     () => [
       {
         id: "createdAt",
-        header: "승인일",
+        header: "승인일시",
         accessorFn: (row) => row.createdAt,
         cell: (info: CellContext<PaymentListItem, unknown>) =>
           dayjs(info.getValue() as string).format("YYYY.MM.DD HH:mm"),
@@ -251,7 +222,6 @@ export default function PaymentList() {
     setDraftSearchTerms({});
     setRangeFilter({ key: "createdAt", gte: undefined, lte: undefined });
     setDraftRangeFilter({ key: "createdAt", gte: undefined, lte: undefined });
-    setSorting([{ id: "createdAt", desc: true }]);
     setPage(0);
   };
 
@@ -280,8 +250,6 @@ export default function PaymentList() {
               rangeFilter.lte && {
                 [rangeFilter.key]: `${rangeFilter.gte} ~ ${rangeFilter.lte}`,
               }),
-            sortBy: sorting[0]?.id ?? undefined,
-            sortOrder: sorting[0]?.desc ? "desc" : "asc",
           }),
         },
       );
@@ -328,8 +296,6 @@ export default function PaymentList() {
         totalCount={data?.meta.totalCount ?? 0}
         page={page}
         columns={columns}
-        sorting={sorting}
-        setSorting={setSorting}
         onDownload={handleDownload}
       />
 

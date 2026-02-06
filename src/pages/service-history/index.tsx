@@ -1,12 +1,11 @@
 import { useMemo, useState } from "react";
-import { CellContext, ColumnDef, SortingState } from "@tanstack/react-table";
+import { CellContext, ColumnDef } from "@tanstack/react-table";
 import dayjs from "dayjs";
 import { useServiceHistoryControllerGetServiceHistoryList } from "@/api/service-history/service-history";
 import { ServiceHistoryListItem } from "@/api/models";
 import { useSessionStore } from "@/hooks";
 import { formatPassType, formatServiceType } from "@/utils";
 import { RangeKey, SearchKey } from "@/types";
-import { ServiceCancelModal } from "@/components/service-history";
 import { Table } from "@/components/ui/Table";
 import { Filter } from "@/components/ui/Filter";
 import { Pagination } from "@/components/ui/Pagination";
@@ -48,11 +47,6 @@ export default function ServiceHistory() {
   });
   const [draftRangeFilter, setDraftRangeFilter] =
     useState<RangeFilter>(rangeFilter);
-  const [sorting, setSorting] = useState<SortingState>([
-    { id: "createdAt", desc: true },
-  ]);
-  const [selectedServiceHistory, SetselectedServiceHistory] =
-    useState<ServiceHistoryListItem | null>(null);
 
   // 이용내역 목록 조회 API
   const { data, isLoading, isError, refetch } =
@@ -103,10 +97,11 @@ export default function ServiceHistory() {
     () => [
       {
         id: "createdAt",
-        header: "방문일",
+        header: "방문일시",
         accessorFn: (row) => row.createdAt,
         cell: (info: CellContext<ServiceHistoryListItem, unknown>) =>
           dayjs(info.getValue() as string).format("YYYY.MM.DD HH:mm"),
+        enableSorting: false,
       },
       {
         id: "passType",
@@ -182,7 +177,6 @@ export default function ServiceHistory() {
     setDraftSearchTerms({});
     setRangeFilter({ key: "createdAt", gte: undefined, lte: undefined });
     setDraftRangeFilter({ key: "createdAt", gte: undefined, lte: undefined });
-    setSorting([{ id: "createdAt", desc: true }]);
     setPage(0);
   };
 
@@ -211,8 +205,6 @@ export default function ServiceHistory() {
               rangeFilter.lte && {
                 [rangeFilter.key]: `${rangeFilter.gte} ~ ${rangeFilter.lte}`,
               }),
-            sortBy: sorting[0]?.id ?? undefined,
-            sortOrder: sorting[0]?.desc ? "desc" : "asc",
           }),
         },
       );
@@ -258,8 +250,6 @@ export default function ServiceHistory() {
         totalCount={data?.meta.totalCount ?? 0}
         page={page}
         columns={columns}
-        sorting={sorting}
-        setSorting={setSorting}
         onDownload={handleDownload}
       />
 
