@@ -22,7 +22,7 @@ export const KioskInfo = ({ store, setStore }: Props) => {
     .filter((o) => o.isForMembers === isForMembers)
     .sort((a, b) => a.index - b.index);
 
-  // 현장권 추가
+  // 현장결제 추가
   const handleAddOfflinePrice = () => {
     setStore((prev) => {
       if (!prev) return prev;
@@ -50,7 +50,7 @@ export const KioskInfo = ({ store, setStore }: Props) => {
     });
   };
 
-  // 현장권 삭제
+  // 현장결제 삭제
   const handleDeleteOfflinePrice = (index: number) => () => {
     setStore((prev) => {
       if (!prev) return prev;
@@ -75,7 +75,7 @@ export const KioskInfo = ({ store, setStore }: Props) => {
     });
   };
 
-  // 현장권 이름 수정
+  // 현장결제 이름 수정
   const handleChangeOfflinePriceLabel = (index: number, label: string) => {
     setStore((prev) => {
       if (!prev) return prev;
@@ -89,7 +89,7 @@ export const KioskInfo = ({ store, setStore }: Props) => {
               ...item,
               label,
             }
-          : item
+          : item,
       );
 
       return {
@@ -102,11 +102,11 @@ export const KioskInfo = ({ store, setStore }: Props) => {
     });
   };
 
-  // 현장권 금액 수정
+  // 현장결제 금액 수정
   const handleChangeOfflinePrice = (
     index: number,
     carType: CarType,
-    value: string
+    value: string,
   ) => {
     setStore((prev) => {
       if (!prev) return prev;
@@ -123,7 +123,7 @@ export const KioskInfo = ({ store, setStore }: Props) => {
                 [carType]: value === "" ? "" : Number(value),
               },
             }
-          : item
+          : item,
       );
 
       return {
@@ -167,7 +167,7 @@ export const KioskInfo = ({ store, setStore }: Props) => {
 
       const remaining = (prev.serviceOptions ?? []).filter(
         (option) =>
-          !(option.index === index && option.isForMembers === isForMembers)
+          !(option.index === index && option.isForMembers === isForMembers),
       );
 
       const reordered = remaining.map((option) => {
@@ -200,7 +200,7 @@ export const KioskInfo = ({ store, setStore }: Props) => {
         serviceOptions: prev.serviceOptions?.map((item) =>
           item.index === index && item.isForMembers === isForMembers
             ? { ...item, optionName: value }
-            : item
+            : item,
         ),
       };
     });
@@ -216,7 +216,7 @@ export const KioskInfo = ({ store, setStore }: Props) => {
         serviceOptions: prev.serviceOptions?.map((item) =>
           item.index === index && item.isForMembers === isForMembers
             ? { ...item, amount: value }
-            : item
+            : item,
         ),
       };
     });
@@ -255,7 +255,7 @@ export const KioskInfo = ({ store, setStore }: Props) => {
       </div>
 
       <div className="grid grid-cols-[120px_1fr] w-auto mt-[16px]">
-        <p className="text-gray5 text-[14px] font-semibold">현장권</p>
+        <p className="text-gray5 text-[14px] font-semibold">현장결제</p>
 
         <div className="flex flex-col w-full items-start">
           <button
@@ -264,10 +264,10 @@ export const KioskInfo = ({ store, setStore }: Props) => {
           >
             <Image
               src={plusIcon}
-              alt="현장권 추가"
+              alt="현장결제 추가"
               className="w-[20px] h-[20px]"
             />
-            <p>현장권 추가</p>
+            <p>현장결제 추가</p>
           </button>
 
           <table className="table-fixed max-w-[698px] w-full mt-[12px] text-[14px]">
@@ -311,7 +311,7 @@ export const KioskInfo = ({ store, setStore }: Props) => {
                         onChange={(e) =>
                           handleChangeOfflinePriceLabel(
                             value.index,
-                            e.target.value
+                            e.target.value,
                           )
                         }
                         className="w-full px-[12px] py-[6px] border border-gray2 rounded-[6px]"
@@ -330,7 +330,7 @@ export const KioskInfo = ({ store, setStore }: Props) => {
                             handleChangeOfflinePrice(
                               value.index,
                               item.value,
-                              e.target.value
+                              e.target.value,
                             )
                           }
                           className="w-full px-[12px] py-[6px] border border-gray2 rounded-[6px]"
@@ -369,7 +369,7 @@ export const KioskInfo = ({ store, setStore }: Props) => {
           >
             <Image
               src={plusIcon}
-              alt="현장권 추가"
+              alt="현장결제 추가"
               className="w-[20px] h-[20px]"
             />
             <p>옵션 추가</p>
@@ -406,7 +406,7 @@ export const KioskInfo = ({ store, setStore }: Props) => {
                         onChange={(e) =>
                           handleChangeServiceOptionName(
                             value.index,
-                            e.target.value
+                            e.target.value,
                           )
                         }
                         className="w-full px-[12px] py-[6px] border border-gray2 rounded-[6px]"
@@ -420,7 +420,7 @@ export const KioskInfo = ({ store, setStore }: Props) => {
                         onChange={(e) =>
                           handleChangeServiceOptionAmount(
                             value.index,
-                            Number(e.target.value)
+                            Number(e.target.value),
                           )
                         }
                         className="w-full px-[12px] py-[6px] border border-gray2 rounded-[6px]"

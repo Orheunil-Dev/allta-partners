@@ -60,10 +60,6 @@ export default function PaymentList() {
   // 결제내역 목록 조회 API
   const { data, isLoading, isError, refetch } =
     usePaymentControllerGetPaymentList({
-      take: 20,
-      skip: 20 * page,
-      userName: searchTerms.userName,
-      phoneNumber: searchTerms.phoneNumber,
       carNumber: searchTerms.carNumber,
       storeName: searchTerms.storeName,
       ...(searchTerms.productType !== undefined
@@ -72,17 +68,10 @@ export default function PaymentList() {
       ...(searchTerms.serviceType !== undefined
         ? { serviceType: searchTerms.serviceType }
         : {}),
-      ...(rangeFilter.key &&
-        rangeFilter.gte &&
-        rangeFilter.lte && {
-          [rangeFilter.key]: `${rangeFilter.gte} ~ ${rangeFilter.lte}`,
-        }),
-      sortBy: sorting[0]?.id ?? undefined,
-      sortOrder: sorting[0]?.desc
-        ? "desc"
-        : !sorting[0]?.desc
-        ? "asc"
-        : undefined,
+      ...(rangeFilter.gte && { startDate: rangeFilter.gte }),
+      ...(rangeFilter.lte && { endDate: rangeFilter.lte }),
+      take: 20,
+      skip: 20 * page,
     });
 
   const searchKeys = useMemo<SearchKey[]>(
@@ -93,34 +82,23 @@ export default function PaymentList() {
         width: "260px",
       },
       {
-        key: "userName",
-        label: "회원명",
-        width: "120px",
-      },
-      {
-        key: "phoneNumber",
-        label: "회원 전화번호",
-        width: "140px",
-        maxLength: 13,
-      },
-      {
         key: "carNumber",
         label: "차량번호",
         width: "120px",
         maxLength: 10,
       },
     ],
-    []
+    [],
   );
 
   const rangeKeys = useMemo<RangeKey[]>(
     () => [
       {
         key: "createdAt",
-        label: "가입일",
+        label: "승인일",
       },
     ],
-    []
+    [],
   );
 
   // const selectKeys = useMemo<SelectKey[]>(
@@ -257,7 +235,7 @@ export default function PaymentList() {
         enableSorting: false,
       },
     ],
-    []
+    [],
   );
 
   // 필터 적용
@@ -305,7 +283,7 @@ export default function PaymentList() {
             sortBy: sorting[0]?.id ?? undefined,
             sortOrder: sorting[0]?.desc ? "desc" : "asc",
           }),
-        }
+        },
       );
 
       const blob = await res.blob();

@@ -46,6 +46,7 @@ export const CustomButton = ({
         borderWidth,
         borderColor,
         borderRadius,
+        cursor: "pointer",
       }}
     >
       {children}

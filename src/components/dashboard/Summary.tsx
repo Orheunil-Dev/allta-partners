@@ -1,88 +1,219 @@
 import Image from "next/image";
-import { useStatControllerGetSummaryStat } from "@/api/stat/stat";
+import dayjs from "dayjs";
 import {
-  salesStatIcon,
-  serviceStatIcon,
-  subscriptionStatIcon,
-  userStatIcon,
+  useSalesControllerGetMoMSales,
+  useSalesControllerGetTotalSales,
+  useSalesControllerGetYoYSales,
+} from "@/api/sales/sales";
+import { getChangedRate, getDateBeforeDays } from "@/utils";
+import {
+  decreaseIcon,
+  increaseIcon,
+  momSalesIcon,
+  monthSalesIcon,
+  todaySalesIcon,
+  yoySalesIcon,
 } from "../../../public/images";
 
-export const Summary = () => {
-  // 요약 통계 조회 API
+interface Props {}
+
+export const Summary = ({}: Props) => {
+  // 금일 매출 조회 API
   const {
-    data: summaryStatData,
-    isLoading: summaryStatLoading,
-    isError: summaryStatError,
-    refetch: summaryStatRefetch,
-  } = useStatControllerGetSummaryStat();
+    data: todaySalesData,
+    isLoading: todaySalesLoading,
+    isError: todaySalesError,
+  } = useSalesControllerGetTotalSales({
+    startDate: getDateBeforeDays(0),
+  });
+
+  // 이번달 누적 매출 조회 API
+  const {
+    data: monthSalesData,
+    isLoading: monthSalesLoading,
+    isError: monthSalesError,
+  } = useSalesControllerGetTotalSales({
+    startDate: dayjs().startOf("month").format("YYYY-MM-DD"),
+  });
+
+  // 전월 대비 매출 조회 API
+  const {
+    data: momSalesData,
+    isLoading: momSalesLoading,
+    isError: momSalesError,
+  } = useSalesControllerGetMoMSales();
+
+  // 전년 대비 매출 조회 API
+  const {
+    data: yoySalesData,
+    isLoading: yoySalesLoading,
+    isError: yoySalesError,
+  } = useSalesControllerGetYoYSales();
+
+  // 증감률 표시
+  const renderChangedRate = (
+    curSales: number,
+    prevSales: number,
+    text: string,
+  ) => {
+    const { percent, direction } = getChangedRate(curSales, prevSales);
+
+    return (
+      <div className="flex items-center mt-[2px] text-gray5 text-[14px] font-medium">
+        {direction === "UP" ? (
+          <>
+            <Image
+              src={increaseIcon}
+              alt="증가"
+              className="w-[16px] h-[16px] mr-[3px]"
+            />
+            <p>
+              <strong className="text-green">
+                {Math.abs(percent).toFixed(1)}%
+              </strong>{" "}
+              {text}
+            </p>
+          </>
+        ) : direction === "DOWN" ? (
+          <>
+            <Image
+              src={decreaseIcon}
+              alt="감소"
+              className="w-[16px] h-[16px] mr-[3px]"
+            />
+            <p>
+              <strong className="text-red">
+                {Math.abs(percent).toFixed(1)}%
+              </strong>{" "}
+              {text}
+            </p>
+          </>
+        ) : (
+          <p>-</p>
+        )}
+      </div>
+    );
+  };
 
   return (
-    <div className="flex justify-between items-center gap-x-[24px] overflow-x-auto">
-      <div className="flex flex-1 items-center w- min-w-[356px] h-[168px] px-[32px] bg-white rounded-[20px]">
-        <div className="flex justify-center items-center w-[80px] h-[80px] bg-back4 rounded-full">
-          <Image
-            src={subscriptionStatIcon}
-            alt="전체 구독자 수"
-            className="w-[32px] h-[32px]"
-          />
+    <div className="flex flex-col md:grid md:grid-cols-2 xl:flex xl:flex-row items-center gap-x-[24px] gap-y-[16px] overflow-x-auto">
+      <div
+        className="relative flex md:flex-1 w-full h-[134px] pt-[20px] px-[24px] bg-white rounded-[20px]"
+        style={{ boxShadow: "0 4px 10px 2px rgba(28, 28, 44, 0.04)" }}
+      >
+        <div className="flex flex-col">
+          <p className="text-gray5 text-[16px] font-medium">금일 매출</p>
+          <p className="mt-[12px] text-[24px] font-semibold">
+            {todaySalesData?.data.totalSales
+              ? todaySalesData.data.totalSales.toLocaleString()
+              : 0}{" "}
+            원
+          </p>
         </div>
 
-        <div className="flex flex-col ml-[28px]">
-          <p className="text-gray7 text-[20px] font-semibold">전체 구독자 수</p>
-          <p className="text-[28px] font-semibold">
-            {summaryStatData?.data.subscriptionStat.toLocaleString() ?? 0}
-          </p>
+        <div className="absolute flex justify-center items-center w-[44px] h-[44px] right-[24px] bg-back rounded-full">
+          <Image
+            src={todaySalesIcon}
+            alt="금일 매출"
+            className="w-[20px] h-[20px]"
+          />
         </div>
       </div>
 
-      <div className="flex flex-1 items-center w- min-w-[356px] h-[168px] px-[32px] bg-white rounded-[20px]">
-        <div className="flex justify-center items-center w-[80px] h-[80px] bg-back4 rounded-full">
-          <Image
-            src={salesStatIcon}
-            alt="이번달 매출"
-            className="w-[32px] h-[32px]"
-          />
+      <div
+        className="relative flex md:flex-1 w-full h-[134px] pt-[20px] px-[24px] bg-white rounded-[20px]"
+        style={{ boxShadow: "0 4px 10px 2px rgba(28, 28, 44, 0.04)" }}
+      >
+        <div className="flex flex-col">
+          <p className="text-gray5 text-[16px] font-medium">이번달 누적 매출</p>
+          <p className="mt-[12px] text-[24px] font-semibold">
+            {monthSalesData?.data.totalSales
+              ? monthSalesData.data.totalSales.toLocaleString()
+              : 0}{" "}
+            원
+          </p>
         </div>
 
-        <div className="flex flex-col ml-[28px]">
-          <p className="text-gray7 text-[20px] font-semibold">이번달 매출</p>
-          <p className="text-[28px] font-semibold">
-            {summaryStatData?.data.monthlySalesStat.toLocaleString() ?? 0}
-          </p>
+        <div className="absolute flex justify-center items-center w-[44px] h-[44px] right-[24px] bg-back rounded-full">
+          <Image
+            src={monthSalesIcon}
+            alt="이번달 누적 매출"
+            className="w-[20px] h-[20px]"
+          />
         </div>
       </div>
 
-      <div className="flex flex-1 items-center w- min-w-[356px] h-[168px] px-[32px] bg-white rounded-[20px]">
-        <div className="flex justify-center items-center w-[80px] h-[80px] bg-back4 rounded-full">
-          <Image
-            src={salesStatIcon}
-            alt="누적 매출"
-            className="w-[32px] h-[32px]"
-          />
+      <div
+        className="relative flex md:flex-1 w-full h-[134px] pt-[20px] px-[24px] bg-white rounded-[20px]"
+        style={{ boxShadow: "0 4px 10px 2px rgba(28, 28, 44, 0.04)" }}
+      >
+        <div className="flex flex-col">
+          <p className="text-gray5 text-[16px] font-medium">전월 동기 매출</p>
+          {momSalesData && (
+            <>
+              <p className="mt-[12px] text-[24px] font-semibold">
+                {momSalesData?.data.currentSales
+                  ? momSalesData.data.currentSales.totalSales.toLocaleString()
+                  : 0}{" "}
+                원
+              </p>
+
+              {momSalesData.data.previousSales.totalSales > 0 ? (
+                renderChangedRate(
+                  momSalesData.data.currentSales.totalSales,
+                  momSalesData.data.previousSales.totalSales,
+                  "전월대비",
+                )
+              ) : (
+                <p className="text-gray5 text-[16px] font-medium">-</p>
+              )}
+            </>
+          )}
         </div>
 
-        <div className="flex flex-col ml-[28px]">
-          <p className="text-gray7 text-[20px] font-semibold">누적 매출</p>
-          <p className="text-[28px] font-semibold">
-            {summaryStatData?.data.totalSalesStat.toLocaleString() ?? 0}
-          </p>
+        <div className="absolute flex justify-center items-center w-[44px] h-[44px] right-[24px] bg-back rounded-full">
+          <Image
+            src={momSalesIcon}
+            alt="전월 동기 매출"
+            className="w-[20px] h-[20px]"
+          />
         </div>
       </div>
 
-      <div className="flex flex-1 items-center w- min-w-[356px] h-[168px] px-[32px] bg-white rounded-[20px]">
-        <div className="flex justify-center items-center w-[80px] h-[80px] bg-back4 rounded-full">
-          <Image
-            src={serviceStatIcon}
-            alt="누적 이용횟수"
-            className="w-[32px] h-[32px]"
-          />
+      <div
+        className="relative flex md:flex-1 w-full h-[134px] pt-[20px] px-[24px] bg-white rounded-[20px]"
+        style={{ boxShadow: "0 4px 10px 2px rgba(28, 28, 44, 0.04)" }}
+      >
+        <div className="flex flex-col">
+          <p className="text-gray5 text-[16px] font-medium">전년 동기 매출</p>
+          {yoySalesData && (
+            <>
+              <p className="mt-[12px] text-[24px] font-semibold">
+                {yoySalesData?.data.currentSales
+                  ? yoySalesData.data.currentSales.totalSales.toLocaleString()
+                  : 0}{" "}
+                원
+              </p>
+
+              {yoySalesData.data.previousSales.totalSales > 0 ? (
+                renderChangedRate(
+                  yoySalesData.data.currentSales.totalSales,
+                  yoySalesData.data.previousSales.totalSales,
+                  "전년대비",
+                )
+              ) : (
+                <p className="text-gray5 text-[16px] font-medium">-</p>
+              )}
+            </>
+          )}
         </div>
 
-        <div className="flex flex-col ml-[28px]">
-          <p className="text-gray7 text-[20px] font-semibold">누적 이용횟수</p>
-          <p className="text-[28px] font-semibold">
-            {summaryStatData?.data.serviceStat.toLocaleString() ?? 0}
-          </p>
+        <div className="absolute flex justify-center items-center w-[44px] h-[44px] right-[24px] bg-back rounded-full">
+          <Image
+            src={yoySalesIcon}
+            alt="전년 동기 매출"
+            className="w-[20px] h-[20px]"
+          />
         </div>
       </div>
     </div>

@@ -25,6 +25,7 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
+  ExportSalesStatRequest,
   ExportServiceStatRequest,
   GetSalesStatResponse,
   GetServiceStatResponse,
@@ -355,3 +356,62 @@ export function useStatControllerGetSalesStat<TData = Awaited<ReturnType<typeof 
 
 
 
+export const statControllerExportSalesStat = (
+    exportSalesStatRequest: ExportSalesStatRequest,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<void>(
+      {url: `/stat/sales/export`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: exportSalesStatRequest, signal
+    },
+      options);
+    }
+  
+
+
+export const getStatControllerExportSalesStatMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof statControllerExportSalesStat>>, TError,{data: ExportSalesStatRequest}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof statControllerExportSalesStat>>, TError,{data: ExportSalesStatRequest}, TContext> => {
+
+const mutationKey = ['statControllerExportSalesStat'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof statControllerExportSalesStat>>, {data: ExportSalesStatRequest}> = (props) => {
+          const {data} = props ?? {};
+
+          return  statControllerExportSalesStat(data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type StatControllerExportSalesStatMutationResult = NonNullable<Awaited<ReturnType<typeof statControllerExportSalesStat>>>
+    export type StatControllerExportSalesStatMutationBody = ExportSalesStatRequest
+    export type StatControllerExportSalesStatMutationError = unknown
+
+    export const useStatControllerExportSalesStat = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof statControllerExportSalesStat>>, TError,{data: ExportSalesStatRequest}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof statControllerExportSalesStat>>,
+        TError,
+        {data: ExportSalesStatRequest},
+        TContext
+      > => {
+
+      const mutationOptions = getStatControllerExportSalesStatMutationOptions(options);
+
+      return useMutation(mutationOptions, queryClient);
+    }
+    

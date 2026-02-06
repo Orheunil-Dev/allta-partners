@@ -21,14 +21,719 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
+  GetMoMSalesResponse,
   GetMonthlySalesResponse,
-  SalesControllerGetMonthlySalesParams
+  GetSalesByPassTypeResponse,
+  GetSalesByPaymentMethodResponse,
+  GetSalesByProductTypeResponse,
+  GetSalesStatByPassTypeResponse,
+  GetSalesStatByProductTypeResponse,
+  GetTotalSalesResponse,
+  GetWeeklySalesListResponse,
+  GetYoYSalesResponse,
+  SalesControllerGetMoMSalesParams,
+  SalesControllerGetMonthlySalesParams,
+  SalesControllerGetSalesByPassTypeParams,
+  SalesControllerGetSalesByPaymentMethodParams,
+  SalesControllerGetSalesByProductTypeParams,
+  SalesControllerGetSalesStatByPassTypeParams,
+  SalesControllerGetSalesStatByProductTypeParams,
+  SalesControllerGetTotalSalesParams,
+  SalesControllerGetYoYSalesParams
 } from '.././models';
 
 import { customInstance } from '../../libs/custom-instance';
 
 
 type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
+
+
+
+export const salesControllerGetTotalSales = (
+    params?: SalesControllerGetTotalSalesParams,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<GetTotalSalesResponse>(
+      {url: `/sales/total`, method: 'GET',
+        params, signal
+    },
+      options);
+    }
+  
+
+
+
+export const getSalesControllerGetTotalSalesQueryKey = (params?: SalesControllerGetTotalSalesParams,) => {
+    return [
+    `/sales/total`, ...(params ? [params]: [])
+    ] as const;
+    }
+
+    
+export const getSalesControllerGetTotalSalesQueryOptions = <TData = Awaited<ReturnType<typeof salesControllerGetTotalSales>>, TError = unknown>(params?: SalesControllerGetTotalSalesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetTotalSales>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getSalesControllerGetTotalSalesQueryKey(params);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof salesControllerGetTotalSales>>> = ({ signal }) => salesControllerGetTotalSales(params, requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetTotalSales>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type SalesControllerGetTotalSalesQueryResult = NonNullable<Awaited<ReturnType<typeof salesControllerGetTotalSales>>>
+export type SalesControllerGetTotalSalesQueryError = unknown
+
+
+export function useSalesControllerGetTotalSales<TData = Awaited<ReturnType<typeof salesControllerGetTotalSales>>, TError = unknown>(
+ params: undefined |  SalesControllerGetTotalSalesParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetTotalSales>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof salesControllerGetTotalSales>>,
+          TError,
+          Awaited<ReturnType<typeof salesControllerGetTotalSales>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useSalesControllerGetTotalSales<TData = Awaited<ReturnType<typeof salesControllerGetTotalSales>>, TError = unknown>(
+ params?: SalesControllerGetTotalSalesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetTotalSales>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof salesControllerGetTotalSales>>,
+          TError,
+          Awaited<ReturnType<typeof salesControllerGetTotalSales>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useSalesControllerGetTotalSales<TData = Awaited<ReturnType<typeof salesControllerGetTotalSales>>, TError = unknown>(
+ params?: SalesControllerGetTotalSalesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetTotalSales>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+
+export function useSalesControllerGetTotalSales<TData = Awaited<ReturnType<typeof salesControllerGetTotalSales>>, TError = unknown>(
+ params?: SalesControllerGetTotalSalesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetTotalSales>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getSalesControllerGetTotalSalesQueryOptions(params,options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+export const salesControllerGetMoMSales = (
+    params?: SalesControllerGetMoMSalesParams,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<GetMoMSalesResponse>(
+      {url: `/sales/mom`, method: 'GET',
+        params, signal
+    },
+      options);
+    }
+  
+
+
+
+export const getSalesControllerGetMoMSalesQueryKey = (params?: SalesControllerGetMoMSalesParams,) => {
+    return [
+    `/sales/mom`, ...(params ? [params]: [])
+    ] as const;
+    }
+
+    
+export const getSalesControllerGetMoMSalesQueryOptions = <TData = Awaited<ReturnType<typeof salesControllerGetMoMSales>>, TError = unknown>(params?: SalesControllerGetMoMSalesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetMoMSales>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getSalesControllerGetMoMSalesQueryKey(params);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof salesControllerGetMoMSales>>> = ({ signal }) => salesControllerGetMoMSales(params, requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetMoMSales>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type SalesControllerGetMoMSalesQueryResult = NonNullable<Awaited<ReturnType<typeof salesControllerGetMoMSales>>>
+export type SalesControllerGetMoMSalesQueryError = unknown
+
+
+export function useSalesControllerGetMoMSales<TData = Awaited<ReturnType<typeof salesControllerGetMoMSales>>, TError = unknown>(
+ params: undefined |  SalesControllerGetMoMSalesParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetMoMSales>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof salesControllerGetMoMSales>>,
+          TError,
+          Awaited<ReturnType<typeof salesControllerGetMoMSales>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useSalesControllerGetMoMSales<TData = Awaited<ReturnType<typeof salesControllerGetMoMSales>>, TError = unknown>(
+ params?: SalesControllerGetMoMSalesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetMoMSales>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof salesControllerGetMoMSales>>,
+          TError,
+          Awaited<ReturnType<typeof salesControllerGetMoMSales>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useSalesControllerGetMoMSales<TData = Awaited<ReturnType<typeof salesControllerGetMoMSales>>, TError = unknown>(
+ params?: SalesControllerGetMoMSalesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetMoMSales>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+
+export function useSalesControllerGetMoMSales<TData = Awaited<ReturnType<typeof salesControllerGetMoMSales>>, TError = unknown>(
+ params?: SalesControllerGetMoMSalesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetMoMSales>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getSalesControllerGetMoMSalesQueryOptions(params,options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+export const salesControllerGetYoYSales = (
+    params?: SalesControllerGetYoYSalesParams,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<GetYoYSalesResponse>(
+      {url: `/sales/yoy`, method: 'GET',
+        params, signal
+    },
+      options);
+    }
+  
+
+
+
+export const getSalesControllerGetYoYSalesQueryKey = (params?: SalesControllerGetYoYSalesParams,) => {
+    return [
+    `/sales/yoy`, ...(params ? [params]: [])
+    ] as const;
+    }
+
+    
+export const getSalesControllerGetYoYSalesQueryOptions = <TData = Awaited<ReturnType<typeof salesControllerGetYoYSales>>, TError = unknown>(params?: SalesControllerGetYoYSalesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetYoYSales>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getSalesControllerGetYoYSalesQueryKey(params);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof salesControllerGetYoYSales>>> = ({ signal }) => salesControllerGetYoYSales(params, requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetYoYSales>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type SalesControllerGetYoYSalesQueryResult = NonNullable<Awaited<ReturnType<typeof salesControllerGetYoYSales>>>
+export type SalesControllerGetYoYSalesQueryError = unknown
+
+
+export function useSalesControllerGetYoYSales<TData = Awaited<ReturnType<typeof salesControllerGetYoYSales>>, TError = unknown>(
+ params: undefined |  SalesControllerGetYoYSalesParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetYoYSales>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof salesControllerGetYoYSales>>,
+          TError,
+          Awaited<ReturnType<typeof salesControllerGetYoYSales>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useSalesControllerGetYoYSales<TData = Awaited<ReturnType<typeof salesControllerGetYoYSales>>, TError = unknown>(
+ params?: SalesControllerGetYoYSalesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetYoYSales>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof salesControllerGetYoYSales>>,
+          TError,
+          Awaited<ReturnType<typeof salesControllerGetYoYSales>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useSalesControllerGetYoYSales<TData = Awaited<ReturnType<typeof salesControllerGetYoYSales>>, TError = unknown>(
+ params?: SalesControllerGetYoYSalesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetYoYSales>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+
+export function useSalesControllerGetYoYSales<TData = Awaited<ReturnType<typeof salesControllerGetYoYSales>>, TError = unknown>(
+ params?: SalesControllerGetYoYSalesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetYoYSales>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getSalesControllerGetYoYSalesQueryOptions(params,options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+export const salesControllerGetSalesByProductType = (
+    params?: SalesControllerGetSalesByProductTypeParams,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<GetSalesByProductTypeResponse>(
+      {url: `/sales/product-type`, method: 'GET',
+        params, signal
+    },
+      options);
+    }
+  
+
+
+
+export const getSalesControllerGetSalesByProductTypeQueryKey = (params?: SalesControllerGetSalesByProductTypeParams,) => {
+    return [
+    `/sales/product-type`, ...(params ? [params]: [])
+    ] as const;
+    }
+
+    
+export const getSalesControllerGetSalesByProductTypeQueryOptions = <TData = Awaited<ReturnType<typeof salesControllerGetSalesByProductType>>, TError = unknown>(params?: SalesControllerGetSalesByProductTypeParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetSalesByProductType>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getSalesControllerGetSalesByProductTypeQueryKey(params);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof salesControllerGetSalesByProductType>>> = ({ signal }) => salesControllerGetSalesByProductType(params, requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetSalesByProductType>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type SalesControllerGetSalesByProductTypeQueryResult = NonNullable<Awaited<ReturnType<typeof salesControllerGetSalesByProductType>>>
+export type SalesControllerGetSalesByProductTypeQueryError = unknown
+
+
+export function useSalesControllerGetSalesByProductType<TData = Awaited<ReturnType<typeof salesControllerGetSalesByProductType>>, TError = unknown>(
+ params: undefined |  SalesControllerGetSalesByProductTypeParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetSalesByProductType>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof salesControllerGetSalesByProductType>>,
+          TError,
+          Awaited<ReturnType<typeof salesControllerGetSalesByProductType>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useSalesControllerGetSalesByProductType<TData = Awaited<ReturnType<typeof salesControllerGetSalesByProductType>>, TError = unknown>(
+ params?: SalesControllerGetSalesByProductTypeParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetSalesByProductType>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof salesControllerGetSalesByProductType>>,
+          TError,
+          Awaited<ReturnType<typeof salesControllerGetSalesByProductType>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useSalesControllerGetSalesByProductType<TData = Awaited<ReturnType<typeof salesControllerGetSalesByProductType>>, TError = unknown>(
+ params?: SalesControllerGetSalesByProductTypeParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetSalesByProductType>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+
+export function useSalesControllerGetSalesByProductType<TData = Awaited<ReturnType<typeof salesControllerGetSalesByProductType>>, TError = unknown>(
+ params?: SalesControllerGetSalesByProductTypeParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetSalesByProductType>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getSalesControllerGetSalesByProductTypeQueryOptions(params,options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+export const salesControllerGetSalesStatByProductType = (
+    params?: SalesControllerGetSalesStatByProductTypeParams,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<GetSalesStatByProductTypeResponse>(
+      {url: `/sales/product-type/stat`, method: 'GET',
+        params, signal
+    },
+      options);
+    }
+  
+
+
+
+export const getSalesControllerGetSalesStatByProductTypeQueryKey = (params?: SalesControllerGetSalesStatByProductTypeParams,) => {
+    return [
+    `/sales/product-type/stat`, ...(params ? [params]: [])
+    ] as const;
+    }
+
+    
+export const getSalesControllerGetSalesStatByProductTypeQueryOptions = <TData = Awaited<ReturnType<typeof salesControllerGetSalesStatByProductType>>, TError = unknown>(params?: SalesControllerGetSalesStatByProductTypeParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetSalesStatByProductType>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getSalesControllerGetSalesStatByProductTypeQueryKey(params);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof salesControllerGetSalesStatByProductType>>> = ({ signal }) => salesControllerGetSalesStatByProductType(params, requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetSalesStatByProductType>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type SalesControllerGetSalesStatByProductTypeQueryResult = NonNullable<Awaited<ReturnType<typeof salesControllerGetSalesStatByProductType>>>
+export type SalesControllerGetSalesStatByProductTypeQueryError = unknown
+
+
+export function useSalesControllerGetSalesStatByProductType<TData = Awaited<ReturnType<typeof salesControllerGetSalesStatByProductType>>, TError = unknown>(
+ params: undefined |  SalesControllerGetSalesStatByProductTypeParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetSalesStatByProductType>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof salesControllerGetSalesStatByProductType>>,
+          TError,
+          Awaited<ReturnType<typeof salesControllerGetSalesStatByProductType>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useSalesControllerGetSalesStatByProductType<TData = Awaited<ReturnType<typeof salesControllerGetSalesStatByProductType>>, TError = unknown>(
+ params?: SalesControllerGetSalesStatByProductTypeParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetSalesStatByProductType>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof salesControllerGetSalesStatByProductType>>,
+          TError,
+          Awaited<ReturnType<typeof salesControllerGetSalesStatByProductType>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useSalesControllerGetSalesStatByProductType<TData = Awaited<ReturnType<typeof salesControllerGetSalesStatByProductType>>, TError = unknown>(
+ params?: SalesControllerGetSalesStatByProductTypeParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetSalesStatByProductType>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+
+export function useSalesControllerGetSalesStatByProductType<TData = Awaited<ReturnType<typeof salesControllerGetSalesStatByProductType>>, TError = unknown>(
+ params?: SalesControllerGetSalesStatByProductTypeParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetSalesStatByProductType>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getSalesControllerGetSalesStatByProductTypeQueryOptions(params,options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+export const salesControllerGetSalesByPaymentMethod = (
+    params?: SalesControllerGetSalesByPaymentMethodParams,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<GetSalesByPaymentMethodResponse>(
+      {url: `/sales/payment-method`, method: 'GET',
+        params, signal
+    },
+      options);
+    }
+  
+
+
+
+export const getSalesControllerGetSalesByPaymentMethodQueryKey = (params?: SalesControllerGetSalesByPaymentMethodParams,) => {
+    return [
+    `/sales/payment-method`, ...(params ? [params]: [])
+    ] as const;
+    }
+
+    
+export const getSalesControllerGetSalesByPaymentMethodQueryOptions = <TData = Awaited<ReturnType<typeof salesControllerGetSalesByPaymentMethod>>, TError = unknown>(params?: SalesControllerGetSalesByPaymentMethodParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetSalesByPaymentMethod>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getSalesControllerGetSalesByPaymentMethodQueryKey(params);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof salesControllerGetSalesByPaymentMethod>>> = ({ signal }) => salesControllerGetSalesByPaymentMethod(params, requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetSalesByPaymentMethod>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type SalesControllerGetSalesByPaymentMethodQueryResult = NonNullable<Awaited<ReturnType<typeof salesControllerGetSalesByPaymentMethod>>>
+export type SalesControllerGetSalesByPaymentMethodQueryError = unknown
+
+
+export function useSalesControllerGetSalesByPaymentMethod<TData = Awaited<ReturnType<typeof salesControllerGetSalesByPaymentMethod>>, TError = unknown>(
+ params: undefined |  SalesControllerGetSalesByPaymentMethodParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetSalesByPaymentMethod>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof salesControllerGetSalesByPaymentMethod>>,
+          TError,
+          Awaited<ReturnType<typeof salesControllerGetSalesByPaymentMethod>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useSalesControllerGetSalesByPaymentMethod<TData = Awaited<ReturnType<typeof salesControllerGetSalesByPaymentMethod>>, TError = unknown>(
+ params?: SalesControllerGetSalesByPaymentMethodParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetSalesByPaymentMethod>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof salesControllerGetSalesByPaymentMethod>>,
+          TError,
+          Awaited<ReturnType<typeof salesControllerGetSalesByPaymentMethod>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useSalesControllerGetSalesByPaymentMethod<TData = Awaited<ReturnType<typeof salesControllerGetSalesByPaymentMethod>>, TError = unknown>(
+ params?: SalesControllerGetSalesByPaymentMethodParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetSalesByPaymentMethod>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+
+export function useSalesControllerGetSalesByPaymentMethod<TData = Awaited<ReturnType<typeof salesControllerGetSalesByPaymentMethod>>, TError = unknown>(
+ params?: SalesControllerGetSalesByPaymentMethodParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetSalesByPaymentMethod>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getSalesControllerGetSalesByPaymentMethodQueryOptions(params,options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+export const salesControllerGetSalesByPassType = (
+    params?: SalesControllerGetSalesByPassTypeParams,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<GetSalesByPassTypeResponse>(
+      {url: `/sales/pass-type`, method: 'GET',
+        params, signal
+    },
+      options);
+    }
+  
+
+
+
+export const getSalesControllerGetSalesByPassTypeQueryKey = (params?: SalesControllerGetSalesByPassTypeParams,) => {
+    return [
+    `/sales/pass-type`, ...(params ? [params]: [])
+    ] as const;
+    }
+
+    
+export const getSalesControllerGetSalesByPassTypeQueryOptions = <TData = Awaited<ReturnType<typeof salesControllerGetSalesByPassType>>, TError = unknown>(params?: SalesControllerGetSalesByPassTypeParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetSalesByPassType>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getSalesControllerGetSalesByPassTypeQueryKey(params);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof salesControllerGetSalesByPassType>>> = ({ signal }) => salesControllerGetSalesByPassType(params, requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetSalesByPassType>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type SalesControllerGetSalesByPassTypeQueryResult = NonNullable<Awaited<ReturnType<typeof salesControllerGetSalesByPassType>>>
+export type SalesControllerGetSalesByPassTypeQueryError = unknown
+
+
+export function useSalesControllerGetSalesByPassType<TData = Awaited<ReturnType<typeof salesControllerGetSalesByPassType>>, TError = unknown>(
+ params: undefined |  SalesControllerGetSalesByPassTypeParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetSalesByPassType>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof salesControllerGetSalesByPassType>>,
+          TError,
+          Awaited<ReturnType<typeof salesControllerGetSalesByPassType>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useSalesControllerGetSalesByPassType<TData = Awaited<ReturnType<typeof salesControllerGetSalesByPassType>>, TError = unknown>(
+ params?: SalesControllerGetSalesByPassTypeParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetSalesByPassType>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof salesControllerGetSalesByPassType>>,
+          TError,
+          Awaited<ReturnType<typeof salesControllerGetSalesByPassType>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useSalesControllerGetSalesByPassType<TData = Awaited<ReturnType<typeof salesControllerGetSalesByPassType>>, TError = unknown>(
+ params?: SalesControllerGetSalesByPassTypeParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetSalesByPassType>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+
+export function useSalesControllerGetSalesByPassType<TData = Awaited<ReturnType<typeof salesControllerGetSalesByPassType>>, TError = unknown>(
+ params?: SalesControllerGetSalesByPassTypeParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetSalesByPassType>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getSalesControllerGetSalesByPassTypeQueryOptions(params,options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+export const salesControllerGetSalesStatByPassType = (
+    params?: SalesControllerGetSalesStatByPassTypeParams,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<GetSalesStatByPassTypeResponse>(
+      {url: `/sales/pass-type/stat`, method: 'GET',
+        params, signal
+    },
+      options);
+    }
+  
+
+
+
+export const getSalesControllerGetSalesStatByPassTypeQueryKey = (params?: SalesControllerGetSalesStatByPassTypeParams,) => {
+    return [
+    `/sales/pass-type/stat`, ...(params ? [params]: [])
+    ] as const;
+    }
+
+    
+export const getSalesControllerGetSalesStatByPassTypeQueryOptions = <TData = Awaited<ReturnType<typeof salesControllerGetSalesStatByPassType>>, TError = unknown>(params?: SalesControllerGetSalesStatByPassTypeParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetSalesStatByPassType>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getSalesControllerGetSalesStatByPassTypeQueryKey(params);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof salesControllerGetSalesStatByPassType>>> = ({ signal }) => salesControllerGetSalesStatByPassType(params, requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetSalesStatByPassType>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type SalesControllerGetSalesStatByPassTypeQueryResult = NonNullable<Awaited<ReturnType<typeof salesControllerGetSalesStatByPassType>>>
+export type SalesControllerGetSalesStatByPassTypeQueryError = unknown
+
+
+export function useSalesControllerGetSalesStatByPassType<TData = Awaited<ReturnType<typeof salesControllerGetSalesStatByPassType>>, TError = unknown>(
+ params: undefined |  SalesControllerGetSalesStatByPassTypeParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetSalesStatByPassType>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof salesControllerGetSalesStatByPassType>>,
+          TError,
+          Awaited<ReturnType<typeof salesControllerGetSalesStatByPassType>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useSalesControllerGetSalesStatByPassType<TData = Awaited<ReturnType<typeof salesControllerGetSalesStatByPassType>>, TError = unknown>(
+ params?: SalesControllerGetSalesStatByPassTypeParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetSalesStatByPassType>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof salesControllerGetSalesStatByPassType>>,
+          TError,
+          Awaited<ReturnType<typeof salesControllerGetSalesStatByPassType>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useSalesControllerGetSalesStatByPassType<TData = Awaited<ReturnType<typeof salesControllerGetSalesStatByPassType>>, TError = unknown>(
+ params?: SalesControllerGetSalesStatByPassTypeParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetSalesStatByPassType>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+
+export function useSalesControllerGetSalesStatByPassType<TData = Awaited<ReturnType<typeof salesControllerGetSalesStatByPassType>>, TError = unknown>(
+ params?: SalesControllerGetSalesStatByPassTypeParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetSalesStatByPassType>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getSalesControllerGetSalesStatByPassTypeQueryOptions(params,options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
 
 
 
@@ -108,6 +813,91 @@ export function useSalesControllerGetMonthlySales<TData = Awaited<ReturnType<typ
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
   const queryOptions = getSalesControllerGetMonthlySalesQueryOptions(params,options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+export const salesControllerGetWeeklySalesList = (
+    
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<GetWeeklySalesListResponse>(
+      {url: `/sales/weekly`, method: 'GET', signal
+    },
+      options);
+    }
+  
+
+
+
+export const getSalesControllerGetWeeklySalesListQueryKey = () => {
+    return [
+    `/sales/weekly`
+    ] as const;
+    }
+
+    
+export const getSalesControllerGetWeeklySalesListQueryOptions = <TData = Awaited<ReturnType<typeof salesControllerGetWeeklySalesList>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetWeeklySalesList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getSalesControllerGetWeeklySalesListQueryKey();
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof salesControllerGetWeeklySalesList>>> = ({ signal }) => salesControllerGetWeeklySalesList(requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetWeeklySalesList>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type SalesControllerGetWeeklySalesListQueryResult = NonNullable<Awaited<ReturnType<typeof salesControllerGetWeeklySalesList>>>
+export type SalesControllerGetWeeklySalesListQueryError = unknown
+
+
+export function useSalesControllerGetWeeklySalesList<TData = Awaited<ReturnType<typeof salesControllerGetWeeklySalesList>>, TError = unknown>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetWeeklySalesList>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof salesControllerGetWeeklySalesList>>,
+          TError,
+          Awaited<ReturnType<typeof salesControllerGetWeeklySalesList>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useSalesControllerGetWeeklySalesList<TData = Awaited<ReturnType<typeof salesControllerGetWeeklySalesList>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetWeeklySalesList>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof salesControllerGetWeeklySalesList>>,
+          TError,
+          Awaited<ReturnType<typeof salesControllerGetWeeklySalesList>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useSalesControllerGetWeeklySalesList<TData = Awaited<ReturnType<typeof salesControllerGetWeeklySalesList>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetWeeklySalesList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+
+export function useSalesControllerGetWeeklySalesList<TData = Awaited<ReturnType<typeof salesControllerGetWeeklySalesList>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof salesControllerGetWeeklySalesList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getSalesControllerGetWeeklySalesListQueryOptions(options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 

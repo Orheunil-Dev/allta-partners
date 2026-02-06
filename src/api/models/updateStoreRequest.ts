@@ -33,15 +33,15 @@ export interface UpdateStoreRequest {
    */
   policy?: string | null;
   /**
-   * 휴게 시간
-   * @nullable
-   */
-  breakTime?: string | null;
-  /**
    * 휴무일
    * @nullable
    */
   holidays?: string | null;
+  /**
+   * 휴게 시간
+   * @nullable
+   */
+  breakTime?: string | null;
   /** 영업 시간 */
   businessHours?: UpdateStoreRequestBusinessHours;
   /** 현장권 가격 */

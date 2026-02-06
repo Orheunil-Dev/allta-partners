@@ -56,10 +56,10 @@ export default function StoreDetail() {
         },
         onError: (error: any) => {
           return alert(
-            error.message ?? "매장 정보 업데이트 중 오류가 발생했습니다."
+            error.message ?? "매장 정보 업데이트 중 오류가 발생했습니다.",
           );
         },
-      }
+      },
     );
   };
 
@@ -86,7 +86,7 @@ export default function StoreDetail() {
   }
 
   return (
-    <div className="p-[40px]">
+    <div className="px-[120px] py-[40px]">
       {storeData && store && (
         <div className="flex flex-col">
           <div className="flex gap-x-[12px]">
@@ -129,7 +129,7 @@ export default function StoreDetail() {
                 className="w-full mt-[32px] p-[20px] bg-white rounded-[20px]"
                 style={{ boxShadow: "0 4px 10px 2px rgba(28, 28, 44, 0.04)" }}
               >
-                <p className="text-[16px] font-semibold">매장 운영</p>
+                <p className="px-[12px] text-[16px] font-semibold">매장 운영</p>
 
                 <BusinessHoursInfo
                   businessHours={

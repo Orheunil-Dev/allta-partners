@@ -4,6 +4,7 @@ import Axios, {
   AxiosResponse,
   InternalAxiosRequestConfig,
 } from "axios";
+import qs from "qs";
 
 export type Error = {
   message: string | null;
@@ -18,6 +19,9 @@ interface AxiosRequestConfigWithRetry extends InternalAxiosRequestConfig {
 export const AXIOS_INSTANCE = Axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   withCredentials: true,
+  paramsSerializer: (params) => {
+    return qs.stringify(params, { arrayFormat: "repeat" });
+  },
 });
 
 const REFRESH_INSTANCE = Axios.create({
@@ -68,12 +72,12 @@ AXIOS_INSTANCE.interceptors.response.use(
     }
 
     return Promise.reject(error);
-  }
+  },
 );
 
 export const customInstance = async <T = any>(
   config: AxiosRequestConfig,
-  options?: AxiosRequestConfig
+  options?: AxiosRequestConfig,
 ): Promise<T> => {
   try {
     const response: AxiosResponse<T> = await AXIOS_INSTANCE({

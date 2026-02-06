@@ -7,22 +7,18 @@
  */
 
 export interface ExportPaymentListRequest {
-  /** 회원 이름 */
-  userName?: string;
-  /** 전화번호 */
-  phoneNumber?: string;
-  /** 차량번호 */
-  carNumber?: string;
+  /** 매장 ID 목록 */
+  storeIds?: string[];
   /** 매장 */
   storeName?: string;
+  /** 차량번호 */
+  carNumber?: string;
   /** 이용권 종류 */
   productType?: string;
   /** 서비스 종류 */
   serviceType?: string;
-  /** 가입일 */
-  createdAt?: string;
-  /** 정렬 기준 */
-  sortBy?: string;
-  /** 정렬 순서 */
-  sortOrder?: string;
+  /** 시작일(YYYY-MM-DD) */
+  startDate?: string;
+  /** 종료일(YYYY-MM-DD) */
+  endDate?: string;
 }

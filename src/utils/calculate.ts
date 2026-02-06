@@ -10,3 +10,27 @@ export const getDateBeforeDays = (days: number) => {
 export const getPercent = (numerator: number, denominator: number) => {
   return (numerator / denominator) * 100;
 };
+
+// 증감률 계산
+export const getChangedRate = (
+  cur: number,
+  prev: number,
+): {
+  percent: number;
+  direction: "UP" | "DOWN" | "SAME";
+} => {
+  if (prev === 0) {
+    return {
+      percent: 0,
+      direction: "UP",
+    };
+  }
+
+  const diff = cur - prev;
+  const percent = (diff / prev) * 100;
+
+  return {
+    percent,
+    direction: percent > 0 ? "UP" : percent < 0 ? "DOWN" : "SAME",
+  };
+};

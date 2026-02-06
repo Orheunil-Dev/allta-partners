@@ -52,7 +52,7 @@ export default function OfflineTicketList() {
     { id: "createdAt", desc: true },
   ]);
 
-  // 현장권 목록 조회 API
+  // 현장결제 목록 조회 API
   const { data, isLoading, isError, refetch } =
     useOfflineTicketControllerGetOfflineTicketList({
       take: 20,
@@ -76,8 +76,8 @@ export default function OfflineTicketList() {
       sortOrder: sorting[0]?.desc
         ? "desc"
         : !sorting[0]?.desc
-        ? "asc"
-        : undefined,
+          ? "asc"
+          : undefined,
     });
 
   const searchKeys = useMemo<SearchKey[]>(
@@ -105,7 +105,7 @@ export default function OfflineTicketList() {
         maxLength: 10,
       },
     ],
-    []
+    [],
   );
 
   const rangeKeys = useMemo<RangeKey[]>(
@@ -115,7 +115,7 @@ export default function OfflineTicketList() {
         label: "결제일",
       },
     ],
-    []
+    [],
   );
 
   const selectKeys = useMemo<SelectKey[]>(
@@ -127,11 +127,11 @@ export default function OfflineTicketList() {
       },
       {
         key: "status",
-        label: "현장권 상태",
+        label: "현장결제 상태",
         options: ticketStatusOptions,
       },
     ],
-    []
+    [],
   );
 
   const columns = useMemo<ColumnDef<OfflineTicketListItem>[]>(
@@ -217,7 +217,7 @@ export default function OfflineTicketList() {
       },
       {
         id: "status",
-        header: "현장권 상태",
+        header: "현장결제 상태",
         accessorFn: (row) => row.status,
         cell: (info: CellContext<OfflineTicketListItem, unknown>) =>
           formatTicketStatus(info.getValue() as string),
@@ -239,7 +239,7 @@ export default function OfflineTicketList() {
       //   enableSorting: false,
       // },
     ],
-    []
+    [],
   );
 
   // 필터 적용

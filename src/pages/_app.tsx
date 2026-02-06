@@ -1,43 +1,62 @@
+import { useState } from "react";
 import Head from "next/head";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
 import {
   QueryCache,
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { useResizeHandler } from "@/hooks";
-import { BreadCrumb } from "@/components/layout/BreadCrumb";
-import { MobileSidebar, Sidebar } from "@/components/layout/Sidebar";
 import "@/styles/globals.css";
+
+const BreadCrumb = dynamic(
+  () => import("@/components/layout/BreadCrumb").then((mod) => mod.BreadCrumb),
+  { ssr: false },
+);
+
+const Sidebar = dynamic(
+  () => import("@/components/layout/Sidebar").then((mod) => mod.Sidebar),
+  { ssr: false },
+);
+
+const MobileSidebar = dynamic(
+  () => import("@/components/layout/Sidebar").then((mod) => mod.MobileSidebar),
+  { ssr: false },
+);
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
   const { isMobile } = useResizeHandler();
 
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        retry: 0,
-      },
-    },
-    queryCache: new QueryCache({
-      onError: (error: any) => {
-        if (error?.status === 401 && error.code === "TOKEN_REFRESH_FAILED") {
-          (async () => {
-            await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, {
-              method: "POST",
-              credentials: "include",
-            });
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: { retry: 0 },
+          mutations: { retry: 0 },
+        },
+        queryCache: new QueryCache({
+          onError: (error: any) => {
+            if (
+              error?.status === 401 &&
+              error.code === "TOKEN_REFRESH_FAILED"
+            ) {
+              (async () => {
+                await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, {
+                  method: "POST",
+                  credentials: "include",
+                });
 
-            return router.push("/login");
-          })();
-        }
-      },
-    }),
-  });
-
+                router.push("/login");
+              })();
+            }
+          },
+        }),
+      }),
+  );
   return (
     <>
       <Head>
@@ -60,7 +79,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
             <div
               className={`h-full overflow-y-auto ${
-                router.pathname !== "/login" && "mt-[64px]"
+                router.pathname !== "/login" && "mt-[50px] md:mt-[80px]"
               }`}
             >
               <Component {...pageProps} />

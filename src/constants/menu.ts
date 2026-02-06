@@ -1,105 +1,84 @@
 import { StaticImageData } from "next/image";
 import {
-  csIcon,
-  dashboardIcon,
-  passIcon,
-  purchaseIcon,
-  serviceHistoryIcon,
-  storeIcon,
-  userIcon,
+  dashboardOn,
+  dashboardOff,
+  washOn,
+  washOff,
+  paymentOn,
+  paymentOff,
+  storeOn,
+  storeOff,
+  userOn,
+  userOff,
+  settingOn,
+  settingOff,
 } from "../../public/images";
 
 export type MenuItem = {
-  category: string;
+  category: string | null;
+  name: string;
   route?: string;
-  icon?: StaticImageData;
+  activeIcon?: StaticImageData;
+  inactiveIcon?: StaticImageData;
   minLevel?: number;
   maxLevel?: number;
-  menus?: {
-    name: string;
-    route: string;
-    minLevel?: number;
-    maxLevel?: number;
-  }[];
 };
 
 export const menuItems: MenuItem[] = [
   {
-    category: "대시보드",
+    category: null,
+    name: "대시보드",
     route: "/dashboard",
-    icon: dashboardIcon,
+    activeIcon: dashboardOn,
+    inactiveIcon: dashboardOff,
   },
   {
-    category: "회원 관리",
-    route: "/user",
-    icon: userIcon,
-    minLevel: 3,
+    category: "세차",
+    name: "세차 관리",
+    route: "/wash",
+    activeIcon: washOn,
+    inactiveIcon: washOff,
   },
   {
-    category: "이용 내역",
+    category: "세차",
+    name: "이용 내역",
     route: "/service-history",
-    icon: serviceHistoryIcon,
-    maxLevel: 2,
+    activeIcon: washOn,
+    inactiveIcon: washOff,
   },
   {
-    category: "이용권 현황",
-    icon: passIcon,
-    maxLevel: 2,
-    menus: [
-      {
-        name: "구독권 현황",
-        route: "/subscription",
-      },
-      {
-        name: "일회권 현황",
-        route: "/ticket",
-      },
-      {
-        name: "현장권 현황",
-        route: "/offline-ticket",
-      },
-    ],
+    category: "분석",
+    name: "매출 리포트",
+    activeIcon: paymentOn,
+    inactiveIcon: paymentOff,
+    route: "/sales-report",
   },
   {
-    category: "결제 내역",
-    icon: purchaseIcon,
-    route: "/purchase",
-    minLevel: 3,
+    category: "분석",
+    name: "결제 내역",
+    activeIcon: paymentOn,
+    inactiveIcon: paymentOff,
+    route: "/payment",
   },
   {
-    category: "결제 관리",
-    icon: purchaseIcon,
-    maxLevel: 2,
-    menus: [
-      {
-        name: "회원 결제 내역",
-        route: "/payment",
-      },
-    ],
+    category: "분석",
+    name: "회원 관리",
+    route: "/user",
+    activeIcon: userOn,
+    inactiveIcon: userOff,
   },
   {
-    category: "매장 관리",
-    icon: storeIcon,
-    menus: [
-      {
-        name: "매장 정보",
-        route: "/store",
-      },
-      {
-        name: "직원 관리",
-        route: "/staff",
-      },
-    ],
+    category: "시스템",
+    name: "매장 관리",
+    route: "/store",
+    activeIcon: storeOn,
+    inactiveIcon: storeOff,
   },
   {
-    category: "CS 관리",
-    icon: csIcon,
-    minLevel: 3,
-    menus: [
-      {
-        name: "공지사항",
-        route: "/notice",
-      },
-    ],
+    category: "시스템",
+    name: "설정",
+    route: "/setting",
+    activeIcon: settingOn,
+    inactiveIcon: settingOff,
   },
 ];

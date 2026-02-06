@@ -13,8 +13,15 @@ export interface ServiceHistoryListItem {
   id: string;
   /** 서비스 종류 */
   serviceType: string;
+  /**
+   * 서비스 옵션
+   * @nullable
+   */
+  serviceOptions?: string | null;
   /** 이용권 종류 */
   passType: string;
+  /** 결제 수단 */
+  paymentMethod: string;
   /**
    * 차량 번호
    * @nullable

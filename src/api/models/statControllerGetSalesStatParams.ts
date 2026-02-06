@@ -11,4 +11,8 @@ export type StatControllerGetSalesStatParams = {
  * 기간(일, 주, 월)
  */
 period: string;
+/**
+ * 매장 ID 목록
+ */
+storeIds?: string[];
 };

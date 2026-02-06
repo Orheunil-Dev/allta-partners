@@ -3,6 +3,7 @@ import { CellContext, ColumnDef, SortingState } from "@tanstack/react-table";
 import dayjs from "dayjs";
 import { useServiceHistoryControllerGetServiceHistoryList } from "@/api/service-history/service-history";
 import { ServiceHistoryListItem } from "@/api/models";
+import { useSessionStore } from "@/hooks";
 import { formatPassType, formatServiceType } from "@/utils";
 import { RangeKey, SearchKey } from "@/types";
 import { ServiceCancelModal } from "@/components/service-history";
@@ -26,6 +27,9 @@ type RangeFilter = {
 };
 
 export default function ServiceHistory() {
+  // 선택된 매장
+  const { store, setStore } = useSessionStore();
+
   const [page, setPage] = useState<number>(0);
   const [searchTerms, setSearchTerms] = useState<SearchTerms>({
     userName: undefined,
@@ -53,10 +57,7 @@ export default function ServiceHistory() {
   // 이용내역 목록 조회 API
   const { data, isLoading, isError, refetch } =
     useServiceHistoryControllerGetServiceHistoryList({
-      take: 20,
-      skip: 20 * page,
-      userName: searchTerms.userName,
-      phoneNumber: searchTerms.phoneNumber,
+      storeIds: store?.id ? [store.id] : [],
       carNumber: searchTerms.carNumber,
       storeName: searchTerms.storeName,
       ...(searchTerms.productType !== undefined
@@ -65,17 +66,10 @@ export default function ServiceHistory() {
       ...(searchTerms.serviceType !== undefined
         ? { serviceType: searchTerms.serviceType }
         : {}),
-      ...(rangeFilter.key &&
-        rangeFilter.gte &&
-        rangeFilter.lte && {
-          [rangeFilter.key]: `${rangeFilter.gte} ~ ${rangeFilter.lte}`,
-        }),
-      sortBy: sorting[0]?.id ?? undefined,
-      sortOrder: sorting[0]?.desc
-        ? "desc"
-        : !sorting[0]?.desc
-        ? "asc"
-        : undefined,
+      ...(rangeFilter.gte && { startDate: rangeFilter.gte }),
+      ...(rangeFilter.lte && { endDate: rangeFilter.lte }),
+      take: 20,
+      skip: 20 * page,
     });
 
   const searchKeys = useMemo<SearchKey[]>(
@@ -86,41 +80,30 @@ export default function ServiceHistory() {
         width: "260px",
       },
       {
-        key: "userName",
-        label: "회원명",
-        width: "120px",
-      },
-      {
-        key: "phoneNumber",
-        label: "회원 전화번호",
-        width: "140px",
-        maxLength: 13,
-      },
-      {
         key: "carNumber",
         label: "차량번호",
         width: "120px",
         maxLength: 10,
       },
     ],
-    []
+    [],
   );
 
   const rangeKeys = useMemo<RangeKey[]>(
     () => [
       {
         key: "createdAt",
-        label: "가입일",
+        label: "방문일",
       },
     ],
-    []
+    [],
   );
 
   const columns = useMemo<ColumnDef<ServiceHistoryListItem>[]>(
     () => [
       {
         id: "createdAt",
-        header: "이용일",
+        header: "방문일",
         accessorFn: (row) => row.createdAt,
         cell: (info: CellContext<ServiceHistoryListItem, unknown>) =>
           dayjs(info.getValue() as string).format("YYYY.MM.DD HH:mm"),
@@ -135,7 +118,7 @@ export default function ServiceHistory() {
       },
       {
         id: "storeName",
-        header: "매장명",
+        header: "매장",
         accessorFn: (row) => row.store.name,
         cell: ({ row }) => (
           <a
@@ -151,22 +134,29 @@ export default function ServiceHistory() {
       },
       {
         id: "serviceType",
-        header: "서비스",
+        header: "서비스 종류",
         accessorFn: (row) => row.serviceType,
         cell: (info: CellContext<ServiceHistoryListItem, unknown>) =>
           formatServiceType(info.getValue() as string),
         enableSorting: false,
       },
       {
+        id: "serviceOptions",
+        header: "서비스 옵션",
+        accessorFn: (row) => row.serviceOptions,
+        cell: (info: CellContext<ServiceHistoryListItem, unknown>) =>
+          info.getValue() ?? "-",
+      },
+      {
         id: "userName",
         header: "회원명",
-        accessorFn: (row) => row.user?.name,
+        accessorFn: (row) => row.user?.name ?? "-",
         enableSorting: false,
       },
       {
         id: "userPhoneNumber",
         header: "회원 전화번호",
-        accessorFn: (row) => row.user?.phoneNumber,
+        accessorFn: (row) => row.user?.phoneNumber ?? "-",
         enableSorting: false,
       },
       {
@@ -175,32 +165,8 @@ export default function ServiceHistory() {
         accessorFn: (row) => row.carNumber,
         enableSorting: false,
       },
-      {
-        id: "cancel",
-        header: "",
-        cell: ({ row }) => {
-          const created = dayjs(row.original.createdAt).startOf("day");
-          const today = dayjs().startOf("day");
-
-          const dayDiff = today.diff(created, "day"); // 날짜만 비교
-          const disabled = dayDiff > 2; // 0,1,2 → 허용 (오늘 포함 3일)
-
-          return (
-            <button
-              onClick={handleOpenCancelModal(row.original)}
-              disabled={disabled}
-              className={`px-[8px] py-[5px] font-semibold  bg-[#FEF1F1] rounded-[6px] cursor-pointer
-                ${disabled ? "text-red/30" : "text-red"}
-              `}
-            >
-              취소하기
-            </button>
-          );
-        },
-        enableSorting: false,
-      },
     ],
-    []
+    [],
   );
 
   // 필터 적용
@@ -248,7 +214,7 @@ export default function ServiceHistory() {
             sortBy: sorting[0]?.id ?? undefined,
             sortOrder: sorting[0]?.desc ? "desc" : "asc",
           }),
-        }
+        },
       );
 
       const blob = await res.blob();
@@ -271,57 +237,39 @@ export default function ServiceHistory() {
     }
   };
 
-  const handleOpenCancelModal =
-    (serviceHistory: ServiceHistoryListItem) => () => {
-      SetselectedServiceHistory(serviceHistory);
-    };
-  const handleCloseCancelModal = () => {
-    SetselectedServiceHistory(null);
-  };
-
   return (
-    <>
-      {/* 취소 모달 */}
-      <ServiceCancelModal
-        visible={!!selectedServiceHistory}
-        serviceHistory={selectedServiceHistory}
-        onClose={handleCloseCancelModal}
-        refetch={refetch}
+    <div className="flex flex-col h-full px-[20px] pt-[60px] pb-[40px] md:py-[40px] md:px-[120px] overflow-y-auto">
+      {/* 검색 필터 */}
+      <Filter
+        searchKeys={searchKeys}
+        searchTerms={draftSearchTerms}
+        setSearchTerms={setDraftSearchTerms}
+        rangeKeys={rangeKeys}
+        rangeFilter={draftRangeFilter}
+        setRangeFilter={setDraftRangeFilter}
+        onSearch={handleSearch}
+        onReset={handleReset}
       />
 
-      <div className="flex flex-col h-full px-[20px] pt-[60px] pb-[40px]  md:p-[40px] overflow-y-auto">
-        {/* 검색 필터 */}
-        <Filter
-          searchKeys={searchKeys}
-          searchTerms={draftSearchTerms}
-          setSearchTerms={setDraftSearchTerms}
-          rangeKeys={rangeKeys}
-          rangeFilter={draftRangeFilter}
-          setRangeFilter={setDraftRangeFilter}
-          onSearch={handleSearch}
-          onReset={handleReset}
-        />
+      {/* 테이블 */}
+      <Table
+        basePath="payment"
+        data={data?.data ?? []}
+        totalCount={data?.meta.totalCount ?? 0}
+        page={page}
+        columns={columns}
+        sorting={sorting}
+        setSorting={setSorting}
+        onDownload={handleDownload}
+      />
 
-        {/* 테이블 */}
-        <Table
-          basePath="payment"
-          data={data?.data ?? []}
-          totalCount={data?.meta.totalCount ?? 0}
-          page={page}
-          columns={columns}
-          sorting={sorting}
-          setSorting={setSorting}
-          onDownload={handleDownload}
-        />
-
-        {/* 페이지네이션 */}
-        <Pagination
-          totalCount={data?.meta.totalCount ?? 0}
-          take={20}
-          page={page}
-          setPage={setPage}
-        />
-      </div>
-    </>
+      {/* 페이지네이션 */}
+      <Pagination
+        totalCount={data?.meta.totalCount ?? 0}
+        take={20}
+        page={page}
+        setPage={setPage}
+      />
+    </div>
   );
 }

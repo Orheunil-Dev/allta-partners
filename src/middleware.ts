@@ -24,6 +24,7 @@ export const config = {
     "/",
     "/login",
     "/dashboard",
+    "/wash",
     "/user/:path*",
     "/service-history/:path*",
     "/subscription/:path*",

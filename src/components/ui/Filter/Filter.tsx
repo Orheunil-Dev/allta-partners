@@ -46,7 +46,7 @@ export const Filter = ({
 
   const handleChangeSelect = (
     key: string,
-    value: string | boolean | null | undefined
+    value: string | boolean | null | undefined,
   ) => {
     if (!setSearchTerms) return;
 
@@ -125,7 +125,7 @@ export const Filter = ({
                         item.key,
                         item.key === "phoneNumber"
                           ? formatPhoneNumber(e.target.value)
-                          : e.target.value
+                          : e.target.value,
                       )
                     }
                     maxLength={item.maxLength ?? 30}
@@ -159,7 +159,7 @@ export const Filter = ({
                       options={item.options}
                       value={
                         item.options.find(
-                          (option) => option.value === searchTerms?.[item.key]
+                          (option) => option.value === searchTerms?.[item.key],
                         ) ?? { value: null, label: "전체" }
                       }
                       onChange={(opt) => {

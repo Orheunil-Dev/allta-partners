@@ -8,21 +8,17 @@
 
 export type PaymentControllerGetPaymentListParams = {
 /**
- * 회원 이름
+ * 매장 ID 목록
  */
-userName?: string;
-/**
- * 전화번호
- */
-phoneNumber?: string;
-/**
- * 차량번호
- */
-carNumber?: string;
+storeIds?: string[];
 /**
  * 매장
  */
 storeName?: string;
+/**
+ * 차량번호
+ */
+carNumber?: string;
 /**
  * 이용권 종류
  */
@@ -32,17 +28,13 @@ productType?: string;
  */
 serviceType?: string;
 /**
- * 가입일
+ * 시작일(YYYY-MM-DD)
  */
-createdAt?: string;
+startDate?: string;
 /**
- * 정렬 기준
+ * 종료일(YYYY-MM-DD)
  */
-sortBy?: string;
-/**
- * 정렬 순서
- */
-sortOrder?: string;
+endDate?: string;
 /**
  * 가져올 데이터 수
  */

@@ -11,10 +11,7 @@ export const BreadCrumb = () => {
   const router = useRouter();
   const currentPath = router.pathname;
 
-  const [adminInfo, setAdminInfo] = useState<{
-    name: string;
-    storeName: string;
-  } | null>(null);
+  const [mounted, setMounted] = useState(false);
   const [breadcrumb, setBreadcrumb] = useState<string[] | null>(null);
   const [showInfo, setShowInfo] = useState<boolean>(false);
 
@@ -37,48 +34,35 @@ export const BreadCrumb = () => {
   };
 
   useEffect(() => {
-    const admin = Cookies.get("ptAdmin");
-
-    if (admin) {
-      try {
-        const parsed = JSON.parse(admin);
-        setAdminInfo(parsed);
-      } catch (e) {
-        console.error("Invalid admin cookie");
-      }
-    }
-  }, []);
-
-  useEffect(() => {
     const findBreadcrumb = () => {
       for (const item of menuItems) {
         if (item.route && currentPath.startsWith(item.route)) {
           const restPath = currentPath.replace(item.route, "");
 
           if (!restPath || restPath === "/") {
-            return [item.category];
+            return [item.name];
           } else if (restPath.includes("/register")) {
-            return [item.category, "등록"];
+            return [item.name, "등록"];
           } else {
-            return [item.category, "상세"];
+            return [item.name, "상세"];
           }
         }
 
-        if (item.menus) {
-          for (const menu of item.menus) {
-            if (currentPath.startsWith(menu.route)) {
-              const restPath = currentPath.replace(menu.route, "");
+        // if (item.menus) {
+        //   for (const menu of item.menus) {
+        //     if (currentPath.startsWith(menu.route)) {
+        //       const restPath = currentPath.replace(menu.route, "");
 
-              if (!restPath || restPath === "/") {
-                return [item.category, menu.name];
-              } else if (restPath.includes("/register")) {
-                return [item.category, menu.name, "등록"];
-              } else {
-                return [item.category, menu.name, "상세"];
-              }
-            }
-          }
-        }
+        //       if (!restPath || restPath === "/") {
+        //         return [item.category, menu.name];
+        //       } else if (restPath.includes("/register")) {
+        //         return [item.category, menu.name, "등록"];
+        //       } else {
+        //         return [item.category, menu.name, "상세"];
+        //       }
+        //     }
+        //   }
+        // }
       }
 
       return [""];
@@ -90,14 +74,14 @@ export const BreadCrumb = () => {
   }, [router.pathname]);
 
   return (
-    <div className="fixed flex items-center w-full md:w-[calc(100vw-220px)] h-[50px] md:h-[64px] top-[60px] md:top-0 px-[20px] md:px-[44px] bg-white border-b border-gray2 z-[3]">
+    <div className="fixed flex items-center w-full md:w-[calc(100vw-260px)] h-[50px] md:h-[80px] top-[60px] md:top-0 px-[20px] md:px-[44px] bg-white border-b border-gray2 z-[3]">
       <div className="flex justify-between items-center w-full h-full">
         <div className="flex">
           {breadcrumb?.map((item, index) => (
             <div key={index} className="flex items-center">
               {index > 0 && <div className="mx-[10px]">/</div>}
 
-              <span className="text-[16px] md:text-[20px] font-semibold text-gray-800">
+              <span className="text-[16px] md:text-[22px] font-semibold">
                 {item}
               </span>
             </div>
@@ -110,10 +94,6 @@ export const BreadCrumb = () => {
             onMouseLeave={() => setShowInfo(false)}
             className="flex items-center cursor-pointer h-full"
           >
-            <p className="text-[16px] font-semibold text-gray7">
-              {adminInfo?.name}
-            </p>
-
             <Image
               src={dropdownArrowIcon}
               alt="프로필 메뉴"
@@ -128,15 +108,6 @@ export const BreadCrumb = () => {
               style={{ boxShadow: "0 4px 10px 2px rgba(28, 28, 44, 0.04)" }}
               className="absolute flex flex-col w-[180px] md:w-[264px] top-[50px] right-0 bg-white rounded-[20px]"
             >
-              <div className="flex flex-col px-[16px] md:px-[20px] py-[12px] md:py-[16px] border-b border-gray1">
-                <p className="text-[14px] md:text-[16px] font-semibold">
-                  {adminInfo?.name}
-                </p>
-                <p className="text-[12px] md:text-[14px] text-gray5">
-                  {adminInfo?.storeName}
-                </p>
-              </div>
-
               <div className="flex flex-col px-[20px] py-[16px]">
                 <div
                   onClick={handleLogout}

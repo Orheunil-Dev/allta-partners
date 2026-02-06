@@ -92,7 +92,10 @@ export const formatPassType = (value: string) => {
       return "프리미엄";
 
     case "OFFLINE_TICKET":
-      return "현장권";
+      return "현장결제";
+
+    case "COMPLIMENTARY":
+      return "무료세차";
 
     default:
       return value;
@@ -155,7 +158,7 @@ export const formatProductType = (value: string) => {
       return "프리미엄";
 
     case "OFFLINE_TICKET":
-      return "현장권";
+      return "현장결제";
 
     default:
       return value;
@@ -233,5 +236,14 @@ export const formatPaymentMethod = (value: string) => {
 
     default:
       return value;
+  }
+};
+
+// 텍스트 ...처리
+export const formatEllipsis = (text: string, length: number) => {
+  if (text.length > length) {
+    return text.slice(0, length) + "...";
+  } else {
+    return text;
   }
 };

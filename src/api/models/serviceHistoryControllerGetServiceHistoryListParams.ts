@@ -8,6 +8,10 @@
 
 export type ServiceHistoryControllerGetServiceHistoryListParams = {
 /**
+ * 매장 ID 목록
+ */
+storeIds?: string[];
+/**
  * 서비스 종류
  */
 serviceType?: string;
@@ -24,25 +28,13 @@ storeName?: string;
  */
 carNumber?: string;
 /**
- * 회원 이름
+ * 시작일(YYYY-MM-DD)
  */
-userName?: string;
+startDate?: string;
 /**
- * 회원 전화번호
+ * 종료일(YYYY-MM-DD)
  */
-phoneNumber?: string;
-/**
- * 이용일
- */
-createdAt?: string;
-/**
- * 정렬 기준
- */
-sortBy?: string;
-/**
- * 정렬 순서
- */
-sortOrder?: string;
+endDate?: string;
 /**
  * 가져올 데이터 수
  */

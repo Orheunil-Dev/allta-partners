@@ -14,13 +14,12 @@ import {
 } from "chart.js";
 import { Chart } from "react-chartjs-2";
 import dayjs from "dayjs";
-import Select from "react-select";
+import Select, { StylesConfig } from "react-select";
 import { useStatControllerGetSalesStat } from "@/api/stat/stat";
 import { SalesStatItem } from "@/api/models";
 import { SelectOption } from "@/types";
 import { periodOptions } from "@/constants";
 import { downloadIcon } from "../../../public/images";
-import { periodSelectStyles } from "@/styles";
 
 ChartJS.register(
   LinearScale,
@@ -31,10 +30,12 @@ ChartJS.register(
   Legend,
   Tooltip,
   LineController,
-  BarController
+  BarController,
 );
 
-export const SalesChart = () => {
+interface Props {}
+
+export const DashboardSalesChart = ({}: Props) => {
   const [period, setPeriod] = useState<"DAY" | "WEEK" | "MONTH">("DAY");
 
   // 매출 통계 조회 API
@@ -42,7 +43,9 @@ export const SalesChart = () => {
     data: salesStatData,
     isLoading: salesStatLoading,
     isError: salesStatError,
-  } = useStatControllerGetSalesStat({ period });
+  } = useStatControllerGetSalesStat({
+    period,
+  });
 
   // 매출 통계 추출
   const handleDownload = async () => {
@@ -54,7 +57,7 @@ export const SalesChart = () => {
           headers: { "Content-Type": "application/json" },
           credentials: "include",
           body: JSON.stringify({ period }),
-        }
+        },
       );
 
       const blob = await res.blob();
@@ -94,10 +97,10 @@ export const SalesChart = () => {
     });
 
     const newSales = rawData.map((item: SalesStatItem) =>
-      Number(item.newSales)
+      Number(item.newSales),
     );
     const totalSales = rawData.map((item: SalesStatItem) =>
-      Number(item.totalSales)
+      Number(item.totalSales),
     );
 
     return {
@@ -107,20 +110,19 @@ export const SalesChart = () => {
           type: "line" as const,
           label: "누적 매출",
           data: totalSales,
-          borderColor: "#6865e7",
-          backgroundColor: "#6865e7",
-          borderWidth: 2,
-          tension: 0.1,
+          borderColor: "#F69713",
+          backgroundColor: "#FFFFFF",
+          borderWidth: 1,
           fill: false,
           yAxisID: "y",
+          tension: 0.4,
         },
         {
           type: "bar" as const,
           label: "신규 매출",
           data: newSales,
-          backgroundColor: "#5F9DF7",
-          borderColor: "#5F9DF7",
-          borderWidth: 1,
+          backgroundColor: "#5E5CE5",
+          borderRadius: 4,
           yAxisID: "y1",
         },
       ],
@@ -129,7 +131,7 @@ export const SalesChart = () => {
 
   return (
     <div
-      className="flex flex-col justify-center items-center w-full h-[540px] px-[24px] pt-[50px] pb-[40px] bg-white rounded-[20px]"
+      className="flex flex-col justify-center items-center xl:flex-[5] min-w-0 h-[358px] mt-[24px] px-[24px] pt-[50px] pb-[40px] bg-white rounded-[20px]"
       style={{ boxShadow: "0 4px 10px 2px rgba(28, 28, 44, 0.04)" }}
     >
       {salesStatError && (
@@ -137,7 +139,16 @@ export const SalesChart = () => {
       )}
 
       <div className="flex justify-between items-center w-full mb-[20px] gap-x-[12px]">
-        <p className="text-[16px] font-semibold">매출 통계</p>
+        <div className="flex items-center">
+          <p className="text-[16px] font-semibold">매출 통계</p>
+
+          <div className="flex items-center ml-[20px] text-gray5 text-[14px]">
+            <div className="w-[8px] h-[8px] mr-[6px] bg-[#5E5CE5] rounded-full" />
+            <p className="mr-[16px]">신규 매출</p>
+            <div className="w-[8px] h-[8px] mr-[6px] bg-[#F69713] rounded-full" />
+            <p>누적 매출</p>
+          </div>
+        </div>
 
         <div className="flex items-center gap-x-[12px]">
           <Select<SelectOption>
@@ -152,7 +163,7 @@ export const SalesChart = () => {
               IndicatorSeparator: () => null,
             }}
             isSearchable={false}
-            styles={periodSelectStyles}
+            styles={selectStyles}
           />
 
           <button
@@ -181,26 +192,98 @@ export const SalesChart = () => {
             intersect: false,
           },
           scales: {
+            x: {
+              grid: {
+                display: false,
+              },
+            },
             y: {
               type: "linear",
-              position: "left",
-              title: { display: true, text: "누적 매출" },
+              position: "right",
               beginAtZero: true,
+              grace: "10%",
+              ticks: { maxTicksLimit: 8 },
+              border: { dash: [4, 4] },
             },
             y1: {
               type: "linear",
-              position: "right",
-              title: { display: true, text: "신규 매출" },
+              position: "left",
               beginAtZero: true,
               grid: { drawOnChartArea: false },
+              grace: "10%",
+              ticks: { maxTicksLimit: 8 },
+              border: { dash: [4, 4] },
             },
           },
           plugins: {
-            legend: { position: "top" },
+            legend: { display: false },
             tooltip: { enabled: true },
           },
         }}
       />
     </div>
   );
+};
+
+const selectStyles: StylesConfig<SelectOption> = {
+  container: (provided) => ({
+    ...provided,
+    zIndex: 3,
+  }),
+  placeholder: (provided) => ({
+    ...provided,
+    fontSize: "13px",
+  }),
+  control: (provided) => ({
+    ...provided,
+    width: "60px",
+    minHeight: "34px",
+    padding: "6px 10px",
+    borderWidth: "1px",
+    borderColor: "#DDDDDF",
+    borderRadius: "8px",
+    outline: "none",
+    cursor: "pointer",
+  }),
+  input: (provided) => ({
+    ...provided,
+    outline: "none",
+  }),
+  valueContainer: (provided) => ({
+    ...provided,
+    width: "60px",
+    padding: 0,
+  }),
+  menu: (provided) => ({
+    ...provided,
+    width: "60px",
+    borderRadius: "8px",
+    overflow: "hidden",
+  }),
+  menuList: (provided) => ({
+    ...provided,
+    padding: 0,
+  }),
+  option: (provided, state) => ({
+    ...provided,
+    backgroundColor: state.isFocused ? "#F2F2FD" : "white",
+    color: "#262627",
+    textAlign: "start",
+    fontSize: "13px",
+    cursor: "pointer",
+    ":active": {
+      backgroundColor: "#D1D1F0",
+    },
+  }),
+  singleValue: (provided) => ({
+    ...provided,
+    color: "#262627",
+    fontWeight: "600",
+    fontSize: "13px",
+    padding: 0,
+  }),
+  dropdownIndicator: (provided) => ({
+    ...provided,
+    padding: 0,
+  }),
 };

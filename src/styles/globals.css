@@ -4,13 +4,17 @@
   --color-main: #6865e7;
   --color-black: #212122;
   --color-partners: #3d3d3d;
+  --color-point2: #5f5ce5;
   --color-line: #ececee;
   --color-gray1: #f7f7f8;
   --color-gray2: #dddddf;
+  --color-gray3: #c2c2c7;
+  --color-gray4: #a7a7ae;
   --color-gray5: #8d8d96;
   --color-gray7: #5b5b62;
   --color-red: #ef3a2f;
   --color-green: #17aa4d;
+  --color-back: #f0f0f0;
   --color-back4: #f2f2fd;
 }
 
@@ -82,6 +86,8 @@ input[type="number"] {
 }
 
 body {
+  line-height: 1.4;
+
   /* Firefox */
   scrollbar-width: thin; /* 얇은 스크롤바 */
   scrollbar-color: rgba(0, 0, 0, 0.3) transparent; /* thumb / track */

@@ -2,18 +2,21 @@ import { useEffect, useState } from "react";
 
 export const useResizeHandler = () => {
   const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 767);
+      const width = window.innerWidth;
+
+      setIsMobile(width <= 767);
+      setIsTablet(width >= 768 && width <= 1023);
     };
 
     window.addEventListener("resize", handleResize);
-
-    handleResize();
+    handleResize(); // 최초 실행
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  return { isMobile };
+  return { isMobile, isTablet };
 };
