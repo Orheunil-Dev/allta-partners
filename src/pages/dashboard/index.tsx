@@ -21,8 +21,6 @@ export default function Dashboard() {
         <WeeklySales />
       </div>
 
-      {/* <RecentPayment /> */}
-
       <div className="flex flex-col mt-[40px]">
         <p className="text-[20px] font-semibold">매장별 매출 현황</p>
 
