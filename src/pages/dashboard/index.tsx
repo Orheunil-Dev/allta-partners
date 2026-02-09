@@ -26,7 +26,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className="flex flex-col xl:flex-row gap-x-[24px]">
+      <div className="flex flex-col xl:flex-row mt-[40px] gap-x-[24px]">
         <DashboardSalesChart />
         <WeeklySales />
       </div>

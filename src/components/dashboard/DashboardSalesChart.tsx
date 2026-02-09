@@ -131,7 +131,7 @@ export const DashboardSalesChart = ({}: Props) => {
 
   return (
     <div
-      className="flex flex-col justify-center items-center xl:flex-[5] min-w-0 h-[358px] mt-[24px] px-[24px] pt-[50px] pb-[40px] bg-white rounded-[20px]"
+      className="flex flex-col justify-center items-center xl:flex-[5] min-w-0 h-[358px] px-[24px] pt-[50px] pb-[40px] bg-white rounded-[20px]"
       style={{ boxShadow: "0 4px 10px 2px rgba(28, 28, 44, 0.04)" }}
     >
       {salesStatError && (

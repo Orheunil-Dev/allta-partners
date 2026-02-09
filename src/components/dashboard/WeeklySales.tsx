@@ -10,7 +10,7 @@ export const WeeklySales = () => {
 
   return (
     <div
-      className="flex flex-col flex-[2] min-w-0 h-[358px] mt-[24px] p-[24px] bg-white rounded-[20px]"
+      className="flex flex-col flex-[2] min-w-0 h-[358px] p-[24px] bg-white rounded-[20px]"
       style={{ boxShadow: "0 4px 10px 2px rgba(28, 28, 44, 0.04)" }}
     >
       <p className="text-[18px] font-semibold">주간 매출 순위</p>
