@@ -27,7 +27,7 @@ export const Summary = ({}: Props) => {
     startDate: getDateBeforeDays(0),
   });
 
-  // 이번달 누적 매출 조회 API
+  // 이번달 매출 조회 API
   const {
     data: monthSalesData,
     isLoading: monthSalesLoading,
@@ -111,11 +111,11 @@ export const Summary = ({}: Props) => {
           </p>
         </div>
 
-        <div className="absolute flex justify-center items-center w-[44px] h-[44px] right-[24px] bg-back rounded-full">
+        <div className="absolute flex justify-center items-center w-[32px] h-[32px] top-[16px] right-[16px] bg-back rounded-full">
           <Image
             src={todaySalesIcon}
             alt="금일 매출"
-            className="w-[20px] h-[20px]"
+            className="w-[16px] h-[16px]"
           />
         </div>
       </div>
@@ -125,7 +125,7 @@ export const Summary = ({}: Props) => {
         style={{ boxShadow: "0 4px 10px 2px rgba(28, 28, 44, 0.04)" }}
       >
         <div className="flex flex-col">
-          <p className="text-gray5 text-[16px] font-medium">이번달 누적 매출</p>
+          <p className="text-gray5 text-[16px] font-medium">이번달 매출</p>
           <p className="mt-[12px] text-[24px] font-semibold">
             {monthSalesData?.data.totalSales
               ? monthSalesData.data.totalSales.toLocaleString()
@@ -134,11 +134,11 @@ export const Summary = ({}: Props) => {
           </p>
         </div>
 
-        <div className="absolute flex justify-center items-center w-[44px] h-[44px] right-[24px] bg-back rounded-full">
+        <div className="absolute flex justify-center items-center w-[32px] h-[32px] top-[16px] right-[16px] bg-back rounded-full">
           <Image
             src={monthSalesIcon}
             alt="이번달 누적 매출"
-            className="w-[20px] h-[20px]"
+            className="w-[16px] h-[16px]"
           />
         </div>
       </div>
@@ -171,11 +171,11 @@ export const Summary = ({}: Props) => {
           )}
         </div>
 
-        <div className="absolute flex justify-center items-center w-[44px] h-[44px] right-[24px] bg-back rounded-full">
+        <div className="absolute flex justify-center items-center w-[32px] h-[32px] top-[16px] right-[16px] bg-back rounded-full">
           <Image
             src={momSalesIcon}
             alt="전월 동기 매출"
-            className="w-[20px] h-[20px]"
+            className="w-[16px] h-[16px]"
           />
         </div>
       </div>
@@ -208,11 +208,11 @@ export const Summary = ({}: Props) => {
           )}
         </div>
 
-        <div className="absolute flex justify-center items-center w-[44px] h-[44px] right-[24px] bg-back rounded-full">
+        <div className="absolute flex justify-center items-center w-[32px] h-[32px] top-[16px] right-[16px] bg-back rounded-full">
           <Image
             src={yoySalesIcon}
             alt="전년 동기 매출"
-            className="w-[20px] h-[20px]"
+            className="w-[16px] h-[16px]"
           />
         </div>
       </div>

@@ -230,7 +230,7 @@ export default function ServiceHistory() {
   };
 
   return (
-    <div className="flex flex-col h-full px-[20px] pt-[60px] pb-[40px] md:py-[40px] md:px-[120px] overflow-y-auto">
+    <div className="flex flex-col h-full px-[20px] pt-[60px] pb-[40px] md:py-[40px] md:px-[80px] overflow-y-auto">
       {/* 검색 필터 */}
       <Filter
         searchKeys={searchKeys}

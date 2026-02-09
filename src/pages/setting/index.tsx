@@ -25,7 +25,7 @@ export default function Setting() {
   };
 
   return (
-    <div className="flex flex-col w-full px-[120px] py-[40px]">
+    <div className="flex flex-col w-full px-[80px] py-[40px]">
       <Callout>
         <div className="flex flex-col w-full items-start">
           <p>설정</p>

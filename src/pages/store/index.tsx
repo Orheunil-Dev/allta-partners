@@ -30,7 +30,7 @@ export default function StoreList() {
   });
 
   return (
-    <div className="flex flex-col h-full px-[20px] pt-[60px] pb-[40px]  md:p-[40px] overflow-y-auto">
+    <div className="flex flex-col h-full px-[20px] pt-[60px] pb-[40px] md:px-[80px] md:py-[40px] overflow-y-auto">
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-[24px]">
         {data?.data.map((value, index) => (
           <div

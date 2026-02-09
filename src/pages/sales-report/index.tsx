@@ -28,7 +28,7 @@ export default function Dashboard() {
   });
 
   return (
-    <div className="flex flex-col w-full px-[120px] py-[40px]">
+    <div className="flex flex-col w-full px-[80px] py-[40px]">
       <ConditionBar
         storeId={storeId}
         setStoreId={setStoreId}
