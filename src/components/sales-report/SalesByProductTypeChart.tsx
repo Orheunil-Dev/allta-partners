@@ -1,11 +1,17 @@
 import { useMemo } from "react";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import {
+  Chart as ChartJS,
+  DoughnutController,
+  ArcElement,
+  Tooltip,
+  Legend,
+} from "chart.js";
 import { Chart } from "react-chartjs-2";
 import { useSalesControllerGetSalesByProductType } from "@/api/sales/sales";
 import { formatProductType, getPercent } from "@/utils";
 import { colors } from "@/styles";
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(ArcElement, DoughnutController, Tooltip, Legend);
 
 const productTypeColorMap: Record<string, string> = {
   PREMIUM: "#5E5CE5",
