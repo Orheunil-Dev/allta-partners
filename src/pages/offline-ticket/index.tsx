@@ -284,8 +284,6 @@ export default function OfflineTicketList() {
           totalCount={data?.meta.totalCount ?? 0}
           page={page}
           columns={columns}
-          sorting={sorting}
-          setSorting={setSorting}
         />
 
         {/* 페이지네이션 */}

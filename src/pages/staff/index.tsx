@@ -274,8 +274,6 @@ export default function StoreList() {
         totalCount={data?.meta.totalCount ?? 0}
         page={page}
         columns={columns}
-        sorting={sorting}
-        setSorting={setSorting}
         onRegister={() => setShowModal(true)}
       />
 

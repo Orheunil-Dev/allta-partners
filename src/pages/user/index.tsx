@@ -74,8 +74,8 @@ export default function UserList() {
     sortOrder: sorting[0]?.desc
       ? "desc"
       : !sorting[0]?.desc
-      ? "asc"
-      : undefined,
+        ? "asc"
+        : undefined,
   });
 
   const searchKeys = useMemo<SearchKey[]>(
@@ -103,7 +103,7 @@ export default function UserList() {
         width: "260px",
       },
     ],
-    []
+    [],
   );
 
   const rangeKeys = useMemo<RangeKey[]>(
@@ -113,7 +113,7 @@ export default function UserList() {
         label: "가입일",
       },
     ],
-    []
+    [],
   );
 
   // const selectKeys = useMemo<SelectKey[]>(
@@ -180,15 +180,15 @@ export default function UserList() {
                 row.original.isBanned
                   ? `text-red`
                   : row.original.isDeleted
-                  ? `text-gray5`
-                  : `text-green`
+                    ? `text-gray5`
+                    : `text-green`
               }`}
           >
             {row.original.isBanned
               ? "정지"
               : row.original.isDeleted
-              ? "탈퇴"
-              : "가입"}
+                ? "탈퇴"
+                : "가입"}
           </p>
         ),
         enableSorting: false,
@@ -201,7 +201,7 @@ export default function UserList() {
           dayjs(info.getValue() as string).format("YYYY.MM.DD HH:mm"),
       },
     ],
-    []
+    [],
   );
 
   // 필터 적용
@@ -296,8 +296,6 @@ export default function UserList() {
         totalCount={data?.meta.totalCount ?? 0}
         page={page}
         columns={columns}
-        sorting={sorting}
-        setSorting={setSorting}
         // onDownload={handleDownload}
         // clickable
       />

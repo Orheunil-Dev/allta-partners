@@ -48,7 +48,7 @@ export default function TicketList() {
     { id: "createdAt", desc: true },
   ]);
   const [selectedTicket, setSelectedTicket] = useState<TicketListItem | null>(
-    null
+    null,
   );
 
   // 일회권 목록 조회 API
@@ -75,8 +75,8 @@ export default function TicketList() {
       sortOrder: sorting[0]?.desc
         ? "desc"
         : !sorting[0]?.desc
-        ? "asc"
-        : undefined,
+          ? "asc"
+          : undefined,
     });
 
   const searchKeys = useMemo<SearchKey[]>(
@@ -104,7 +104,7 @@ export default function TicketList() {
         maxLength: 10,
       },
     ],
-    []
+    [],
   );
 
   const rangeKeys = useMemo<RangeKey[]>(
@@ -114,7 +114,7 @@ export default function TicketList() {
         label: "결제일",
       },
     ],
-    []
+    [],
   );
 
   const selectKeys = useMemo<SelectKey[]>(
@@ -130,7 +130,7 @@ export default function TicketList() {
         options: ticketStatusOptions,
       },
     ],
-    []
+    [],
   );
 
   const columns = useMemo<ColumnDef<TicketListItem>[]>(
@@ -193,7 +193,7 @@ export default function TicketList() {
         enableSorting: false,
       },
     ],
-    []
+    [],
   );
 
   // 필터 적용
@@ -235,8 +235,6 @@ export default function TicketList() {
         totalCount={data?.meta.totalCount ?? 0}
         page={page}
         columns={columns}
-        sorting={sorting}
-        setSorting={setSorting}
       />
 
       {/* 페이지네이션 */}

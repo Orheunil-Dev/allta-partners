@@ -83,8 +83,8 @@ export default function SubscriptinonList() {
       sortOrder: sorting[0]?.desc
         ? "desc"
         : !sorting[0]?.desc
-        ? "asc"
-        : undefined,
+          ? "asc"
+          : undefined,
     });
 
   const searchKeys = useMemo<SearchKey[]>(
@@ -112,7 +112,7 @@ export default function SubscriptinonList() {
         maxLength: 10,
       },
     ],
-    []
+    [],
   );
 
   const rangeKeys = useMemo<RangeKey[]>(
@@ -122,7 +122,7 @@ export default function SubscriptinonList() {
         label: "결제일",
       },
     ],
-    []
+    [],
   );
 
   const selectKeys = useMemo<SelectKey[]>(
@@ -143,7 +143,7 @@ export default function SubscriptinonList() {
         options: subscriptionStatusOptions,
       },
     ],
-    []
+    [],
   );
 
   const columns = useMemo<ColumnDef<SubscriptionSnapshotListItem>[]>(
@@ -230,7 +230,7 @@ export default function SubscriptinonList() {
         enableSorting: false,
       },
     ],
-    []
+    [],
   );
 
   // 필터 적용
@@ -272,8 +272,6 @@ export default function SubscriptinonList() {
         totalCount={data?.meta.totalCount ?? 0}
         page={page}
         columns={columns}
-        sorting={sorting}
-        setSorting={setSorting}
       />
 
       {/* 페이지네이션 */}

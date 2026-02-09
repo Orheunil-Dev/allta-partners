@@ -79,8 +79,6 @@ export default function NoticeList() {
         totalCount={data?.meta.totalCount ?? 0}
         page={page}
         columns={columns}
-        sorting={sorting}
-        setSorting={setSorting}
         onRegister={() => router.push("/notice/register")}
         clickable
       />
