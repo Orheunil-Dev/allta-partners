@@ -12,6 +12,10 @@ import {
   userOff,
   settingOn,
   settingOff,
+  serviceHistoryOn,
+  serviceHistoryOff,
+  salesReportOn,
+  saelsReportOff,
 } from "../../public/images";
 
 export type MenuItem = {
@@ -33,32 +37,32 @@ export const menuItems: MenuItem[] = [
     inactiveIcon: dashboardOff,
   },
   {
-    category: "세차",
+    category: "운영",
     name: "세차 관리",
     route: "/wash",
     activeIcon: washOn,
     inactiveIcon: washOff,
   },
   {
-    category: "세차",
-    name: "이용 내역",
-    route: "/service-history",
-    activeIcon: washOn,
-    inactiveIcon: washOff,
-  },
-  {
-    category: "분석",
-    name: "매출 리포트",
-    activeIcon: paymentOn,
-    inactiveIcon: paymentOff,
-    route: "/sales-report",
-  },
-  {
-    category: "분석",
+    category: "운영",
     name: "결제 내역",
     activeIcon: paymentOn,
     inactiveIcon: paymentOff,
     route: "/payment",
+  },
+  {
+    category: "운영",
+    name: "이용 내역",
+    route: "/service-history",
+    activeIcon: serviceHistoryOn,
+    inactiveIcon: serviceHistoryOff,
+  },
+  {
+    category: "분석",
+    name: "매출 리포트",
+    activeIcon: salesReportOn,
+    inactiveIcon: saelsReportOff,
+    route: "/sales-report",
   },
   {
     category: "분석",

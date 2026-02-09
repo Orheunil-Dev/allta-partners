@@ -31,6 +31,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   const { isMobile } = useResizeHandler();
 
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -57,6 +58,7 @@ export default function App({ Component, pageProps }: AppProps) {
         }),
       }),
   );
+
   return (
     <>
       <Head>
@@ -72,10 +74,16 @@ export default function App({ Component, pageProps }: AppProps) {
           }`}
         >
           {router.pathname !== "/login" &&
-            (isMobile ? <MobileSidebar /> : <Sidebar />)}
+            (isMobile ? (
+              <MobileSidebar isOpen={isOpen} setIsOpen={setIsOpen} />
+            ) : (
+              <Sidebar />
+            ))}
 
           <div className="flex flex-col md:flex-1 w-full h-full overflow-x-hidden">
-            {router.pathname !== "/login" && <BreadCrumb />}
+            {router.pathname !== "/login" && (
+              <BreadCrumb isOpen={isOpen} setIsOpen={setIsOpen} />
+            )}
 
             <div
               className={`h-full overflow-y-auto ${

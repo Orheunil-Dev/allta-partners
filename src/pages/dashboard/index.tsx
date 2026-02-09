@@ -11,7 +11,7 @@ export default function Dashboard() {
   const managedStoreList = useGetManagedStoreList();
 
   return (
-    <div className="flex flex-col w-full pt-[80px] pb-[40px] px-[20px] md:py-[40px] md:px-[80px]">
+    <div className="flex flex-col w-full py-[40px] px-[20px] md:px-[80px]">
       <p className="mb-[12px] text-[20px] font-semibold">전체 매출 현황</p>
 
       <Summary />
@@ -21,12 +21,16 @@ export default function Dashboard() {
 
         <div className="flex flex-col lg:grid lg:grid-cols-2 xl:grid-cols-3 mt-[12px] gap-[24px]">
           {managedStoreList.map((value, index) => (
-            <StoreSummary storeId={value.id} storeName={value.name} />
+            <StoreSummary
+              key={value.id}
+              storeId={value.id}
+              storeName={value.name}
+            />
           ))}
         </div>
       </div>
 
-      <div className="flex flex-col xl:flex-row mt-[40px] gap-x-[24px]">
+      <div className="flex flex-col xl:flex-row mt-[40px] gap-[24px]">
         <DashboardSalesChart />
         <WeeklySales />
       </div>

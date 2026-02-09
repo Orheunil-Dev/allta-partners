@@ -1,19 +1,13 @@
 import { useState } from "react";
-import dynamic from "next/dynamic";
 import dayjs from "dayjs";
 import { useSalesControllerGetSalesStatByPassType } from "@/api/sales/sales";
+import { ConditionBar } from "@/components/layout/ConditionBar";
 import {
   SalesByPassTypeChart,
   SalesByProductTypeChart,
   SalesList,
   SalesSummary,
 } from "@/components/sales-report";
-
-const ConditionBar = dynamic(
-  () =>
-    import("@/components/layout/ConditionBar").then((mod) => mod.ConditionBar),
-  { ssr: false },
-);
 
 export default function Dashboard() {
   const [storeId, setStoreId] = useState<string | null>(null);

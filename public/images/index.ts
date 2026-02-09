@@ -8,11 +8,16 @@ export { default as userOn } from "./user-on.png";
 export { default as userOff } from "./user-off.png";
 export { default as paymentOn } from "./payment-on.png";
 export { default as paymentOff } from "./payment-off.png";
+export { default as serviceHistoryOn } from "./service-history-on.png";
+export { default as serviceHistoryOff } from "./service-history-off.png";
+export { default as salesReportOn } from "./sales-report-on.png";
+export { default as saelsReportOff } from "./sales-report-off.png";
 export { default as storeOn } from "./store-on.png";
 export { default as storeOff } from "./store-off.png";
 export { default as settingOn } from "./setting-on.png";
 export { default as settingOff } from "./setting-off.png";
 export { default as conditionBarIcon } from "./condition-bar-store-icon.png";
+export { default as logoutIcon } from "./logout-icon.png";
 
 // 대시보드
 export { default as todaySalesIcon } from "./today-sales-icon.png";

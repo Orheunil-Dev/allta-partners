@@ -13,7 +13,6 @@ export const Sidebar = () => {
   const cookie = Cookies.get("ptAdmin");
 
   const [admin, setAdmin] = useState<AdminCookie | null>(null);
-  const [mounted, setMounted] = useState(false);
 
   const hasPermission = (
     level: number,
