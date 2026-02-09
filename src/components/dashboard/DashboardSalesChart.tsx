@@ -175,7 +175,7 @@ export const DashboardSalesChart = ({}: Props) => {
               alt="다운로드"
               className="w-[14px] h-[14px] md:w-[16px] md:h-[16px] mr-[6px]"
             />
-            <p className="text-[12px] md:text-[14px]">다운로드</p>
+            <span className="text-[12px] md:text-[13px]">다운로드</span>
           </button>
         </div>
       </div>
