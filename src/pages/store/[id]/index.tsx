@@ -11,11 +11,12 @@ import {
   KioskInfo,
   OtherInfo,
   PriceInfo,
+  StaffInfo,
   StoreInfo,
   StoreStat,
 } from "@/components/store";
 
-type Tab = "APP" | "KIOSK";
+type Tab = "APP" | "KIOSK" | "STAFF";
 
 export default function StoreDetail() {
   const router = useRouter();
@@ -112,6 +113,17 @@ export default function StoreDetail() {
             >
               키오스크 설정
             </button>
+            <button
+              onClick={handleClickTab("STAFF")}
+              disabled={tab === "STAFF"}
+              className={`px-[10px] py-[6px] text-[18px] font-semibold cursor-pointer ${
+                tab === "STAFF"
+                  ? "text-black border-b-2 border-b-black"
+                  : "text-gray5"
+              }`}
+            >
+              직원 관리
+            </button>
           </div>
 
           {tab === "APP" && (
@@ -122,7 +134,7 @@ export default function StoreDetail() {
                   setStore={setStore}
                   storeData={storeData.data}
                 />
-                <StoreStat />
+                <StoreStat storeId={id as string} />
               </div>
 
               <div
@@ -159,6 +171,8 @@ export default function StoreDetail() {
           )}
 
           {tab === "KIOSK" && <KioskInfo store={store} setStore={setStore} />}
+
+          {tab === "STAFF" && <StaffInfo storeId={id as string} />}
 
           <div className="flex justify-center items-center mt-[32px]">
             <button
