@@ -7,6 +7,7 @@ interface Props {
   padding?: CSSProperties["padding"];
   margin?: CSSProperties["margin"];
   borderRadius?: CSSProperties["borderRadius"];
+  onClick?: () => void;
   children: ReactNode;
 }
 
@@ -17,11 +18,13 @@ export const Callout = ({
   margin,
   padding = "20px",
   borderRadius = "16px",
+  onClick,
   children,
 }: Props) => {
   return (
     <div
       className="relative flex w-full bg-white"
+      onClick={onClick}
       style={{
         position,
         flexDirection,
@@ -30,6 +33,7 @@ export const Callout = ({
         padding,
         borderRadius,
         boxShadow: "0 4px 10px 2px rgba(28, 28, 44, 0.04)",
+        cursor: onClick ? "pointer" : "default",
       }}
     >
       {children}
