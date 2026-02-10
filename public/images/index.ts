@@ -59,3 +59,7 @@ export { default as decreaseIcon } from "./decrease-icon.png";
 
 // 매출
 export { default as calendarIcon } from "./calendar-icon.png";
+
+// 매장
+export { default as addressIcon } from "./address-icon.png";
+export { default as phoneIcon } from "./phone-icon.png";

@@ -86,7 +86,7 @@ export default function StoreDetail() {
   }
 
   return (
-    <div className="px-[120px] py-[40px]">
+    <div className="px-[80px] py-[40px]">
       {storeData && store && (
         <div className="flex flex-col">
           <div className="flex gap-x-[12px]">

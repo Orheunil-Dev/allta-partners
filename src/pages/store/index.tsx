@@ -1,22 +1,10 @@
-import { useMemo, useState } from "react";
-
-import { useStoreControllerGetStoreList } from "@/api/store/store";
-
-import { Pagination } from "@/components/ui/Pagination";
+import { useState } from "react";
 import { useRouter } from "next/router";
-
-type SearchTerms = {
-  name?: string;
-  phoneNumber?: string;
-  address?: string;
-  serviceType?: string;
-};
-
-type RangeFilter = {
-  key?: string;
-  gte?: string;
-  lte?: string;
-};
+import Image from "next/image";
+import { useStoreControllerGetStoreList } from "@/api/store/store";
+import { Callout } from "@/components/ui/Callout";
+import { Pagination } from "@/components/ui/Pagination";
+import { addressIcon, phoneIcon } from "../../../public/images";
 
 export default function StoreList() {
   const router = useRouter();
@@ -31,25 +19,32 @@ export default function StoreList() {
 
   return (
     <div className="flex flex-col h-full px-[20px] pt-[60px] pb-[40px] md:px-[80px] md:py-[40px] overflow-y-auto">
-      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-[24px]">
+      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-[24px]">
         {data?.data.map((value, index) => (
-          <div
-            key={`store_${index}`}
+          <Callout
+            key={value.id}
             onClick={() => router.push(`/store/${value.id}`)}
-            className="flex flex-col p-[20px] bg-white rounded-[20px] cursor-pointer"
           >
-            <div
-              className="w-full h-[160px] lg:h-[198px] rounded-[12px]"
-              style={{
-                backgroundImage: `url(${value?.mainImage})`,
-                backgroundPosition: "center",
-                backgroundSize: "cover",
-              }}
-            />
-            <p className="mt-[20px] text-[16px] font-semibold">{value.name}</p>
-            <p className="mt-[4px] text-[14px]">{value.address}</p>
-            <p className="text-[14px]">{value.phoneNumber}</p>
-          </div>
+            <p className="text-[18px] font-semibold">{value.name}</p>
+
+            <div className="mt-[12px] flex items-center">
+              <Image
+                src={addressIcon}
+                alt="주소"
+                className="size-[16px] mr-[6px]"
+              />
+              <p className="text-gray5 text-[14px]">{value.address}</p>
+            </div>
+
+            <div className="mt-[4px] flex items-center">
+              <Image
+                src={phoneIcon}
+                alt="전화번호"
+                className="size-[16px] mr-[6px]"
+              />
+              <p className="text-gray5 text-[14px]">{value.phoneNumber}</p>
+            </div>
+          </Callout>
         ))}
       </div>
 
