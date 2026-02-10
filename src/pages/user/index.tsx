@@ -1,26 +1,17 @@
-import { useMemo, useState } from "react";
-import { CellContext, ColumnDef, SortingState } from "@tanstack/react-table";
+import { useEffect, useMemo, useState } from "react";
+import Image from "next/image";
+import { CellContext, ColumnDef } from "@tanstack/react-table";
 import dayjs from "dayjs";
-import { RangeKey, SearchKey, SelectKey } from "@/types";
-import { useUserControllerGetUserList } from "@/api/user/user";
-import { Table } from "@/components/ui/Table";
-import { UserListItem } from "@/api/models";
-import { Filter } from "@/components/ui/Filter";
-import { Pagination } from "@/components/ui/Pagination";
 import {
-  userBannedOptions,
-  userDeletedOptions,
-  userMarketingOptions,
-} from "@/constants";
-
-type SearchTerms = {
-  name?: string;
-  phoneNumber?: string;
-  carNumber?: string;
-  address?: string;
-  isDeleted?: boolean;
-  isMarketing?: boolean;
-};
+  useUserControllerGetUserList,
+  useUserControllerGetUsersCount,
+} from "@/api/user/user";
+import { UserListItem } from "@/api/models";
+import { RangeKey, SearchKey } from "@/types";
+import { Callout } from "@/components/ui/Callout";
+import { SmallTable } from "@/components/ui/Table";
+import { Pagination } from "@/components/ui/Pagination";
+import { downloadIcon, graySearchIcon } from "../../../public/images";
 
 type RangeFilter = {
   key?: string;
@@ -30,16 +21,8 @@ type RangeFilter = {
 
 export default function UserList() {
   const [page, setPage] = useState<number>(0);
-  const [searchTerms, setSearchTerms] = useState<SearchTerms>({
-    name: undefined,
-    phoneNumber: undefined,
-    carNumber: undefined,
-    address: undefined,
-    isDeleted: undefined,
-    isMarketing: undefined,
-  });
-  const [draftSearchTerms, setDraftSearchTerms] =
-    useState<SearchTerms>(searchTerms);
+  const [carNumber, setCarNumber] = useState<string>("");
+  const [draftCarNumber, setDraftCarNumber] = useState<string>("");
   const [rangeFilter, setRangeFilter] = useState<RangeFilter>({
     key: "createdAt",
     gte: undefined,
@@ -47,64 +30,22 @@ export default function UserList() {
   });
   const [draftRangeFilter, setDraftRangeFilter] =
     useState<RangeFilter>(rangeFilter);
-  const [sorting, setSorting] = useState<SortingState>([
-    { id: "createdAt", desc: true },
-  ]);
+
+  // 가입자 수 조회 API
+  const {
+    data: usersCountData,
+    isLoading: usersCountLoading,
+    isError: usersCountError,
+  } = useUserControllerGetUsersCount();
 
   // 회원 목록 조회 API
   const { data, isLoading, isError, refetch } = useUserControllerGetUserList({
     take: 20,
     skip: 20 * page,
-    name: searchTerms.name,
-    phoneNumber: searchTerms.phoneNumber,
-    carNumber: searchTerms.carNumber,
-    address: searchTerms.address,
-    ...(searchTerms.isDeleted !== undefined
-      ? { isDeleted: searchTerms.isDeleted }
-      : {}),
-    ...(searchTerms.isMarketing !== undefined
-      ? { isMarketing: searchTerms.isMarketing }
-      : {}),
-    ...(rangeFilter.key &&
-      rangeFilter.gte &&
-      rangeFilter.lte && {
-        [rangeFilter.key]: `${rangeFilter.gte} ~ ${rangeFilter.lte}`,
-      }),
-    sortBy: sorting[0]?.id ?? undefined,
-    sortOrder: sorting[0]?.desc
-      ? "desc"
-      : !sorting[0]?.desc
-        ? "asc"
-        : undefined,
+    ...(carNumber && { carNumber }),
+    ...(rangeFilter.gte && { startDate: rangeFilter.gte }),
+    ...(rangeFilter.lte && { endDate: rangeFilter.lte }),
   });
-
-  const searchKeys = useMemo<SearchKey[]>(
-    () => [
-      {
-        key: "name",
-        label: "이름",
-        width: "120px",
-      },
-      {
-        key: "phoneNumber",
-        label: "전화번호",
-        width: "140px",
-        maxLength: 13,
-      },
-      {
-        key: "carNumber",
-        label: "차량번호",
-        width: "120px",
-        maxLength: 10,
-      },
-      {
-        key: "address",
-        label: "주소",
-        width: "260px",
-      },
-    ],
-    [],
-  );
 
   const rangeKeys = useMemo<RangeKey[]>(
     () => [
@@ -115,27 +56,6 @@ export default function UserList() {
     ],
     [],
   );
-
-  // const selectKeys = useMemo<SelectKey[]>(
-  //   () => [
-  //     {
-  //       key: "isDeleted",
-  //       label: "탈퇴 여부",
-  //       options: userDeletedOptions,
-  //     },
-  //     {
-  //       key: "isBanned",
-  //       label: "정지 여부",
-  //       options: userBannedOptions,
-  //     },
-  //     {
-  //       key: "isMarketing",
-  //       label: "마케팅 수신 여부",
-  //       options: userMarketingOptions,
-  //     },
-  //   ],
-  //   []
-  // );
 
   const columns = useMemo<ColumnDef<UserListItem>[]>(
     () => [
@@ -206,21 +126,11 @@ export default function UserList() {
 
   // 필터 적용
   const handleSearch = () => {
-    setSearchTerms(draftSearchTerms);
+    setCarNumber(draftCarNumber);
     setRangeFilter(draftRangeFilter);
     setPage(0);
 
     refetch();
-  };
-
-  // 필터 초기화
-  const handleReset = () => {
-    setSearchTerms({});
-    setDraftSearchTerms({});
-    setRangeFilter({ key: "createdAt", gte: undefined, lte: undefined });
-    setDraftRangeFilter({ key: "createdAt", gte: undefined, lte: undefined });
-    setSorting([{ id: "createdAt", desc: true }]);
-    setPage(0);
   };
 
   // // 엑셀 파일 추출
@@ -274,39 +184,93 @@ export default function UserList() {
   //   }
   // };
 
+  useEffect(() => {
+    if (draftCarNumber === carNumber) return;
+
+    const timer = setTimeout(() => {
+      handleSearch();
+    }, 300);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [draftCarNumber]);
+
   return (
     <div className="flex flex-col h-full px-[20px] pt-[60px] pb-[40px] md:px-[80px] md:py-[40px] overflow-y-auto">
-      {/* 검색 필터 */}
-      <Filter
-        searchKeys={searchKeys}
-        searchTerms={draftSearchTerms}
-        setSearchTerms={setDraftSearchTerms}
-        rangeKeys={rangeKeys}
-        rangeFilter={draftRangeFilter}
-        setRangeFilter={setDraftRangeFilter}
-        // selectKeys={selectKeys}
-        onSearch={handleSearch}
-        onReset={handleReset}
-      />
+      <div className="flex justify-between items-center gap-[24px]">
+        <Callout>
+          <p className="text-gray5 text-[16px] font-medium">전체 가입자 수</p>
+          <p className="mt-[12px] test-[24px] font-semibold">
+            {usersCountData?.data.totalUsersCount.toLocaleString() ?? 0} 명
+          </p>
+        </Callout>
 
-      {/* 테이블 */}
-      <Table
-        basePath="user"
-        data={data?.data ?? []}
-        totalCount={data?.meta.totalCount ?? 0}
-        page={page}
-        columns={columns}
-        // onDownload={handleDownload}
-        // clickable
-      />
+        <Callout>
+          <p className="text-gray5 text-[16px] font-medium">신규 가입</p>
+          <p className="mt-[12px] test-[24px] font-semibold">
+            {usersCountData?.data.totalUsersCount.toLocaleString() ?? 0} 명
+          </p>
+        </Callout>
 
-      {/* 페이지네이션 */}
-      <Pagination
-        totalCount={data?.meta.totalCount ?? 0}
-        take={20}
-        page={page}
-        setPage={setPage}
-      />
+        <Callout>
+          <p className="text-gray5 text-[16px] font-medium">VIP 회원</p>
+          <p className="mt-[12px] test-[24px] font-semibold">
+            {usersCountData?.data.totalUsersCount.toLocaleString() ?? 0} 명
+          </p>
+        </Callout>
+      </div>
+
+      <Callout margin="24px 0 0 0">
+        <div className="flex justify-between items-center w-full">
+          <div className="flex items-center">
+            <p className="text-[18px] font-semibold">회원 리스트</p>
+            <div className="flex justify-center items-center ml-[12px] px-[6px] py-[2px] bg-gray1 rounded-[4px]">
+              <p className="text-gray7 text-[16px] font-semibold">
+                {data?.meta.totalCount.toLocaleString() ?? 0}명
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center">
+            <div className="relative flex items-center">
+              <input
+                value={draftCarNumber}
+                onChange={(e) => setDraftCarNumber(e.target.value)}
+                maxLength={12}
+                placeholder="차량번호 검색"
+                className="flex items-center w-[160px] h-[32px] pl-[32px] pr-[8px] text-[13px] border border-line rounded-[8px]"
+              />
+
+              <Image
+                src={graySearchIcon}
+                alt="검색"
+                className="absolute size-[20px] left-[8px] z-[1]"
+              />
+            </div>
+
+            <button className="flex justify-center items-center w-[84px] h-[32px] ml-[12px] border border-line rounded-[8px] cursor-pointer">
+              <Image
+                src={downloadIcon}
+                alt="다운로드"
+                className="size-[16px] mr-[4px]"
+              />
+              <span className="text-[13px]">다운로드</span>
+            </button>
+          </div>
+        </div>
+
+        {/* 테이블 */}
+        <SmallTable data={data?.data ?? []} columns={columns} />
+
+        {/* 페이지네이션 */}
+        <Pagination
+          totalCount={data?.meta.totalCount ?? 0}
+          take={20}
+          page={page}
+          setPage={setPage}
+        />
+      </Callout>
     </div>
   );
 }

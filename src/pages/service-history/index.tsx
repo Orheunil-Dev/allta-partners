@@ -200,11 +200,8 @@ export default function ServiceHistory() {
             ...(searchTerms.serviceType !== undefined
               ? { serviceType: searchTerms.serviceType }
               : {}),
-            ...(rangeFilter.key &&
-              rangeFilter.gte &&
-              rangeFilter.lte && {
-                [rangeFilter.key]: `${rangeFilter.gte} ~ ${rangeFilter.lte}`,
-              }),
+            ...(rangeFilter.gte && { startDate: rangeFilter.gte }),
+            ...(rangeFilter.lte && { endDate: rangeFilter.lte }),
           }),
         },
       );

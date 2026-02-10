@@ -18,6 +18,7 @@ export { default as settingOn } from "./setting-on.png";
 export { default as settingOff } from "./setting-off.png";
 export { default as conditionBarIcon } from "./condition-bar-store-icon.png";
 export { default as logoutIcon } from "./logout-icon.png";
+export { default as graySearchIcon } from "./gray-search-icon.png";
 
 // 대시보드
 export { default as todaySalesIcon } from "./today-sales-icon.png";

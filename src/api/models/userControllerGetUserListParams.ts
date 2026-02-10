@@ -8,49 +8,25 @@
 
 export type UserControllerGetUserListParams = {
 /**
- * 회원 이름
- */
-name?: string;
-/**
- * 전화번호
- */
-phoneNumber?: string;
-/**
  * 대표 차량번호
  */
 carNumber?: string;
-/**
- * 주소
- */
-address?: string;
 /**
  * 탈퇴 여부
  */
 isDeleted?: boolean;
 /**
- * 정지 여부
- */
-isBanned?: boolean;
-/**
  * 마케팅 수신 여부
  */
 isMarketing?: boolean;
 /**
- * 가입일
+ * 시작일(YYYY-MM-DD)
  */
-createdAt?: string;
+startDate?: string;
 /**
- * 삭제일
+ * 종료일(YYYY-MM-DD)
  */
-deletedAt?: string;
-/**
- * 정렬 기준
- */
-sortBy?: string;
-/**
- * 정렬 순서
- */
-sortOrder?: string;
+endDate?: string;
 /**
  * 가져올 데이터 수
  */

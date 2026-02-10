@@ -28,7 +28,9 @@ import type {
   ExportUserListRequest,
   GetUserDetailResponse,
   GetUserListResponse,
-  UserControllerGetUserListParams
+  GetUsersCountResponse,
+  UserControllerGetUserListParams,
+  UserControllerGetUsersCountParams
 } from '.././models';
 
 import { customInstance } from '../../libs/custom-instance';
@@ -114,6 +116,92 @@ export function useUserControllerGetUserList<TData = Awaited<ReturnType<typeof u
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
   const queryOptions = getUserControllerGetUserListQueryOptions(params,options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+export const userControllerGetUsersCount = (
+    params?: UserControllerGetUsersCountParams,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<GetUsersCountResponse>(
+      {url: `/user/count`, method: 'GET',
+        params, signal
+    },
+      options);
+    }
+  
+
+
+
+export const getUserControllerGetUsersCountQueryKey = (params?: UserControllerGetUsersCountParams,) => {
+    return [
+    `/user/count`, ...(params ? [params]: [])
+    ] as const;
+    }
+
+    
+export const getUserControllerGetUsersCountQueryOptions = <TData = Awaited<ReturnType<typeof userControllerGetUsersCount>>, TError = unknown>(params?: UserControllerGetUsersCountParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof userControllerGetUsersCount>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getUserControllerGetUsersCountQueryKey(params);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof userControllerGetUsersCount>>> = ({ signal }) => userControllerGetUsersCount(params, requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof userControllerGetUsersCount>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type UserControllerGetUsersCountQueryResult = NonNullable<Awaited<ReturnType<typeof userControllerGetUsersCount>>>
+export type UserControllerGetUsersCountQueryError = unknown
+
+
+export function useUserControllerGetUsersCount<TData = Awaited<ReturnType<typeof userControllerGetUsersCount>>, TError = unknown>(
+ params: undefined |  UserControllerGetUsersCountParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof userControllerGetUsersCount>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof userControllerGetUsersCount>>,
+          TError,
+          Awaited<ReturnType<typeof userControllerGetUsersCount>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useUserControllerGetUsersCount<TData = Awaited<ReturnType<typeof userControllerGetUsersCount>>, TError = unknown>(
+ params?: UserControllerGetUsersCountParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof userControllerGetUsersCount>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof userControllerGetUsersCount>>,
+          TError,
+          Awaited<ReturnType<typeof userControllerGetUsersCount>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useUserControllerGetUsersCount<TData = Awaited<ReturnType<typeof userControllerGetUsersCount>>, TError = unknown>(
+ params?: UserControllerGetUsersCountParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof userControllerGetUsersCount>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+
+export function useUserControllerGetUsersCount<TData = Awaited<ReturnType<typeof userControllerGetUsersCount>>, TError = unknown>(
+ params?: UserControllerGetUsersCountParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof userControllerGetUsersCount>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getUserControllerGetUsersCountQueryOptions(params,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 

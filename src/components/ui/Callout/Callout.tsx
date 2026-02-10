@@ -21,7 +21,7 @@ export const Callout = ({
 }: Props) => {
   return (
     <div
-      className="flex w-full bg-white"
+      className="relative flex w-full bg-white"
       style={{
         position,
         flexDirection,

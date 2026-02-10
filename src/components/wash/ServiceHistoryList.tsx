@@ -1,19 +1,12 @@
 import { useMemo, useState } from "react";
 import { useRouter } from "next/router";
-import Image from "next/image";
 import { CellContext, ColumnDef } from "@tanstack/react-table";
 import dayjs from "dayjs";
 import { useServiceHistoryControllerGetServiceHistoryList } from "@/api/service-history/service-history";
 import { ServiceHistoryListItem } from "@/api/models";
-import {
-  formatEllipsis,
-  formatPaymentMethod,
-  formatProductType,
-  formatServiceType,
-} from "@/utils";
+import { formatProductType, formatServiceType } from "@/utils";
 import { Callout } from "../ui/Callout";
 import { SmallTable } from "../ui/Table";
-import { grayRightArrowIcon } from "../../../public/images";
 import { Pagination } from "../ui/Pagination";
 
 interface Props {
