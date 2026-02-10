@@ -11,7 +11,7 @@ export default function Dashboard() {
   const managedStoreList = useGetManagedStoreList();
 
   return (
-    <div className="flex flex-col w-full py-[40px] px-[20px] md:px-[80px]">
+    <div className="flex flex-col w-full px-[20px] md:px-[40px] lg:px-[80px] py-[40px]">
       <p className="mb-[12px] text-[20px] font-semibold">전체 매출 현황</p>
 
       <Summary />

@@ -51,7 +51,7 @@ export const Sidebar = () => {
           onClick={handleRouteDashboard}
           className="text-gray7 text-[28px] font-bold  cursor-pointer"
         >
-          <Image src={sidebarLogo} alt="올타" className="w-[128px] h-[36px]" />
+          <Image src={sidebarLogo} alt="올타" className="w-[110px]" />
         </div>
       </div>
 

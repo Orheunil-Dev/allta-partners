@@ -8,6 +8,7 @@
 
 export * from './cancelServiceRequest';
 export * from './cancelServiceResponse';
+export * from './changeStoreAdminPasswordRequest';
 export * from './disconnectStaffRequest';
 export * from './disconnectStaffResponse';
 export * from './exportPaymentListRequest';

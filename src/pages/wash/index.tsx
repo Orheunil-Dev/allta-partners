@@ -17,7 +17,7 @@ export default function Wash() {
   const [endDate, setEndDate] = useState<string>(dayjs().format("YYYY-MM-DD"));
 
   return (
-    <div className="flex flex-col w-full px-[80px] py-[40px]">
+    <div className="flex flex-col w-full px-[20px] md:px-[40px] lg:px-[80px] py-[40px]">
       <ConditionBar
         storeId={storeId}
         setStoreId={setStoreId}

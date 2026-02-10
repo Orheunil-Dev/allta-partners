@@ -87,7 +87,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
             <div
               className={`h-full overflow-y-auto ${
-                router.pathname !== "/login" && "mt-[50px] md:mt-[80px]"
+                router.pathname !== "/login" && "mt-[62px]"
               }`}
             >
               <Component {...pageProps} />

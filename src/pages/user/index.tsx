@@ -197,7 +197,7 @@ export default function UserList() {
   }, [draftCarNumber]);
 
   return (
-    <div className="flex flex-col h-full px-[20px] pt-[60px] pb-[40px] md:px-[80px] md:py-[40px] overflow-y-auto">
+    <div className="flex flex-col h-full px-[20px] md:px-[40px] lg:px-[80px] py-[40px] overflow-y-auto">
       <div className="flex justify-between items-center gap-[24px]">
         <Callout>
           <p className="text-gray5 text-[16px] font-medium">전체 가입자 수</p>

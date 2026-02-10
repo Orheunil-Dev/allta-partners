@@ -64,7 +64,7 @@ export const SalesByProductTypeChart = ({
       className="flex flex-col flex-[2] min-w-0 h-[376px] mt-[24px] p-[24px] bg-white rounded-[20px]"
       style={{ boxShadow: "0 4px 10px 2px rgba(28, 28, 44, 0.04)" }}
     >
-      <p className="text-[18px] font-semibold">매출 구성비</p>
+      <p className="text-[16px] font-semibold">매출 구성비</p>
 
       <div className="relative flex justify-center items-center mt-[24px] h-[178px]">
         <Chart

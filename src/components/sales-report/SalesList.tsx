@@ -113,7 +113,7 @@ export const SalesList = ({ storeId, startDate, endDate }: Props) => {
     <Callout margin="24px 0 0 0" padding="24px">
       <div className="relative flex flex-col">
         <div className="flex justify-between mb-[24px]">
-          <p className="text-[18px] font-semibold">일자별 매출 내역</p>
+          <p className="text-[16px] font-semibold">일자별 매출 내역</p>
 
           <button
             onClick={() => {}}

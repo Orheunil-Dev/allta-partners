@@ -27,7 +27,7 @@ export const ComplimentaryServiceList = ({
 
   return (
     <Callout flex={1}>
-      <p className="text-[18px] font-semibold">무료 세차 내역</p>
+      <p className="text-[16px] font-semibold">무료 세차 내역</p>
 
       <div className="flex flex-col flex-1 min-h-[160px] mt-[20px] px-[8px] gap-y-[8px] overflow-y-auto">
         {complimentaryServiceListData?.data.map((value, index) => (
@@ -54,8 +54,10 @@ export const ComplimentaryServiceList = ({
 
         {!complimentaryServiceListLoading &&
           !complimentaryServiceListData?.data.length && (
-            <div className="flex flex-1 justify-center items-center text-gray5">
-              <p>무료세차 내역이 존재하지 않습니다.</p>
+            <div className="flex flex-1 justify-center items-center">
+              <p className="text-gray5 text-[16px]">
+                무료세차 내역이 존재하지 않습니다.
+              </p>
             </div>
           )}
       </div>

@@ -87,7 +87,7 @@ export const StoreSummary = ({ storeId, storeName }: Props) => {
 
   return (
     <Callout>
-      <p className="text-[18px] font-semibold">{storeName}</p>
+      <p className="text-[16px] font-semibold">{storeName}</p>
 
       <div className="flex mt-[12px] gap-x-[16px]">
         <div className="flex flex-col flex-1 p-[12px] bg-gray1 rounded-[8px]">

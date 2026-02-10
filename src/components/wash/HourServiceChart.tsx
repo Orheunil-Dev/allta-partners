@@ -70,7 +70,7 @@ export const HourServiceChart = ({ storeId }: Props) => {
 
   return (
     <Callout>
-      <p className="text-[18px] font-semibold">시간대별 세차 통계</p>
+      <p className="text-[16px] font-semibold">시간대별 세차 통계</p>
 
       <div className="h-[278px] mt-[24px]">
         <Chart

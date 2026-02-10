@@ -42,7 +42,7 @@ export const ConditionBar = ({
   endDate,
   setEndDate,
 }: Props) => {
-  const { isTablet } = useResizeHandler();
+  const { isDesktop } = useResizeHandler();
 
   // 관리자 권한 있는 매장 목록
   const managedStoreList = useGetManagedStoreList();
@@ -143,7 +143,11 @@ export const ConditionBar = ({
   }, [startDate, endDate]);
 
   return (
-    <Callout flexDirection={isTablet ? "column" : "row"} margin="0 0 24px 0">
+    <Callout
+      flexDirection={isDesktop ? "row" : "column"}
+      margin="0 0 24px 0"
+      gap={isDesktop ? "20px" : "8px"}
+    >
       <Select<SelectOption>
         options={selectOptions}
         value={
@@ -164,7 +168,7 @@ export const ConditionBar = ({
         styles={selectStyles}
       />
 
-      <div className="relative flex items-center ml-[20px]">
+      <div className="relative flex items-center">
         {/* 캘린더 */}
         {showDaypicker && (
           <div
@@ -251,13 +255,13 @@ export const ConditionBar = ({
           />
 
           <p className="text-[16px]">
-            {dayjs(startDate).format("YYYY년 M월 D일")} ~{" "}
-            {dayjs(endDate).format("YYYY년 M월 D일")}
+            {dayjs(startDate).format("YY.MM.DD")} ~{" "}
+            {dayjs(endDate).format("YY.MM.DD")}
           </p>
         </button>
       </div>
 
-      <div className="flex items-center ml-[20px] gap-x-[8px]">
+      <div className="flex items-center gap-x-[8px]">
         {periods.map((value) => (
           <button
             key={value}
@@ -284,7 +288,7 @@ const selectStyles: StylesConfig<SelectOption> = {
   }),
   control: (provided) => ({
     ...provided,
-    width: "240px",
+    width: "160px",
     minHeight: "34px",
     padding: "6px 10px",
     borderWidth: "1px",
@@ -306,7 +310,7 @@ const selectStyles: StylesConfig<SelectOption> = {
   }),
   menu: (provided) => ({
     ...provided,
-    width: "240px",
+    width: "160px",
     borderRadius: "8px",
     overflow: "hidden",
     fontSize: "14px",

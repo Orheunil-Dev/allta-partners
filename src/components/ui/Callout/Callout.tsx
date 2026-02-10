@@ -6,6 +6,7 @@ interface Props {
   flex?: CSSProperties["flex"];
   padding?: CSSProperties["padding"];
   margin?: CSSProperties["margin"];
+  gap?: CSSProperties["gap"];
   borderRadius?: CSSProperties["borderRadius"];
   onClick?: () => void;
   children: ReactNode;
@@ -17,6 +18,7 @@ export const Callout = ({
   flex,
   margin,
   padding = "20px",
+  gap,
   borderRadius = "16px",
   onClick,
   children,
@@ -31,6 +33,7 @@ export const Callout = ({
         flex,
         margin,
         padding,
+        gap,
         borderRadius,
         boxShadow: "0 4px 10px 2px rgba(28, 28, 44, 0.04)",
         cursor: onClick ? "pointer" : "default",

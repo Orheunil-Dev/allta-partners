@@ -174,15 +174,15 @@ export default function StoreDetail() {
 
           {tab === "STAFF" && <StaffInfo storeId={id as string} />}
 
-          <div className="flex justify-center items-center mt-[32px]">
+          {tab !== "STAFF" && (
             <button
               onClick={handleUpdateStore}
               type="button"
-              className="w-[84px] h-[44px] text-white text-[16px] font-semibold bg-main rounded-[8px] cursor-pointer"
+              className="self-center w-[84px] h-[44px] mt-[32px] text-white text-[16px] font-semibold bg-main rounded-[8px] cursor-pointer"
             >
               저장
             </button>
-          </div>
+          )}
         </div>
       )}
     </div>

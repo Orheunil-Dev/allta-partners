@@ -275,7 +275,7 @@ export default function PaymentList() {
   };
 
   return (
-    <div className="flex flex-col h-full px-[20px] pt-[60px] pb-[40px] md:px-[80px] md:py-[40px] overflow-y-auto">
+    <div className="flex flex-col h-full px-[20px] md:px-[40px] lg:px-[80px] py-[40px] overflow-y-auto">
       {/* 검색 필터 */}
       <Filter
         searchKeys={searchKeys}

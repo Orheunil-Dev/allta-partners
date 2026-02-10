@@ -22,7 +22,7 @@ export const ServiceSummary = ({ storeId, startDate, endDate }: Props) => {
 
   return (
     <Callout flex={2}>
-      <p className="text-[18px] font-semibold">세차 이용 건수</p>
+      <p className="text-[16px] font-semibold">세차 이용 건수</p>
 
       <div className="grid grid-cols-3 mt-[20px] px-[8px] gap-[24px]">
         <div className="flex flex-col px-[20px] py-[16px] text-white bg-point2 rounded-[8px]">

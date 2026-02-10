@@ -13,13 +13,13 @@ export const WeeklySales = () => {
       className="flex flex-col flex-[2] min-w-0 h-[358px] p-[24px] bg-white rounded-[20px]"
       style={{ boxShadow: "0 4px 10px 2px rgba(28, 28, 44, 0.04)" }}
     >
-      <p className="text-[18px] font-semibold">주간 매출 순위</p>
+      <p className="text-[16px] font-semibold">주간 매출 순위</p>
 
       {weeklySalesData && (
         <div className="flex flex-col h-full mt-[20px] pb-[24px]">
           <div className="flex justify-between items-center py-[10px]">
             <p className="text-gray7 text-[16px] font-medium">전체 매출</p>
-            <p className="text-[18px] font-semibold">
+            <p className="text-[16px] font-semibold">
               {weeklySalesData.data.totalSales.toLocaleString()} 원
             </p>
           </div>

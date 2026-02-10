@@ -18,14 +18,14 @@ export default function StoreList() {
   });
 
   return (
-    <div className="flex flex-col h-full px-[20px] pt-[60px] pb-[40px] md:px-[80px] md:py-[40px] overflow-y-auto">
+    <div className="flex flex-col h-full px-[20px] md:px-[40px] lg:px-[80px] py-[40px] overflow-y-auto">
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-[24px]">
         {data?.data.map((value, index) => (
           <Callout
             key={value.id}
             onClick={() => router.push(`/store/${value.id}`)}
           >
-            <p className="text-[18px] font-semibold">{value.name}</p>
+            <p className="text-[16px] font-semibold">{value.name}</p>
 
             <div className="mt-[12px] flex items-center">
               <Image

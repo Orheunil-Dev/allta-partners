@@ -1,3 +1,5 @@
+"use client";
+
 import { useMemo, useState } from "react";
 import Image from "next/image";
 import {
@@ -131,16 +133,12 @@ export const DashboardSalesChart = ({}: Props) => {
 
   return (
     <div
-      className="flex flex-col justify-center items-center xl:flex-[5] min-w-0 h-[358px] px-[24px] pt-[50px] pb-[40px] bg-white rounded-[20px]"
+      className="flex flex-col justify-center items-center xl:flex-[5] min-w-0 h-[358px] px-[24px] pt-[60px] lg:pt-[50px] pb-[50px] lg:pb-[40px] bg-white rounded-[20px]"
       style={{ boxShadow: "0 4px 10px 2px rgba(28, 28, 44, 0.04)" }}
     >
-      {salesStatError && (
-        <p className="text-gray7 font-semibold">데이터 조회에 실패했습니다.</p>
-      )}
-
-      <div className="flex justify-between items-center w-full mb-[20px] gap-x-[12px]">
+      <div className="flex flex-col lg:flex-row lg:justify-between items-start lg:items-center w-full mb-[20px] gap-[12px]">
         <div className="flex items-center">
-          <p className="text-[18px] font-semibold">전체 매출 통계</p>
+          <p className="text-[16px] font-semibold">전체 매출 통계</p>
 
           <div className="flex items-center ml-[20px] text-gray5 text-[14px]">
             <div className="w-[8px] h-[8px] mr-[6px] bg-[#5E5CE5] rounded-full" />

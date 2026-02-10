@@ -86,14 +86,14 @@ export const BreadCrumb = ({ isOpen, setIsOpen }: Props) => {
   }, [cookie]);
 
   return (
-    <div className="fixed flex items-center w-full md:w-[calc(100vw-260px)] h-[60px] md:h-[80px] top-0 px-[20px] md:px-[44px] bg-white border-b border-gray2 z-[3]">
+    <div className="fixed flex items-center w-full md:w-[calc(100vw-260px)] h-[62px] top-0 px-[20px] md:px-[44px] bg-white border-b border-gray2 z-[3]">
       <div className="flex justify-between items-center w-full h-full">
         <div className="flex">
           {breadcrumb?.map((item, index) => (
             <div key={index} className="flex items-center">
               {index > 0 && <div className="mx-[10px]">/</div>}
 
-              <span className="text-[20px] md:text-[22px] font-semibold">
+              <span className="text-[16px] md:text-[16px] font-semibold">
                 {item}
               </span>
             </div>
@@ -127,12 +127,12 @@ export const BreadCrumb = ({ isOpen, setIsOpen }: Props) => {
                 className="absolute flex flex-col w-[180px] md:w-[264px] top-[50px] right-0 bg-white rounded-[20px]"
               >
                 <div className="flex flex-col px-[20px] py-[16px]">
-                  <div
+                  <button
                     onClick={handleLogout}
                     className="w-fit text-[14px] md:text-[16px] cursor-pointer"
                   >
                     로그아웃
-                  </div>
+                  </button>
                 </div>
               </div>
             )}
