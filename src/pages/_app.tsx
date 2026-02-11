@@ -3,6 +3,7 @@ import Head from "next/head";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
+import localFont from "next/font/local";
 import {
   QueryCache,
   QueryClient,
@@ -10,6 +11,13 @@ import {
 } from "@tanstack/react-query";
 import { useResizeHandler } from "@/hooks";
 import "@/styles/globals.css";
+
+const pretendard = localFont({
+  src: "../../public/fonts/PretendardVariable.woff2",
+  display: "swap",
+  weight: "45 920",
+  variable: "--font-pretendard",
+});
 
 const BreadCrumb = dynamic(
   () => import("@/components/layout/BreadCrumb").then((mod) => mod.BreadCrumb),
@@ -69,7 +77,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
       <QueryClientProvider client={queryClient}>
         <div
-          className={`flex w-screen h-screen  text-black ${
+          className={`pretendard.className flex w-screen h-screen  text-black ${
             router.pathname === "/login" ? "bg-partners" : "bg-[#F6F6F9]"
           }`}
         >
