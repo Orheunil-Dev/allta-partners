@@ -1,3 +1,4 @@
+import { CSSProperties } from "react";
 import {
   ColumnDef,
   flexRender,
@@ -10,7 +11,6 @@ import {
   neutralityStatus,
   positiveStatus,
 } from "@/constants/status";
-import { CSSProperties } from "react";
 
 interface Props<TData> {
   data: TData[];
@@ -31,11 +31,8 @@ export const SmallTable = <TData,>({
   });
 
   return (
-    <div className="relative overflow-x-scroll">
-      <table
-        className="min-w-full text-sm text-left table-fixed"
-        style={{ minHeight }}
-      >
+    <div className="relative overflow-x-scroll" style={{ minHeight }}>
+      <table className="min-w-full text-sm text-left table-fixed">
         <thead className="text-gray5 text-[14px] font-medium bg-white border-b border-b-line whitespace-nowrap">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
