@@ -48,7 +48,7 @@ export default function Setting() {
               </button>
 
               <button
-                onClick={() => setShowPasswordModal(true)}
+                onClick={handleLogout}
                 className="flex w-full p-[20px] border border-line rounded-[12px] cursor-pointer"
               >
                 <Image

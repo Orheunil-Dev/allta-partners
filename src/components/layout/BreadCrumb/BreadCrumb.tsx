@@ -112,10 +112,11 @@ export const BreadCrumb = ({ isOpen, setIsOpen }: Props) => {
               className="flex items-center cursor-pointer h-full"
             >
               <span>{admin?.storeName}</span>
+
               <Image
                 src={dropdownArrowIcon}
                 alt="프로필 메뉴"
-                className="w-[24px] h-[24px] ml-[4px]"
+                className={`w-[24px] h-[24px] ml-[4px] duration-300 ${isMouseEnter && "rotate-180"}`}
               />
             </div>
 
@@ -126,10 +127,17 @@ export const BreadCrumb = ({ isOpen, setIsOpen }: Props) => {
                 style={{ boxShadow: "0 4px 10px 2px rgba(28, 28, 44, 0.04)" }}
                 className="absolute flex flex-col w-[180px] md:w-[264px] top-[50px] right-0 bg-white rounded-[20px]"
               >
+                <div className="flex flex-col px-[20px] py-[16px] border-b border-b-gray1">
+                  <p className="text-[16px] font-semibold">
+                    {admin?.storeName}
+                  </p>
+                  <p className="text-gray5 text-[14px]">{admin?.identity}</p>
+                </div>
+
                 <div className="flex flex-col px-[20px] py-[16px]">
                   <button
                     onClick={handleLogout}
-                    className="w-fit text-[14px] md:text-[16px] cursor-pointer"
+                    className="w-fit text-[16px] cursor-pointer"
                   >
                     로그아웃
                   </button>
