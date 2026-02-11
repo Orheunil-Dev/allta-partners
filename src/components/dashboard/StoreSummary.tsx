@@ -92,7 +92,7 @@ export const StoreSummary = ({ storeId, storeName }: Props) => {
       <div className="flex mt-[12px] gap-x-[16px]">
         <div className="flex flex-col flex-1 p-[12px] bg-gray1 rounded-[8px]">
           <p className="text-gray5 text-[13px] font-medium">금일 매출</p>
-          <p className="mt-[4px] text-[16px] font-semibold">
+          <p className="mt-[4px] text-[16px] font-medium">
             {todaySalesData?.data.totalSales
               ? todaySalesData.data.totalSales.toLocaleString()
               : 0}{" "}
@@ -102,7 +102,7 @@ export const StoreSummary = ({ storeId, storeName }: Props) => {
 
         <div className="flex flex-col flex-1 p-[12px] bg-gray1 rounded-[8px]">
           <p className="text-gray5 text-[13px] font-medium">이번달 매출</p>
-          <p className="mt-[4px] text-[16px] font-semibold">
+          <p className="mt-[4px] text-[16px] font-medium">
             {monthSalesData?.data.totalSales
               ? monthSalesData.data.totalSales.toLocaleString()
               : 0}{" "}
@@ -115,7 +115,7 @@ export const StoreSummary = ({ storeId, storeName }: Props) => {
         <p className="text-gray5 text-[13px] font-medium">전월 동기 매출</p>
 
         <div className="flex justify-between items-center">
-          <p className="mt-[4px] text-[16px] font-semibold">
+          <p className="mt-[4px] text-[16px] font-medium">
             {momSalesData?.data.currentSales
               ? momSalesData.data.currentSales.totalSales.toLocaleString()
               : 0}{" "}
@@ -137,7 +137,7 @@ export const StoreSummary = ({ storeId, storeName }: Props) => {
         <p className="text-gray5 text-[13px] font-medium">전년 동기 매출</p>
 
         <div className="flex justify-between items-center">
-          <p className="mt-[4px] text-[16px] font-semibold">
+          <p className="mt-[4px] text-[16px] font-medium">
             {yoySalesData?.data.currentSales
               ? yoySalesData.data.currentSales.totalSales.toLocaleString()
               : 0}{" "}

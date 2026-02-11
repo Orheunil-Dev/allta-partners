@@ -5,3 +5,5 @@ export * from "./PriceInfo";
 export * from "./OtherInfo";
 export * from "./KioskInfo";
 export * from "./StaffInfo";
+export * from "./StaffDisconnectModal";
+export * from "./StaffRegisterModal";
