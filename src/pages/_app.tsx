@@ -15,7 +15,7 @@ import "@/styles/globals.css";
 const pretendard = localFont({
   src: "../../public/fonts/PretendardVariable.woff2",
   display: "swap",
-  weight: "45 920",
+  weight: "100 900",
   variable: "--font-pretendard",
 });
 
@@ -77,9 +77,9 @@ export default function App({ Component, pageProps }: AppProps) {
 
       <QueryClientProvider client={queryClient}>
         <div
-          className={`pretendard.className flex w-screen h-screen  text-black ${
+          className={` flex w-screen h-screen  text-black ${
             router.pathname === "/login" ? "bg-partners" : "bg-[#F6F6F9]"
-          }`}
+          } ${pretendard.className} `}
         >
           {router.pathname !== "/login" &&
             (isMobile ? (
