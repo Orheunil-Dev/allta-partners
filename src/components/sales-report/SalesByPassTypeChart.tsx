@@ -85,7 +85,7 @@ export const SalesByPassTypeChart = ({ data, isLoading, isError }: Props) => {
       datasets: [
         {
           type: "line" as const,
-          label: "전체 매출",
+          label: "전체",
           data: rawData.map((item) => Number(item.totalSales)),
           borderColor: "transparent",
           backgroundColor: "transparent",
@@ -100,7 +100,7 @@ export const SalesByPassTypeChart = ({ data, isLoading, isError }: Props) => {
         {
           label: "일회권",
           data: rawData.map((item) => Number(item.ticketSales)),
-          backgroundColor: "#F69713",
+          backgroundColor: "#FFA425",
           borderRadius: 4,
         },
         {
@@ -124,11 +124,11 @@ export const SalesByPassTypeChart = ({ data, isLoading, isError }: Props) => {
 
           <div className="flex items-center ml-[20px] text-gray5 text-[14px]">
             <div className="w-[8px] h-[8px] mr-[6px] bg-[#5E5CE5] rounded-full" />
-            <p className="mr-[16px]">구독권 매출</p>
-            <div className="w-[8px] h-[8px] mr-[6px] bg-[#5CA2E6] rounded-full" />
-            <p className="mr-[16px]">일회권 매출</p>
+            <p className="mr-[16px]">구독권</p>
+            <div className="w-[8px] h-[8px] mr-[6px] bg-[#FFA425] rounded-full" />
+            <p className="mr-[16px]">일회권</p>
             <div className="w-[8px] h-[8px] mr-[6px] bg-[#E2F14E] rounded-full" />
-            <p>현장결제 매출</p>
+            <p>현장결제</p>
           </div>
         </div>
 

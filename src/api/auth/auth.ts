@@ -17,6 +17,7 @@ import type {
 
 import type {
   ChangeStoreAdminPasswordRequest,
+  ChangeStoreAdminPasswordResponse,
   PartnersLoginRequest
 } from '.././models';
 
@@ -202,7 +203,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
  options?: SecondParameter<typeof customInstance>,) => {
       
       
-      return customInstance<void>(
+      return customInstance<ChangeStoreAdminPasswordResponse>(
       {url: `/auth/password`, method: 'PATCH',
       headers: {'Content-Type': 'application/json', },
       data: changeStoreAdminPasswordRequest

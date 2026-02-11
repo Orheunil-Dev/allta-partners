@@ -9,6 +9,7 @@
 export * from './cancelServiceRequest';
 export * from './cancelServiceResponse';
 export * from './changeStoreAdminPasswordRequest';
+export * from './changeStoreAdminPasswordResponse';
 export * from './disconnectStaffRequest';
 export * from './disconnectStaffResponse';
 export * from './exportPaymentListRequest';
