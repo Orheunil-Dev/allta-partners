@@ -7,7 +7,9 @@ export const getDateBeforeDays = (days: number) => {
 };
 
 // 퍼센트 계산
-export const getPercent = (numerator: number, denominator: number) => {
+export const getPercent = (numerator: number, denominator: number): number => {
+  if (denominator === 0) return 0;
+
   return (numerator / denominator) * 100;
 };
 

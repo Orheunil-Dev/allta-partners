@@ -1,9 +1,9 @@
 import { useState } from "react";
 import dayjs from "dayjs";
-import { useSalesControllerGetSalesStatByPassType } from "@/api/sales/sales";
 import { ConditionBar } from "@/components/layout/ConditionBar";
 import {
   SalesByPassTypeChart,
+  SalesByPaymentMethod,
   SalesByProductTypeChart,
   SalesList,
   SalesSummary,
@@ -15,17 +15,6 @@ export default function Dashboard() {
     dayjs().subtract(29, "day").format("YYYY-MM-DD"),
   );
   const [endDate, setEndDate] = useState<string>(dayjs().format("YYYY-MM-DD"));
-
-  // 매출 통계 조회 API
-  const {
-    data: salesStatData,
-    isLoading: salesStatLoading,
-    isError: salesStatError,
-  } = useSalesControllerGetSalesStatByPassType({
-    storeIds: storeId ? [storeId] : [],
-    startDate,
-    endDate,
-  });
 
   return (
     <div className="flex flex-col w-full px-[20px] md:px-[40px] lg:px-[80px] py-[40px]">
@@ -42,9 +31,9 @@ export default function Dashboard() {
 
       <div className="flex flex-col xl:flex-row gap-x-[24px]">
         <SalesByPassTypeChart
-          data={salesStatData}
-          isLoading={salesStatLoading}
-          isError={salesStatError}
+          storeId={storeId}
+          startDate={startDate}
+          endDate={endDate}
         />
         <SalesByProductTypeChart
           storeId={storeId}
@@ -52,6 +41,12 @@ export default function Dashboard() {
           endDate={endDate}
         />
       </div>
+
+      <SalesByPaymentMethod
+        storeId={storeId}
+        startDate={startDate}
+        endDate={endDate}
+      />
 
       <SalesList storeId={storeId} startDate={startDate} endDate={endDate} />
     </div>

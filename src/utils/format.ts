@@ -225,8 +225,14 @@ export const formatPaymentMethod = (value: string) => {
     case "KIOSK_CARD":
       return "카드";
 
+    case "CASH":
+      return "현금";
+
     case "KIOSK_CASH":
-      return `현금`;
+      return "현금";
+
+    case "VOUCHER":
+      return "현금보관증";
 
     case "KIOSK_VOUCHER":
       return "현금보관증";

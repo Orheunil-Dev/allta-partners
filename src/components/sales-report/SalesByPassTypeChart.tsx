@@ -14,6 +14,7 @@ import {
 } from "chart.js";
 import { Chart } from "react-chartjs-2";
 import dayjs from "dayjs";
+import { useSalesControllerGetSalesStatByPassType } from "@/api/sales/sales";
 import {
   GetSalesStatByPassTypeResponse,
   PassTypeSalesStatItem,
@@ -33,12 +34,25 @@ ChartJS.register(
 );
 
 interface Props {
-  data: GetSalesStatByPassTypeResponse | undefined;
-  isLoading: boolean;
-  isError: boolean;
+  storeId?: string | null;
+  startDate: string;
+  endDate: string;
 }
 
-export const SalesByPassTypeChart = ({ data, isLoading, isError }: Props) => {
+export const SalesByPassTypeChart = ({
+  storeId,
+  startDate,
+  endDate,
+}: Props) => {
+  // 매출 통계 조회 API
+  const { data, isLoading, isError } = useSalesControllerGetSalesStatByPassType(
+    {
+      storeIds: storeId ? [storeId] : [],
+      startDate,
+      endDate,
+    },
+  );
+
   // // 매출 통계 추출
   // const handleDownload = async () => {
   //   try {
