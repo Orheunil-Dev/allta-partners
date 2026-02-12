@@ -6,7 +6,7 @@ import {
 } from "@/api/staff/staff";
 import { StaffListItem } from "@/api/models";
 import { Callout } from "../ui/Callout";
-import { SmallTable } from "../ui/Table";
+import { Table } from "../ui/Table";
 import { Pagination } from "../ui/Pagination";
 import { StaffDisconnectModal } from "./StaffDisconnectModal";
 import { StaffRegisterModal } from "./StaffRegisterModal";
@@ -131,7 +131,7 @@ export const StaffInfo = ({ storeId }: Props) => {
         </div>
 
         {/* 테이블 */}
-        <SmallTable data={data?.data ?? []} columns={columns} minHeight="0" />
+        <Table data={data?.data ?? []} columns={columns} minHeight="0" />
 
         {!data?.data.length && (
           <div className="flex justify-center py-[80px]">

@@ -28,10 +28,14 @@ const periods: Period[] = ["오늘", "7일", "30일", "90일"];
 interface Props {
   storeId: string | null;
   setStoreId: Dispatch<SetStateAction<string | null>>;
-  startDate: string;
-  setStartDate: Dispatch<SetStateAction<string>>;
-  endDate: string;
-  setEndDate: Dispatch<SetStateAction<string>>;
+  startDate: string | null;
+  setStartDate:
+    | Dispatch<SetStateAction<string | null>>
+    | Dispatch<SetStateAction<string>>;
+  endDate: string | null;
+  setEndDate:
+    | Dispatch<SetStateAction<string | null>>
+    | Dispatch<SetStateAction<string>>;
 }
 
 export const ConditionBar = ({
@@ -44,12 +48,13 @@ export const ConditionBar = ({
 }: Props) => {
   const { isDesktop } = useResizeHandler();
 
-  // 관리자 권한 있는 매장 목록
   const managedStoreList = useGetManagedStoreList();
 
   const [showDaypicker, setShowDaypicker] = useState<boolean>(false);
   const [range, setRange] = useState<DateRange | undefined>(undefined);
-  const [period, setPeriod] = useState<Period>("30일");
+  const [period, setPeriod] = useState<Period>(
+    startDate && endDate ? "30일" : "기타",
+  );
 
   // 기간 선택
   const handleSelectPeriod = () => {
@@ -250,10 +255,17 @@ export const ConditionBar = ({
             className="w-[20px] h-[20px] mr-[8px]"
           />
 
-          <p className="text-[16px]">
-            {dayjs(startDate).format("YY.MM.DD")} ~{" "}
-            {dayjs(endDate).format("YY.MM.DD")}
-          </p>
+          <div className="flex items-center text-[16px]">
+            <p className={startDate ? "text-black" : "text-gray5"}>
+              {startDate ? dayjs(startDate).format("YY.MM.DD") : "YY.MM.DD"}
+            </p>
+
+            <p className="mx-[4px]">~</p>
+
+            <p className={endDate ? "text-black" : "text-gray5"}>
+              {endDate ? dayjs(endDate).format("YY.MM.DD") : "YY.MM.DD"}
+            </p>
+          </div>
         </button>
       </div>
 

@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { CSSProperties, Dispatch, SetStateAction } from "react";
 import Image from "next/image";
 import { ColumnDef } from "@tanstack/react-table";
 import { Callout } from "@/components/ui/Callout";
@@ -10,35 +10,43 @@ interface Props<TData> {
   title: string;
   data: TData[];
   columns: ColumnDef<TData>[];
-  totalCount: number;
+  isLoading?: boolean;
+  totalCount?: number;
+  totalCountUnit?: string;
   take: number;
   page: number;
   setPage: Dispatch<SetStateAction<number>>;
   draftCarNumber?: string;
   setDraftCarNumber?: Dispatch<SetStateAction<string>>;
   onDownload?: () => void;
+  margin?: CSSProperties["margin"];
+  emptyMessage?: string;
 }
 
 export const List = <TData,>({
   title,
   data,
   columns,
-  totalCount,
+  isLoading,
+  totalCount = 0,
+  totalCountUnit = "건",
   take,
   page,
   setPage,
   draftCarNumber,
   setDraftCarNumber,
   onDownload,
+  margin = "24px 0 0 0",
+  emptyMessage,
 }: Props<TData>) => {
   return (
-    <Callout margin="24px 0 0 0">
+    <Callout margin={margin}>
       <div className="flex justify-between items-center w-full mb-[24px]">
         <div className="flex items-center">
           <p className="text-[16px] font-semibold">{title}</p>
           <div className="flex justify-center items-center ml-[12px] px-[6px] py-[2px] bg-gray1 rounded-[4px]">
             <p className="text-gray7 text-[16px] font-semibold">
-              {totalCount.toLocaleString()}명
+              {totalCount.toLocaleString() + totalCountUnit}
             </p>
           </div>
         </div>
@@ -88,6 +96,12 @@ export const List = <TData,>({
         page={page}
         setPage={setPage}
       />
+
+      {!isLoading && !totalCount && emptyMessage && (
+        <p className="absolute top-[300px] self-center text-center text-gray5 text-[18px] font-semibold">
+          {emptyMessage}
+        </p>
+      )}
     </Callout>
   );
 };

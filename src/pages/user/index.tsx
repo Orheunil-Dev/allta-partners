@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from "react";
-import Image from "next/image";
 import { CellContext, ColumnDef } from "@tanstack/react-table";
 import dayjs from "dayjs";
 import {
@@ -38,22 +37,12 @@ export default function UserList() {
 
   // 회원 목록 조회 API
   const { data, isLoading, isError, refetch } = useUserControllerGetUserList({
-    take: 20,
-    skip: 20 * page,
     ...(carNumber && { carNumber }),
     ...(rangeFilter.gte && { startDate: rangeFilter.gte }),
     ...(rangeFilter.lte && { endDate: rangeFilter.lte }),
+    take: 10,
+    skip: 10 * page,
   });
-
-  const rangeKeys = useMemo<RangeKey[]>(
-    () => [
-      {
-        key: "createdAt",
-        label: "가입일",
-      },
-    ],
-    [],
-  );
 
   const columns = useMemo<ColumnDef<UserListItem>[]>(
     () => [
@@ -223,8 +212,9 @@ export default function UserList() {
         title="회원 리스트"
         data={data?.data ?? []}
         columns={columns}
-        totalCount={data?.meta.totalCount ?? 0}
-        take={20}
+        totalCount={data?.meta.totalCount}
+        totalCountUnit="명"
+        take={10}
         page={page}
         setPage={setPage}
         draftCarNumber={draftCarNumber}

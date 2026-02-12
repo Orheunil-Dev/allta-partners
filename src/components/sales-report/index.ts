@@ -2,4 +2,3 @@ export * from "./SalesSummary";
 export * from "./SalesByPassTypeChart";
 export * from "./SalesByProductTypeChart";
 export * from "./SalesByPaymentMethod";
-export * from "./SalesList";

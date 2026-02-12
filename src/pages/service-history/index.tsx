@@ -1,97 +1,30 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { CellContext, ColumnDef } from "@tanstack/react-table";
 import dayjs from "dayjs";
 import { useServiceHistoryControllerGetServiceHistoryList } from "@/api/service-history/service-history";
 import { ServiceHistoryListItem } from "@/api/models";
-import { useSessionStore } from "@/hooks";
 import { formatPassType, formatServiceType } from "@/utils";
-import { RangeKey, SearchKey } from "@/types";
-import { Table } from "@/components/ui/Table";
-import { Filter } from "@/components/ui/Filter";
-import { Pagination } from "@/components/ui/Pagination";
+import { List } from "@/components/layout/List";
+import { ConditionBar } from "@/components/layout/ConditionBar";
 
-type SearchTerms = {
-  userName?: string;
-  phoneNumber?: string;
-  carNumber?: string;
-  storeName?: string;
-  productType?: string;
-  serviceType?: string;
-};
-
-type RangeFilter = {
-  key?: string;
-  gte?: string;
-  lte?: string;
-};
-
-export default function ServiceHistory() {
-  // 선택된 매장
-  const { store, setStore } = useSessionStore();
-
+export default function ServiceHistoryList() {
   const [page, setPage] = useState<number>(0);
-  const [searchTerms, setSearchTerms] = useState<SearchTerms>({
-    userName: undefined,
-    phoneNumber: undefined,
-    carNumber: undefined,
-    storeName: undefined,
-    productType: undefined,
-    serviceType: undefined,
-  });
-  const [draftSearchTerms, setDraftSearchTerms] =
-    useState<SearchTerms>(searchTerms);
-  const [rangeFilter, setRangeFilter] = useState<RangeFilter>({
-    key: "createdAt",
-    gte: undefined,
-    lte: undefined,
-  });
-  const [draftRangeFilter, setDraftRangeFilter] =
-    useState<RangeFilter>(rangeFilter);
+  const [storeId, setStoreId] = useState<string | null>(null);
+  const [carNumber, setCarNumber] = useState<string>("");
+  const [draftCarNumber, setDraftCarNumber] = useState<string>("");
+  const [startDate, setStartDate] = useState<string | null>(null);
+  const [endDate, setEndDate] = useState<string | null>(null);
 
   // 이용내역 목록 조회 API
   const { data, isLoading, isError, refetch } =
     useServiceHistoryControllerGetServiceHistoryList({
-      storeIds: store?.id ? [store.id] : [],
-      carNumber: searchTerms.carNumber,
-      storeName: searchTerms.storeName,
-      ...(searchTerms.productType !== undefined
-        ? { productType: searchTerms.productType }
-        : {}),
-      ...(searchTerms.serviceType !== undefined
-        ? { serviceType: searchTerms.serviceType }
-        : {}),
-      ...(rangeFilter.gte && { startDate: rangeFilter.gte }),
-      ...(rangeFilter.lte && { endDate: rangeFilter.lte }),
-      take: 20,
-      skip: 20 * page,
+      storeIds: storeId ? [storeId] : [],
+      ...(carNumber && { carNumber }),
+      ...(startDate && { startDate }),
+      ...(endDate && { endDate }),
+      take: 10,
+      skip: 10 * page,
     });
-
-  const searchKeys = useMemo<SearchKey[]>(
-    () => [
-      {
-        key: "storeName",
-        label: "매장명",
-        width: "260px",
-      },
-      {
-        key: "carNumber",
-        label: "차량번호",
-        width: "120px",
-        maxLength: 10,
-      },
-    ],
-    [],
-  );
-
-  const rangeKeys = useMemo<RangeKey[]>(
-    () => [
-      {
-        key: "createdAt",
-        label: "방문일",
-      },
-    ],
-    [],
-  );
 
   const columns = useMemo<ColumnDef<ServiceHistoryListItem>[]>(
     () => [
@@ -166,18 +99,10 @@ export default function ServiceHistory() {
 
   // 필터 적용
   const handleSearch = () => {
-    setSearchTerms(draftSearchTerms);
-    setRangeFilter(draftRangeFilter);
+    setCarNumber(draftCarNumber);
     setPage(0);
-  };
 
-  // 필터 초기화
-  const handleReset = () => {
-    setSearchTerms({});
-    setDraftSearchTerms({});
-    setRangeFilter({ key: "createdAt", gte: undefined, lte: undefined });
-    setDraftRangeFilter({ key: "createdAt", gte: undefined, lte: undefined });
-    setPage(0);
+    refetch();
   };
 
   // 엑셀 파일 추출
@@ -190,18 +115,10 @@ export default function ServiceHistory() {
           headers: { "Content-Type": "application/json" },
           credentials: "include",
           body: JSON.stringify({
-            storeName: searchTerms.storeName,
-            userName: searchTerms.userName,
-            phoneNumber: searchTerms.phoneNumber,
-            carNumber: searchTerms.carNumber,
-            ...(searchTerms.productType !== undefined
-              ? { productType: searchTerms.productType }
-              : {}),
-            ...(searchTerms.serviceType !== undefined
-              ? { serviceType: searchTerms.serviceType }
-              : {}),
-            ...(rangeFilter.gte && { startDate: rangeFilter.gte }),
-            ...(rangeFilter.lte && { endDate: rangeFilter.lte }),
+            storeIds: storeId ? [storeId] : [],
+            ...(carNumber && { carNumber }),
+            ...(startDate && { startDate }),
+            ...(endDate && { endDate }),
           }),
         },
       );
@@ -226,36 +143,40 @@ export default function ServiceHistory() {
     }
   };
 
+  useEffect(() => {
+    if (draftCarNumber === carNumber) return;
+
+    const timer = setTimeout(() => {
+      handleSearch();
+    }, 300);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [draftCarNumber]);
+
   return (
     <div className="flex flex-col h-full px-[20px] md:px-[40px] lg:px-[80px] py-[40px] overflow-y-auto">
-      {/* 검색 필터 */}
-      <Filter
-        searchKeys={searchKeys}
-        searchTerms={draftSearchTerms}
-        setSearchTerms={setDraftSearchTerms}
-        rangeKeys={rangeKeys}
-        rangeFilter={draftRangeFilter}
-        setRangeFilter={setDraftRangeFilter}
-        onSearch={handleSearch}
-        onReset={handleReset}
+      <ConditionBar
+        storeId={storeId}
+        setStoreId={setStoreId}
+        startDate={startDate}
+        setStartDate={setStartDate}
+        endDate={endDate}
+        setEndDate={setEndDate}
       />
 
-      {/* 테이블 */}
-      <Table
-        basePath="payment"
+      <List
+        title="이용 내역"
         data={data?.data ?? []}
-        totalCount={data?.meta.totalCount ?? 0}
-        page={page}
         columns={columns}
-        onDownload={handleDownload}
-      />
-
-      {/* 페이지네이션 */}
-      <Pagination
-        totalCount={data?.meta.totalCount ?? 0}
-        take={20}
+        totalCount={data?.meta.totalCount}
+        take={10}
         page={page}
         setPage={setPage}
+        draftCarNumber={draftCarNumber}
+        setDraftCarNumber={setDraftCarNumber}
+        onDownload={handleDownload}
       />
     </div>
   );
