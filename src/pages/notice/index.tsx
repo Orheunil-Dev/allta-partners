@@ -73,15 +73,7 @@ export default function NoticeList() {
   return (
     <div className="flex flex-col h-full px-[20px] pt-[60px] pb-[40px] md:px-[40px] md:pt-[0px] md:pb-[40px] overflow-y-auto">
       {/* 테이블 */}
-      <Table
-        basePath="notice"
-        data={data?.data ?? []}
-        totalCount={data?.meta.totalCount ?? 0}
-        page={page}
-        columns={columns}
-        onRegister={() => router.push("/notice/register")}
-        clickable
-      />
+      <Table data={data?.data ?? []} columns={columns} />
 
       {/* 페이지네이션 */}
       <Pagination
