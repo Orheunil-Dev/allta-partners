@@ -63,3 +63,7 @@ export { default as calendarIcon } from "./calendar-icon.png";
 // 매장
 export { default as addressIcon } from "./address-icon.png";
 export { default as phoneIcon } from "./phone-icon.png";
+
+// 설정
+export { default as showPasswordIcon } from "./show-password-icon.png";
+export { default as hidePasswordIcon } from "./hide-password-icon.png";

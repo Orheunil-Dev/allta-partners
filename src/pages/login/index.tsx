@@ -1,10 +1,15 @@
 import { useRouter } from "next/router";
+import Image from "next/image";
 import { useFormik } from "formik";
 import * as z from "zod";
 import { useAuthControllerPartnersAdminLogin } from "@/api/auth/auth";
 import { validateForm } from "@/utils";
-import Image from "next/image";
-import { loginLogo } from "../../../public/images";
+import {
+  hidePasswordIcon,
+  loginLogo,
+  showPasswordIcon,
+} from "../../../public/images";
+import { useState } from "react";
 
 const schema = z.object({
   identity: z.string().min(1, "ID를 입력해주세요."),
@@ -13,6 +18,8 @@ const schema = z.object({
 
 export default function Login() {
   const router = useRouter();
+
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   // 로그인 API
   const {
@@ -51,7 +58,7 @@ export default function Login() {
             alert(error.message ?? "로그인 중 에러가 발생했습니다.");
             console.log(error);
           },
-        }
+        },
       );
     },
   });
@@ -73,15 +80,31 @@ export default function Login() {
           className="w-full mt-[40px] px-[12px] py-[10px] text-[16px] bg-gray1 rounded-[8px]"
         />
 
-        <input
-          name="password"
-          type="password"
-          value={formik.values.password}
-          onChange={(e) => formik.setFieldValue("password", e.target.value)}
-          maxLength={50}
-          placeholder="비밀번호"
-          className="w-full mt-[12px] px-[12px] py-[10px] text-[16px] bg-gray1 rounded-[8px]"
-        />
+        <div className="relative flex items-center w-full mt-[12px]">
+          <input
+            name="password"
+            type={showPassword ? "text" : "password"}
+            value={formik.values.password}
+            onChange={(e) => formik.setFieldValue("password", e.target.value)}
+            maxLength={50}
+            placeholder="비밀번호"
+            className="w-full px-[12px] py-[10px] text-[16px] bg-gray1 rounded-[8px]"
+          />
+
+          {formik.values.password.length > 0 && (
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-[12px] cursor-pointer"
+            >
+              <Image
+                src={showPassword ? showPasswordIcon : hidePasswordIcon}
+                alt="비밀번호"
+                className="size-[20px]"
+              />
+            </button>
+          )}
+        </div>
 
         <button
           type="submit"

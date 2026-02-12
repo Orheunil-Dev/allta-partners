@@ -7,11 +7,15 @@ import {
   useAuthControllerPartnersAdminlogout,
 } from "@/api/auth/auth";
 import { ChangeStoreAdminPasswordRequest } from "@/api/models";
+import { regexPassword } from "@/utils";
 import { CustomModal } from "../ui/Modal";
 import { CustomButton } from "../ui/Button";
-import { closeIcon } from "../../../public/images";
+import {
+  closeIcon,
+  hidePasswordIcon,
+  showPasswordIcon,
+} from "../../../public/images";
 import { colors } from "@/styles";
-import { regexPassword } from "@/utils";
 
 const schema = z
   .object({
@@ -50,6 +54,9 @@ export const ChangePasswordModal = ({ visible, onClose }: Props) => {
     newPassword: "",
     confirmPassword: "",
   });
+  const [showPassword, setShowPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   // 비밀번호 변경 API
   const {
@@ -112,42 +119,95 @@ export const ChangePasswordModal = ({ visible, onClose }: Props) => {
           </button>
         </div>
 
-        <div className="grid grid-cols-[100px_1fr] items-center w-full mt-[32px] px-[48px] gap-x-[20px] gap-y-[20px]">
+        <div className="grid grid-cols-[80px_1fr] items-center w-full mt-[32px] px-[48px] gap-x-[20px] gap-y-[20px]">
           {/* 현재 비밀번호 */}
           <p className="text-[14px] font-semibold">현재 비밀번호</p>
-          <input
-            type="password"
-            value={form.password}
-            onChange={(e) => {
-              handleChange("password", e.target.value);
-            }}
-            placeholder="현재 비밀번호 입력"
-            className="h-[36px] px-[12px] text-[14px] border border-gray2 rounded-[6px]"
-          />
+
+          <div className="relative flex items-center w-full">
+            <input
+              type={showPassword ? "text" : "password"}
+              value={form.password}
+              onChange={(e) => {
+                handleChange("password", e.target.value);
+              }}
+              placeholder="현재 비밀번호 입력"
+              className="w-full h-[36px] pl-[12px] pr-[40px] text-[14px] border border-gray2 rounded-[6px]"
+            />
+
+            {form.password.length > 0 && (
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-[12px] cursor-pointer"
+              >
+                <Image
+                  src={showPassword ? showPasswordIcon : hidePasswordIcon}
+                  alt="현재 비밀번호"
+                  className="size-[20px]"
+                />
+              </button>
+            )}
+          </div>
 
           {/* 새 비밀번호 */}
           <p className="text-[14px] font-semibold">새 비밀번호</p>
-          <input
-            type="password"
-            value={form.newPassword}
-            onChange={(e) => {
-              handleChange("newPassword", e.target.value);
-            }}
-            placeholder="새 비밀번호 입력"
-            className="h-[36px] px-[12px] text-[14px] border border-gray2 rounded-[6px]"
-          />
+
+          <div className="relative flex items-center w-full">
+            <input
+              type={showNewPassword ? "text" : "password"}
+              value={form.newPassword}
+              onChange={(e) => {
+                handleChange("newPassword", e.target.value);
+              }}
+              placeholder="새 비밀번호 입력"
+              className="w-full h-[36px] pl-[12px] pr-[40px] text-[14px] border border-gray2 rounded-[6px]"
+            />
+
+            {form.newPassword.length > 0 && (
+              <button
+                type="button"
+                onClick={() => setShowNewPassword(!showNewPassword)}
+                className="absolute right-[12px] cursor-pointer"
+              >
+                <Image
+                  src={showNewPassword ? showPasswordIcon : hidePasswordIcon}
+                  alt="새 비밀번호"
+                  className="size-[20px]"
+                />
+              </button>
+            )}
+          </div>
 
           {/* 비밀번호 확인 */}
           <p className="text-[14px] font-semibold">비밀번호 확인</p>
-          <input
-            type="password"
-            value={form.confirmPassword}
-            onChange={(e) => {
-              handleChange("confirmPassword", e.target.value);
-            }}
-            placeholder="비밀번호 확인 입력"
-            className="h-[36px] px-[12px] text-[14px] border border-gray2 rounded-[6px]"
-          />
+
+          <div className="relative flex items-center w-full">
+            <input
+              type={showConfirmPassword ? "text" : "password"}
+              value={form.confirmPassword}
+              onChange={(e) => {
+                handleChange("confirmPassword", e.target.value);
+              }}
+              placeholder="비밀번호 확인 입력"
+              className="w-full h-[36px] pl-[12px] pr-[40px] text-[14px] border border-gray2 rounded-[6px]"
+            />
+
+            {form.confirmPassword.length > 0 && (
+              <button
+                type="button"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                className="absolute right-[12px] cursor-pointer"
+              >
+                <Image
+                  src={
+                    showConfirmPassword ? showPasswordIcon : hidePasswordIcon
+                  }
+                  alt="비밀번호 확인"
+                  className="size-[20px]"
+                />
+              </button>
+            )}
+          </div>
         </div>
 
         <div className="flex gap-[12px] mt-[32px]">
