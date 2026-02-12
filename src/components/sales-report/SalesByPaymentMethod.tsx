@@ -1,6 +1,5 @@
 import { useSalesControllerGetSalesByPaymentMethod } from "@/api/sales/sales";
-import { formatPaymentMethod, formatProductType, getPercent } from "@/utils";
-import { colors } from "@/styles";
+import { formatPaymentMethod, getPercent } from "@/utils";
 import { Callout } from "../ui/Callout";
 
 interface Props {

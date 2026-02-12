@@ -9,9 +9,7 @@ import {
 import { UserListItem } from "@/api/models";
 import { RangeKey, SearchKey } from "@/types";
 import { Callout } from "@/components/ui/Callout";
-import { SmallTable } from "@/components/ui/Table";
-import { Pagination } from "@/components/ui/Pagination";
-import { downloadIcon, graySearchIcon } from "../../../public/images";
+import { List } from "@/components/layout/List";
 
 type RangeFilter = {
   key?: string;
@@ -221,56 +219,17 @@ export default function UserList() {
         </Callout>
       </div>
 
-      <Callout margin="24px 0 0 0">
-        <div className="flex justify-between items-center w-full">
-          <div className="flex items-center">
-            <p className="text-[16px] font-semibold">회원 리스트</p>
-            <div className="flex justify-center items-center ml-[12px] px-[6px] py-[2px] bg-gray1 rounded-[4px]">
-              <p className="text-gray7 text-[16px] font-semibold">
-                {data?.meta.totalCount.toLocaleString() ?? 0}명
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-center">
-            <div className="relative flex items-center">
-              <input
-                value={draftCarNumber}
-                onChange={(e) => setDraftCarNumber(e.target.value)}
-                maxLength={12}
-                placeholder="차량번호 검색"
-                className="flex items-center w-[160px] h-[32px] pl-[32px] pr-[8px] text-[13px] border border-line rounded-[8px]"
-              />
-
-              <Image
-                src={graySearchIcon}
-                alt="검색"
-                className="absolute size-[20px] left-[8px] z-[1]"
-              />
-            </div>
-
-            <button className="flex justify-center items-center w-[84px] h-[32px] ml-[12px] border border-line rounded-[8px] cursor-pointer">
-              <Image
-                src={downloadIcon}
-                alt="다운로드"
-                className="size-[16px] mr-[4px]"
-              />
-              <span className="text-[13px]">다운로드</span>
-            </button>
-          </div>
-        </div>
-
-        {/* 테이블 */}
-        <SmallTable data={data?.data ?? []} columns={columns} />
-
-        {/* 페이지네이션 */}
-        <Pagination
-          totalCount={data?.meta.totalCount ?? 0}
-          take={20}
-          page={page}
-          setPage={setPage}
-        />
-      </Callout>
+      <List
+        title="회원 리스트"
+        data={data?.data ?? []}
+        columns={columns}
+        totalCount={data?.meta.totalCount ?? 0}
+        take={20}
+        page={page}
+        setPage={setPage}
+        draftCarNumber={draftCarNumber}
+        setDraftCarNumber={setDraftCarNumber}
+      />
     </div>
   );
 }
