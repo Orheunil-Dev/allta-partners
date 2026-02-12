@@ -103,11 +103,7 @@ export const ConditionBar = ({
     return (
       <components.SingleValue {...props}>
         <div className="flex items-center gap-x-[4px] whitespace-nowrap">
-          <Image
-            src={conditionBarIcon}
-            alt="매장"
-            className="w-[16px] h-[16px]"
-          />
+          <Image src={conditionBarIcon} alt="매장" className="size-[20px]" />
           <span>{props.children}</span>
         </div>
       </components.SingleValue>
@@ -279,29 +275,28 @@ export const ConditionBar = ({
 const selectStyles: StylesConfig<SelectOption> = {
   container: (provided) => ({
     ...provided,
-    fontSize: "14px",
     zIndex: 3,
   }),
   placeholder: (provided) => ({
     ...provided,
-    fontSize: "14px",
+    fontSize: "16px",
   }),
   control: (provided) => ({
     ...provided,
-    width: "160px",
+    width: "200px",
     minHeight: "34px",
-    padding: "6px 10px",
+    padding: "8px 10px",
     borderWidth: "1px",
     borderColor: "#DDDDDF",
     borderRadius: "8px",
     outline: "none",
     cursor: "pointer",
     fontSize: "14px",
+    fontWeight: "500",
   }),
   input: (provided) => ({
     ...provided,
     outline: "none",
-    fontSize: "14px",
   }),
   valueContainer: (provided) => ({
     ...provided,
@@ -313,12 +308,10 @@ const selectStyles: StylesConfig<SelectOption> = {
     width: "160px",
     borderRadius: "8px",
     overflow: "hidden",
-    fontSize: "14px",
   }),
   menuList: (provided) => ({
     ...provided,
     padding: 0,
-    fontSize: "14px",
   }),
   option: (provided, state) => ({
     ...provided,
@@ -326,6 +319,7 @@ const selectStyles: StylesConfig<SelectOption> = {
     color: "#262627",
     textAlign: "start",
     fontSize: "14px",
+    fontWeight: "500",
     cursor: "pointer",
     ":active": {
       backgroundColor: "#D1D1F0",
@@ -340,6 +334,5 @@ const selectStyles: StylesConfig<SelectOption> = {
   dropdownIndicator: (provided) => ({
     ...provided,
     padding: 0,
-    fontSize: "14px",
   }),
 };

@@ -37,7 +37,7 @@ export const ServiceSummary = ({ storeId, startDate, endDate }: Props) => {
             key={index}
             className="flex flex-col px-[20px] py-[16px] bg-gray1 rounded-[8px]"
           >
-            <p className="text-[14px] font-medium">
+            <p className="text-gray7 text-[14px] font-medium">
               {formatPassType(value.passType)}
             </p>
             <p className="mt-[8px] text-[20px] font-semibold">

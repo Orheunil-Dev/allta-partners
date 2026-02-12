@@ -137,7 +137,7 @@ export const StoreStat = ({ storeId }: Props) => {
     <Callout flex={1}>
       <div className="flex justify-between items-center w-full mb-[20px] gap-x-[12px]">
         <div className="flex items-center">
-          <p className="text-[18px] font-semibold">매장 매출 통계</p>
+          <p className="text-[16px] font-semibold">매장 매출 통계</p>
 
           <div className="flex items-center ml-[20px] text-gray5 text-[14px]">
             <div className="w-[8px] h-[8px] mr-[6px] bg-[#5E5CE5] rounded-full" />

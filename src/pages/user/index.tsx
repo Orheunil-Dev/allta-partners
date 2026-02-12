@@ -201,21 +201,21 @@ export default function UserList() {
       <div className="flex justify-between items-center gap-[24px]">
         <Callout>
           <p className="text-gray5 text-[16px] font-medium">전체 가입자 수</p>
-          <p className="mt-[12px] test-[24px] font-semibold">
+          <p className="mt-[12px] text-[20px] font-semibold">
             {usersCountData?.data.totalUsersCount.toLocaleString() ?? 0} 명
           </p>
         </Callout>
 
         <Callout>
           <p className="text-gray5 text-[16px] font-medium">신규 가입</p>
-          <p className="mt-[12px] test-[24px] font-semibold">
+          <p className="mt-[12px] text-[20px] font-semibold">
             {usersCountData?.data.totalUsersCount.toLocaleString() ?? 0} 명
           </p>
         </Callout>
 
         <Callout>
           <p className="text-gray5 text-[16px] font-medium">VIP 회원</p>
-          <p className="mt-[12px] test-[24px] font-semibold">
+          <p className="mt-[12px] text-[20px] font-semibold">
             {usersCountData?.data.totalUsersCount.toLocaleString() ?? 0} 명
           </p>
         </Callout>
@@ -224,7 +224,7 @@ export default function UserList() {
       <Callout margin="24px 0 0 0">
         <div className="flex justify-between items-center w-full">
           <div className="flex items-center">
-            <p className="text-[18px] font-semibold">회원 리스트</p>
+            <p className="text-[16px] font-semibold">회원 리스트</p>
             <div className="flex justify-center items-center ml-[12px] px-[6px] py-[2px] bg-gray1 rounded-[4px]">
               <p className="text-gray7 text-[16px] font-semibold">
                 {data?.meta.totalCount.toLocaleString() ?? 0}명
