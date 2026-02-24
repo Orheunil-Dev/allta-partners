@@ -3,11 +3,11 @@ import { useSalesControllerGetMoMSales } from "@/api/sales/sales";
 import { useVisitControllerGetMoMVisit } from "@/api/visit/visit";
 import { useMarketingControllerGetMoMMarketingROI } from "@/api/marketing/marketing";
 import { getChangedRate } from "@/utils";
+import { LockedContent } from "../layout/LockedContent";
 import {
   conversionRateIcon,
   decreaseIcon,
   increaseIcon,
-  lockIcon,
   monthSalesIcon,
   roiIcon,
   todaySalesIcon,
@@ -193,13 +193,7 @@ export const MarketingSummary = ({ storeId }: Props) => {
         className="relative flex md:flex-1 w-full h-[134px] pt-[20px] px-[24px] bg-white rounded-[20px]"
         style={{ boxShadow: "0 4px 10px 2px rgba(28, 28, 44, 0.04)" }}
       >
-        {!momROIData?.data && (
-          <div className="absolute flex flex-col justify-center items-center w-full h-full top-0 right-0 text-center bg-white/70 backdrop-blur-[3px] rounded-[20px] z-[1]">
-            <div className="flex justify-center items-center size-[40px] bg-gray1 rounded-full">
-              <Image src={lockIcon} alt="Pro 전용" className="size-[20px]" />
-            </div>
-          </div>
-        )}
+        {!momROIData?.data && <LockedContent />}
 
         <div className="flex flex-col">
           <p className="text-gray5 text-[16px] font-medium">
@@ -241,13 +235,7 @@ export const MarketingSummary = ({ storeId }: Props) => {
         className="relative flex md:flex-1 w-full h-[134px] pt-[20px] px-[24px] bg-white rounded-[20px]"
         style={{ boxShadow: "0 4px 10px 2px rgba(28, 28, 44, 0.04)" }}
       >
-        {!momROIData?.data && (
-          <div className="absolute flex flex-col justify-center items-center w-full h-full top-0 right-0 text-center bg-white/70 backdrop-blur-[3px] rounded-[20px] z-[1]">
-            <div className="flex justify-center items-center size-[40px] bg-gray1 rounded-full">
-              <Image src={lockIcon} alt="Pro 전용" className="size-[20px]" />
-            </div>
-          </div>
-        )}
+        {!momROIData?.data && <LockedContent />}
 
         <div className="flex flex-col">
           <p className="text-gray5 text-[16px] font-medium">캠페인 전환율</p>

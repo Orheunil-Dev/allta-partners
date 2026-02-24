@@ -7,6 +7,7 @@ import { CustomButton } from "../ui/Button";
 import { mockVisitCohort } from "@/mock";
 import { infoIcon, lockIcon } from "../../../public/images";
 import { colors } from "@/styles";
+import { LockedContent } from "../layout/LockedContent";
 
 const PANEL_COLORS = [
   { min: 100, color: "#5959E8" },
@@ -92,33 +93,18 @@ export const VisitCohortChart = ({ storeId }: Props) => {
       style={{ boxShadow: "0 4px 10px 2px rgba(28, 28, 44, 0.04)" }}
     >
       {!visitCohortData?.ok && (
-        <div className="absolute flex flex-col justify-center items-center w-full h-full top-0 right-0 text-center bg-white/70 backdrop-blur-[3px] rounded-[20px] z-[1]">
-          <div className="flex justify-center items-center size-[40px] bg-gray1 rounded-full">
-            <Image src={lockIcon} alt="Pro 전용" className="size-[20px]" />
-          </div>
-
-          <p className="mt-[8px] text-[16px] font-semibold">Pro 전용</p>
-          <p className="mt-[4px] text-gray7 text-[14px]">
-            고객 재방문율 및 이탈 분석 기능은
-            <br />
-            유료 플랜에서 제공됩니다.
-          </p>
-
-          <CustomButton
-            onClick={() =>
-              alert(
-                "멤버십 업그레이드는 맞춤형 계약으로 제공됩니다.\n계약 기간 및 요금은 상담을 통해 안내드립니다.\n문의 전화번호: 1668-1620",
-              )
-            }
-            width="130px"
-            margin="24px 0 0 0"
-            backgroundColor={colors.main}
-          >
-            <p className="text-white text-[14px] font-medium">
-              멤버쉽 업그레이드
-            </p>
-          </CustomButton>
-        </div>
+        <LockedContent
+          title="Pro 전용"
+          content={
+            "고객 재방문율 및 이탈 분석 기능은\n유료 플랜에서 제공됩니다."
+          }
+          buttonText="멤버쉽 업그레이드"
+          onClick={() =>
+            alert(
+              "멤버십 업그레이드는 맞춤형 계약으로 제공됩니다.\n계약 기간 및 요금은 상담을 통해 안내드립니다.\n문의 전화번호: 1668-1620",
+            )
+          }
+        />
       )}
 
       <div className="relative flex">

@@ -69,24 +69,26 @@ export const MarketingRoiChart = ({ storeId }: Props) => {
       labels,
       datasets: [
         {
-          type: "line" as const,
-          label: "순매출",
-          data: rawData.map((item) => Number(item.netSales)),
-          borderColor: "transparent",
-          backgroundColor: "transparent",
-          fill: false,
-        },
-        {
           label: "매출",
           data: rawData.map((item) => Number(item.sales)),
           backgroundColor: "#5E5CE5",
           borderRadius: 4,
+          grouped: false,
+          order: 1,
         },
         {
           label: "마케팅 비용",
           data: rawData.map((item) => Number(item.marketingSpend)),
           backgroundColor: "#FFA425",
           borderRadius: 4,
+          stack: "total",
+        },
+        {
+          label: "순매출",
+          data: rawData.map((item) => Number(item.netSales)),
+          backgroundColor: "transparent",
+          borderRadius: 4,
+          stack: "total",
         },
       ],
     };
@@ -152,7 +154,6 @@ export const MarketingRoiChart = ({ storeId }: Props) => {
           },
           scales: {
             x: {
-              stacked: true,
               grid: {
                 display: false,
               },
@@ -160,7 +161,6 @@ export const MarketingRoiChart = ({ storeId }: Props) => {
             y: {
               type: "linear",
               position: "left",
-              stacked: true,
               beginAtZero: true,
               grace: "10%",
               ticks: { maxTicksLimit: 8 },
@@ -170,7 +170,16 @@ export const MarketingRoiChart = ({ storeId }: Props) => {
           },
           plugins: {
             legend: { display: false },
-            tooltip: { enabled: true },
+            tooltip: {
+              enabled: true,
+              itemSort: (a, b) => {
+                const order = ["매출", "마케팅 비용", "순매출"];
+                return (
+                  order.indexOf(a.dataset.label as string) -
+                  order.indexOf(b.dataset.label as string)
+                );
+              },
+            },
           },
         }}
       />

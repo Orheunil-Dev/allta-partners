@@ -27,16 +27,20 @@ export const LockedContent = ({
       </div>
 
       <p className="mt-[8px] text-[16px] font-semibold">{title}</p>
-      <p className="mt-[4px] text-gray7 text-[14px]">{content}</p>
+      <p className="mt-[4px] text-gray7 text-[14px] whitespace-pre-line">
+        {content}
+      </p>
 
-      <CustomButton
-        onClick={onClick}
-        width="130px"
-        margin="24px 0 0 0"
-        backgroundColor={colors.main}
-      >
-        <p className="text-white text-[14px] font-medium">{buttonText}</p>
-      </CustomButton>
+      {onClick && (
+        <CustomButton
+          onClick={onClick}
+          width="130px"
+          margin="24px 0 0 0"
+          backgroundColor={colors.main}
+        >
+          <p className="text-white text-[14px] font-medium">{buttonText}</p>
+        </CustomButton>
+      )}
     </div>
   );
 };

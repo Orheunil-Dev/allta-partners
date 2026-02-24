@@ -5,14 +5,14 @@
  * Allta Partners 서버 문서입니다.
  * OpenAPI spec version: 1.0
  */
-import type { GetCrmLogListItem } from './getCrmLogListItem';
+import type { CrmLogListItem } from './crmLogListItem';
 import type { PaginationMetaEntity } from './paginationMetaEntity';
 
 export interface GetCrmLogListResponse {
   /** 결과 여부 */
   ok: boolean;
   /** 응답 데이터 */
-  data: GetCrmLogListItem[];
+  data: CrmLogListItem[];
   /** 메타 정보 */
   meta: PaginationMetaEntity;
 }

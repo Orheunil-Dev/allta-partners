@@ -6,7 +6,7 @@
  * OpenAPI spec version: 1.0
  */
 
-export interface GetCrmLogListItem {
+export interface CrmLogListItem {
   /** ID */
   id: string;
   /** 대분류 */

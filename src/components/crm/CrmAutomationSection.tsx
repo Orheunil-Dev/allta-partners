@@ -1,0 +1,122 @@
+import Image from "next/image";
+import ReactSwitch from "react-switch";
+import { Callout } from "../ui/Callout";
+import { LockedContent } from "../layout/LockedContent";
+import { discontinueIcon } from "../../../public/images";
+import { colors } from "@/styles";
+
+interface Props {
+  storeId: string | null;
+  storeName: string | null;
+  isLocked: boolean;
+}
+
+export const CrmAutomationSection = ({
+  storeId,
+  storeName,
+  isLocked,
+}: Props) => {
+  if (!storeId) return;
+
+  return (
+    <div className="flex flex-col xl:grid xl:grid-cols-2 mt-[24px] gap-[24px]">
+      <Callout position="relative">
+        {isLocked && <LockedContent />}
+
+        <div className="flex justify-between items-start">
+          <div className="flex">
+            <div className="flex justify-center items-center size-[40px] mr-[16px] bg-back4 rounded-full">
+              <Image
+                src={discontinueIcon}
+                alt="이용 중단 고객 케어"
+                className="size-[24px]"
+              />
+            </div>
+
+            <div className="flex flex-col">
+              <p className="text-[18px] font-semibold">이용 중단 고객 케어</p>
+              <p className="mt-[4px] text-gray5 text-[14px]">
+                장기 미방문 고객 자동 메세지 발송
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center">
+            <p className="mr-[4px] text-gray7 text-[14px]">오늘 발송</p>
+
+            <div className="mr-[16px] px-[10px] py-[2px] text-main text-[14px] font-medium bg-back4 rounded-[50px]">
+              0건
+            </div>
+
+            <ReactSwitch
+              checked={false}
+              onChange={() => {}}
+              onColor={colors.main}
+              checkedIcon={false}
+              offColor={colors.gray2}
+              uncheckedIcon={false}
+              width={40}
+              height={24}
+            />
+          </div>
+        </div>
+
+        <div className="flex flex-1 items-center mt-[20px] p-[20px] bg-gray1 border border-line rounded-[8px]">
+          <p className="text-[14px]">
+            [{storeName}] 고객님, 세차하신지 10일이 지났네요! 소중한 내 차를
+            위해 오랜만에 세차 어떠세요? 🚗✨
+          </p>
+        </div>
+      </Callout>
+
+      <Callout position="relative">
+        {isLocked && <LockedContent />}
+
+        <div className="flex justify-between items-start">
+          <div className="flex">
+            <div className="flex justify-center items-center size-[40px] mr-[16px] bg-back4 rounded-full">
+              <Image
+                src={discontinueIcon}
+                alt="이용 중단 고객 케어"
+                className="size-[24px]"
+              />
+            </div>
+
+            <div className="flex flex-col">
+              <p className="text-[18px] font-semibold">방문 고객 감사 인사</p>
+              <p className="mt-[4px] text-gray5 text-[14px]">
+                이용 완료 30분 후 자동 발송
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center">
+            <p className="mr-[4px] text-gray7 text-[14px]">오늘 발송</p>
+
+            <div className="mr-[16px] px-[10px] py-[2px] text-main text-[14px] font-medium bg-back4 rounded-[50px]">
+              0건
+            </div>
+
+            <ReactSwitch
+              checked={false}
+              onChange={() => {}}
+              onColor={colors.main}
+              checkedIcon={false}
+              offColor={colors.gray2}
+              uncheckedIcon={false}
+              width={40}
+              height={24}
+            />
+          </div>
+        </div>
+
+        <div className="flex flex-1  items-center mt-[20px] p-[20px] bg-gray1 border border-line rounded-[8px]">
+          <p className="text-[14px]">
+            [{storeName}] 고객님, {storeName}을 방문해주셔서 감사합니다. 😊 다음
+            방문도 더 만족스러운 서비스로 보답하겠습니다.
+          </p>
+        </div>
+      </Callout>
+    </div>
+  );
+};
