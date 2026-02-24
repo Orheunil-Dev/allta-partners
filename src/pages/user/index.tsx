@@ -6,7 +6,6 @@ import {
   useUserControllerGetUsersCount,
 } from "@/api/user/user";
 import { UserListItem } from "@/api/models";
-import { RangeKey, SearchKey } from "@/types";
 import { Callout } from "@/components/ui/Callout";
 import { List } from "@/components/layout/List";
 

@@ -28,14 +28,15 @@ const periods: Period[] = ["오늘", "7일", "30일", "90일"];
 interface Props {
   storeId: string | null;
   setStoreId: Dispatch<SetStateAction<string | null>>;
-  startDate: string | null;
-  setStartDate:
+  startDate?: string | null;
+  setStartDate?:
     | Dispatch<SetStateAction<string | null>>
     | Dispatch<SetStateAction<string>>;
-  endDate: string | null;
-  setEndDate:
+  endDate?: string | null;
+  setEndDate?:
     | Dispatch<SetStateAction<string | null>>
     | Dispatch<SetStateAction<string>>;
+  showEntireStore?: boolean;
 }
 
 export const ConditionBar = ({
@@ -45,6 +46,7 @@ export const ConditionBar = ({
   setStartDate,
   endDate,
   setEndDate,
+  showEntireStore = true,
 }: Props) => {
   const { isDesktop } = useResizeHandler();
 
@@ -58,6 +60,7 @@ export const ConditionBar = ({
 
   // 기간 선택
   const handleSelectPeriod = () => {
+    if (!setStartDate || !setEndDate) return;
     if (!range?.from || !range?.to) return;
 
     const from = range.from;
@@ -71,6 +74,7 @@ export const ConditionBar = ({
 
   // 기간 버튼 클릭
   const handleTogglePeriod = (value: Period) => () => {
+    if (!setStartDate || !setEndDate) return;
     if (period === value) return;
 
     const today = dayjs();
@@ -121,7 +125,7 @@ export const ConditionBar = ({
       label: store.name,
     }));
 
-    if (managedStoreList.length <= 1) {
+    if (managedStoreList.length <= 1 || !showEntireStore) {
       return stores;
     }
 
@@ -147,7 +151,7 @@ export const ConditionBar = ({
     <Callout
       flexDirection={isDesktop ? "row" : "column"}
       margin="0 0 24px 0"
-      gap={isDesktop ? "20px" : "8px"}
+      gap={isDesktop ? "20px" : "12px"}
     >
       <Select<SelectOption>
         options={selectOptions}
@@ -169,117 +173,119 @@ export const ConditionBar = ({
         styles={selectStyles}
       />
 
-      <div className="relative flex items-center">
-        {/* 캘린더 */}
-        {showDaypicker && (
-          <div
-            className="absolute flex flex-col min-w-[680px] top-[30px] px-[16px] py-[12px] bg-white rounded-[12px] z-[4]"
-            style={{ boxShadow: "0 4px 10px 2px rgba(28, 28, 44, 0.04)" }}
+      {setStartDate && setEndDate && (
+        <div className="relative flex flex-col lg:flex-row items-start lg:items-center gap-[12px] lg:gap-[20px]">
+          {/* 캘린더 */}
+          {showDaypicker && (
+            <div
+              className="absolute flex flex-col min-w-[680px] top-[30px] px-[16px] py-[12px] bg-white rounded-[12px] z-[4]"
+              style={{ boxShadow: "0 4px 10px 2px rgba(28, 28, 44, 0.04)" }}
+            >
+              <DayPicker
+                mode="range"
+                selected={range}
+                onSelect={setRange}
+                defaultMonth={dayjs().subtract(1, "month").toDate()}
+                disabled={{ after: new Date() }}
+                numberOfMonths={2}
+                navLayout="around"
+                locale={ko}
+                className="custom-daypicker"
+                classNames={{
+                  selected: "text-[14px]",
+                }}
+                components={{
+                  CaptionLabel: ({ children }) => {
+                    const text = children?.toString() || "";
+                    const [month, year] = text.split(" ");
+
+                    return (
+                      <p className="text-[16px] font-semibold">
+                        {year} {month}
+                      </p>
+                    );
+                  },
+                  Chevron: ({ orientation, ...props }) => {
+                    if (orientation === "right") {
+                      return (
+                        <Image
+                          src={calendarNextIcon}
+                          alt="다음 달"
+                          className="w-[20px] h-[20px]"
+                        />
+                      );
+                    } else if (orientation === "left") {
+                      return (
+                        <Image
+                          src={calendarPrevIcon}
+                          alt="다음 달"
+                          className="w-[20px] h-[20px]"
+                        />
+                      );
+                    }
+
+                    return <div />;
+                  },
+                }}
+              />
+
+              <div className="flex self-end gap-x-[12px]">
+                <button
+                  type="button"
+                  onClick={() => setShowDaypicker(false)}
+                  className="w-[84px] h-[44px] bg-white border border-gray2 rounded-[8px] cursor-pointer"
+                >
+                  취소
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleSelectPeriod}
+                  className="w-[84px] h-[44px] bg-main text-white rounded-[8px] cursor-pointer"
+                >
+                  확인
+                </button>
+              </div>
+            </div>
+          )}
+
+          <button
+            type="button"
+            onClick={() => setShowDaypicker(!showDaypicker)}
+            className="flex items-center w-fit cursor-pointer"
           >
-            <DayPicker
-              mode="range"
-              selected={range}
-              onSelect={setRange}
-              defaultMonth={dayjs().subtract(1, "month").toDate()}
-              disabled={{ after: new Date() }}
-              numberOfMonths={2}
-              navLayout="around"
-              locale={ko}
-              className="custom-daypicker"
-              classNames={{
-                selected: "text-[14px]",
-              }}
-              components={{
-                CaptionLabel: ({ children }) => {
-                  const text = children?.toString() || "";
-                  const [month, year] = text.split(" ");
-
-                  return (
-                    <p className="text-[16px] font-semibold">
-                      {year} {month}
-                    </p>
-                  );
-                },
-                Chevron: ({ orientation, ...props }) => {
-                  if (orientation === "right") {
-                    return (
-                      <Image
-                        src={calendarNextIcon}
-                        alt="다음 달"
-                        className="w-[20px] h-[20px]"
-                      />
-                    );
-                  } else if (orientation === "left") {
-                    return (
-                      <Image
-                        src={calendarPrevIcon}
-                        alt="다음 달"
-                        className="w-[20px] h-[20px]"
-                      />
-                    );
-                  }
-
-                  return <div />;
-                },
-              }}
+            <Image
+              src={calendarIcon}
+              alt="기간 선택"
+              className="w-[20px] h-[20px] mr-[8px]"
             />
 
-            <div className="flex self-end gap-x-[12px]">
-              <button
-                type="button"
-                onClick={() => setShowDaypicker(false)}
-                className="w-[84px] h-[44px] bg-white border border-gray2 rounded-[8px] cursor-pointer"
-              >
-                취소
-              </button>
+            <div className="flex items-center text-[16px]">
+              <p className={startDate ? "text-black" : "text-gray5"}>
+                {startDate ? dayjs(startDate).format("YY.MM.DD") : "YY.MM.DD"}
+              </p>
 
-              <button
-                type="button"
-                onClick={handleSelectPeriod}
-                className="w-[84px] h-[44px] bg-main text-white rounded-[8px] cursor-pointer"
-              >
-                확인
-              </button>
+              <p className="mx-[4px]">~</p>
+
+              <p className={endDate ? "text-black" : "text-gray5"}>
+                {endDate ? dayjs(endDate).format("YY.MM.DD") : "YY.MM.DD"}
+              </p>
             </div>
-          </div>
-        )}
-
-        <button
-          type="button"
-          onClick={() => setShowDaypicker(!showDaypicker)}
-          className="flex items-center w-fit cursor-pointer"
-        >
-          <Image
-            src={calendarIcon}
-            alt="기간 선택"
-            className="w-[20px] h-[20px] mr-[8px]"
-          />
-
-          <div className="flex items-center text-[16px]">
-            <p className={startDate ? "text-black" : "text-gray5"}>
-              {startDate ? dayjs(startDate).format("YY.MM.DD") : "YY.MM.DD"}
-            </p>
-
-            <p className="mx-[4px]">~</p>
-
-            <p className={endDate ? "text-black" : "text-gray5"}>
-              {endDate ? dayjs(endDate).format("YY.MM.DD") : "YY.MM.DD"}
-            </p>
-          </div>
-        </button>
-      </div>
-
-      <div className="flex items-center gap-x-[8px]">
-        {periods.map((value) => (
-          <button
-            key={value}
-            onClick={handleTogglePeriod(value)}
-            className={`w-[48px] h-[30px] text-[13px] rounded-[6px] border cursor-pointer ${period === value ? "text-point2 border-point2" : "border-gray2"}`}
-          >
-            {value}
           </button>
-        ))}
-      </div>
+
+          <div className="flex items-center gap-x-[8px]">
+            {periods.map((value) => (
+              <button
+                key={value}
+                onClick={handleTogglePeriod(value)}
+                className={`w-[48px] h-[30px] text-[13px] rounded-[6px] border cursor-pointer ${period === value ? "text-point2 border-point2" : "border-gray2"}`}
+              >
+                {value}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </Callout>
   );
 };
@@ -299,7 +305,7 @@ const selectStyles: StylesConfig<SelectOption> = {
     minHeight: "34px",
     padding: "8px 10px",
     borderWidth: "1px",
-    borderColor: "#DDDDDF",
+    borderColor: "#ECECEE",
     borderRadius: "8px",
     outline: "none",
     cursor: "pointer",

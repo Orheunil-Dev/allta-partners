@@ -16,6 +16,10 @@ import {
   serviceHistoryOff,
   salesReportOn,
   saelsReportOff,
+  crmOn,
+  crmOff,
+  marketingOn,
+  marketingOff,
 } from "../../public/images";
 
 export type MenuItem = {
@@ -70,6 +74,20 @@ export const menuItems: MenuItem[] = [
     route: "/user",
     activeIcon: userOn,
     inactiveIcon: userOff,
+  },
+  {
+    category: "분석",
+    name: "마케팅",
+    route: "/marketing",
+    activeIcon: marketingOn,
+    inactiveIcon: marketingOff,
+  },
+  {
+    category: "분석",
+    name: "CRM",
+    route: "/crm",
+    activeIcon: crmOn,
+    inactiveIcon: crmOff,
   },
   {
     category: "시스템",

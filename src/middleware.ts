@@ -28,6 +28,8 @@ export const config = {
     "/payment/:path*",
     "/service-history/:path*",
     "/sales-report",
+    "/marketing",
+    "/crm",
     "/user/:path*",
     "/store/:path*",
     "/setting",

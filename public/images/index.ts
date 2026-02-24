@@ -2,6 +2,11 @@
 export { default as sidebarLogo } from "./sidebar-logo.png";
 export { default as dashboardOn } from "./dashboard-on.png";
 export { default as dashboardOff } from "./dashboard-off.png";
+export { default as conditionBarIcon } from "./condition-bar-store-icon.png";
+export { default as graySearchIcon } from "./gray-search-icon.png";
+export { default as infoIcon } from "./info-icon.png";
+
+// 사이드바
 export { default as washOn } from "./wash-on.png";
 export { default as washOff } from "./wash-off.png";
 export { default as userOn } from "./user-on.png";
@@ -14,11 +19,13 @@ export { default as salesReportOn } from "./sales-report-on.png";
 export { default as saelsReportOff } from "./sales-report-off.png";
 export { default as storeOn } from "./store-on.png";
 export { default as storeOff } from "./store-off.png";
+export { default as marketingOn } from "./marketing_on.png";
+export { default as marketingOff } from "./marketing_off.png";
+export { default as crmOn } from "./crm-on.png";
+export { default as crmOff } from "./crm-off.png";
 export { default as settingOn } from "./setting-on.png";
 export { default as settingOff } from "./setting-off.png";
-export { default as conditionBarIcon } from "./condition-bar-store-icon.png";
 export { default as logoutIcon } from "./logout-icon.png";
-export { default as graySearchIcon } from "./gray-search-icon.png";
 
 // 대시보드
 export { default as todaySalesIcon } from "./today-sales-icon.png";
@@ -63,6 +70,11 @@ export { default as calendarIcon } from "./calendar-icon.png";
 // 매장
 export { default as addressIcon } from "./address-icon.png";
 export { default as phoneIcon } from "./phone-icon.png";
+
+// 마케팅
+export { default as conversionRateIcon } from "./conversion-rate-icon.png";
+export { default as roiIcon } from "./roi-icon.png";
+export { default as lockIcon } from "./lock-icon.png";
 
 // 설정
 export { default as showPasswordIcon } from "./show-password-icon.png";

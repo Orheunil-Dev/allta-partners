@@ -11,9 +11,9 @@ interface Props {
 export const ServiceSummary = ({ storeId, startDate, endDate }: Props) => {
   // 매출 통계 조회 API
   const {
-    data: servcieStatData,
-    isLoading: servcieStatLoading,
-    isError: servcieStatError,
+    data: serviceStatData,
+    isLoading: serviceStatLoading,
+    isError: serviceStatError,
   } = useServiceControllerGetServiceStatByPassType({
     storeIds: storeId ? [storeId] : [],
     startDate,
@@ -28,11 +28,11 @@ export const ServiceSummary = ({ storeId, startDate, endDate }: Props) => {
         <div className="flex flex-col px-[20px] py-[16px] text-white bg-point2 rounded-[8px]">
           <p className="text-[14px] font-medium">총 세차 차량</p>
           <p className="mt-[8px] text-[20px] font-semibold">
-            {servcieStatData?.data.totalServices ?? 0}건
+            {serviceStatData?.data.totalServices ?? 0}건
           </p>
         </div>
 
-        {servcieStatData?.data.passTypeServiceStat.map((value, index) => (
+        {serviceStatData?.data.passTypeServiceStat.map((value, index) => (
           <div
             key={index}
             className="flex flex-col px-[20px] py-[16px] bg-gray1 rounded-[8px]"
