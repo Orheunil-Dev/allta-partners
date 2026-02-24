@@ -1,4 +1,4 @@
-import { CSSProperties, Dispatch, SetStateAction } from "react";
+import { CSSProperties, Dispatch, ReactNode, SetStateAction } from "react";
 import Image from "next/image";
 import { ColumnDef } from "@tanstack/react-table";
 import { Callout } from "@/components/ui/Callout";
@@ -21,6 +21,7 @@ interface Props<TData> {
   onDownload?: () => void;
   margin?: CSSProperties["margin"];
   emptyMessage?: string;
+  lockMessage?: ReactNode;
 }
 
 export const List = <TData,>({
@@ -38,9 +39,12 @@ export const List = <TData,>({
   onDownload,
   margin = "24px 0 0 0",
   emptyMessage,
+  lockMessage,
 }: Props<TData>) => {
   return (
-    <Callout margin={margin}>
+    <Callout position="relative" margin={margin}>
+      {lockMessage}
+
       <div className="flex justify-between items-center w-full mb-[24px]">
         <div className="flex items-center">
           <p className="text-[16px] font-semibold">{title}</p>
