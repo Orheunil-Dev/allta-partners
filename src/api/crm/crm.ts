@@ -21,7 +21,9 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
+  CrmControllerGetCrmLogCountParams,
   CrmControllerGetCrmLogListParams,
+  GetCrmLogCountResponse,
   GetCrmLogListResponse
 } from '.././models';
 
@@ -39,7 +41,7 @@ export const crmControllerGetCrmLogList = (
       
       
       return customInstance<GetCrmLogListResponse>(
-      {url: `/crm/log`, method: 'GET',
+      {url: `/crm`, method: 'GET',
         params, signal
     },
       options);
@@ -50,7 +52,7 @@ export const crmControllerGetCrmLogList = (
 
 export const getCrmControllerGetCrmLogListQueryKey = (params?: CrmControllerGetCrmLogListParams,) => {
     return [
-    `/crm/log`, ...(params ? [params]: [])
+    `/crm`, ...(params ? [params]: [])
     ] as const;
     }
 
@@ -108,6 +110,92 @@ export function useCrmControllerGetCrmLogList<TData = Awaited<ReturnType<typeof 
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
   const queryOptions = getCrmControllerGetCrmLogListQueryOptions(params,options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+export const crmControllerGetCrmLogCount = (
+    params: CrmControllerGetCrmLogCountParams,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<GetCrmLogCountResponse>(
+      {url: `/crm/count`, method: 'GET',
+        params, signal
+    },
+      options);
+    }
+  
+
+
+
+export const getCrmControllerGetCrmLogCountQueryKey = (params?: CrmControllerGetCrmLogCountParams,) => {
+    return [
+    `/crm/count`, ...(params ? [params]: [])
+    ] as const;
+    }
+
+    
+export const getCrmControllerGetCrmLogCountQueryOptions = <TData = Awaited<ReturnType<typeof crmControllerGetCrmLogCount>>, TError = unknown>(params: CrmControllerGetCrmLogCountParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof crmControllerGetCrmLogCount>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getCrmControllerGetCrmLogCountQueryKey(params);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof crmControllerGetCrmLogCount>>> = ({ signal }) => crmControllerGetCrmLogCount(params, requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof crmControllerGetCrmLogCount>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type CrmControllerGetCrmLogCountQueryResult = NonNullable<Awaited<ReturnType<typeof crmControllerGetCrmLogCount>>>
+export type CrmControllerGetCrmLogCountQueryError = unknown
+
+
+export function useCrmControllerGetCrmLogCount<TData = Awaited<ReturnType<typeof crmControllerGetCrmLogCount>>, TError = unknown>(
+ params: CrmControllerGetCrmLogCountParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof crmControllerGetCrmLogCount>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof crmControllerGetCrmLogCount>>,
+          TError,
+          Awaited<ReturnType<typeof crmControllerGetCrmLogCount>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useCrmControllerGetCrmLogCount<TData = Awaited<ReturnType<typeof crmControllerGetCrmLogCount>>, TError = unknown>(
+ params: CrmControllerGetCrmLogCountParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof crmControllerGetCrmLogCount>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof crmControllerGetCrmLogCount>>,
+          TError,
+          Awaited<ReturnType<typeof crmControllerGetCrmLogCount>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useCrmControllerGetCrmLogCount<TData = Awaited<ReturnType<typeof crmControllerGetCrmLogCount>>, TError = unknown>(
+ params: CrmControllerGetCrmLogCountParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof crmControllerGetCrmLogCount>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+
+export function useCrmControllerGetCrmLogCount<TData = Awaited<ReturnType<typeof crmControllerGetCrmLogCount>>, TError = unknown>(
+ params: CrmControllerGetCrmLogCountParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof crmControllerGetCrmLogCount>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getCrmControllerGetCrmLogCountQueryOptions(params,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 

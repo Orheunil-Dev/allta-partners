@@ -26,10 +26,12 @@ export const LockedContent = ({
         />
       </div>
 
-      <p className="mt-[8px] text-[16px] font-semibold">{title}</p>
-      <p className="mt-[4px] text-gray7 text-[14px] whitespace-pre-line">
-        {content}
-      </p>
+      {title && <p className="mt-[8px] text-[16px] font-semibold">{title}</p>}
+      {content && (
+        <p className="mt-[4px] text-gray7 text-[14px] whitespace-pre-line">
+          {content}
+        </p>
+      )}
 
       {onClick && (
         <CustomButton

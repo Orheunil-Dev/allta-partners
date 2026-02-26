@@ -1,9 +1,12 @@
 import Image from "next/image";
 import ReactSwitch from "react-switch";
+import dayjs from "dayjs";
+import { useCrmControllerGetCrmLogCount } from "@/api/crm/crm";
 import { Callout } from "../ui/Callout";
 import { LockedContent } from "../layout/LockedContent";
 import { discontinueIcon } from "../../../public/images";
 import { colors } from "@/styles";
+import { useStoreMarketingProductControllerGetStoreMarketingProductList } from "@/api/store-marketing-product/store-marketing-product";
 
 interface Props {
   storeId: string | null;
@@ -17,6 +20,41 @@ export const CrmAutomationSection = ({
   isLocked,
 }: Props) => {
   if (!storeId) return;
+
+  // CRM 로그 목록 조회 API
+  const {
+    data: crmLogCountData,
+    isLoading: crmLogCountLoading,
+    isError: crmLogCountError,
+  } = useCrmControllerGetCrmLogCount(
+    {
+      storeId: storeId!,
+      startDate: dayjs().format("YYYY-MM-DD"),
+    },
+    {
+      query: {
+        enabled: !!storeId,
+      },
+    },
+  );
+
+  // 보유중인 마케팅 상품 목록 조회 API
+  const {
+    data: marketingProductListData,
+    isLoading: marketingProductListLoading,
+    isError: marketingProductListError,
+  } = useStoreMarketingProductControllerGetStoreMarketingProductList(
+    {
+      storeId: storeId!,
+    },
+    {
+      query: {
+        enabled: !!storeId,
+      },
+    },
+  );
+
+  console.log(marketingProductListData);
 
   return (
     <div className="flex flex-col xl:grid xl:grid-cols-2 mt-[24px] gap-[24px]">
@@ -45,11 +83,17 @@ export const CrmAutomationSection = ({
             <p className="mr-[4px] text-gray7 text-[14px]">오늘 발송</p>
 
             <div className="mr-[16px] px-[10px] py-[2px] text-main text-[14px] font-medium bg-back4 rounded-[50px]">
-              0건
+              {crmLogCountData?.data.find(
+                (value) => value.actionName === "REVISIT_CAMPAIGN",
+              )?.successCount ?? 0}
+              건
             </div>
 
             <ReactSwitch
-              checked={false}
+              checked={
+                marketingProductListData?.data.includes("REVISIT_CAMPAIGN") ??
+                false
+              }
               onChange={() => {}}
               onColor={colors.main}
               checkedIcon={false}
@@ -94,11 +138,17 @@ export const CrmAutomationSection = ({
             <p className="mr-[4px] text-gray7 text-[14px]">오늘 발송</p>
 
             <div className="mr-[16px] px-[10px] py-[2px] text-main text-[14px] font-medium bg-back4 rounded-[50px]">
-              0건
+              {crmLogCountData?.data.find(
+                (value) => value.actionName === "THANKS_MESSAGE",
+              )?.successCount ?? 0}
+              건
             </div>
 
             <ReactSwitch
-              checked={false}
+              checked={
+                marketingProductListData?.data.includes("THANKS_MESSAGE") ??
+                false
+              }
               onChange={() => {}}
               onColor={colors.main}
               checkedIcon={false}
