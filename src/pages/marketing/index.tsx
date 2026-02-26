@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useGetManagedStoreList } from "@/hooks";
 import { SimpleConditionBar } from "@/components/layout/ConditionBar";
 import {
   MarketingRoiChart,
@@ -9,14 +8,6 @@ import {
 
 export default function Setting() {
   const [storeId, setStoreId] = useState<string | null>(null);
-
-  const managedStoreList = useGetManagedStoreList();
-
-  useEffect(() => {
-    if (storeId || !managedStoreList[0]) return;
-
-    return setStoreId(managedStoreList[0].id);
-  }, [storeId, managedStoreList]);
 
   return (
     <div className="flex flex-col w-full px-[20px] md:px-[40px] lg:px-[80px] py-[40px]">

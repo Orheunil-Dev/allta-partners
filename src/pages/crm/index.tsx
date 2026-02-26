@@ -1,9 +1,8 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { CellContext, ColumnDef } from "@tanstack/react-table";
 import dayjs from "dayjs";
 import { useCrmControllerGetCrmLogList } from "@/api/crm/crm";
 import { CrmLogListItem } from "@/api/models";
-import { useGetManagedStoreList } from "@/hooks";
 import { formatServiceType } from "@/utils";
 import { SimpleConditionBar } from "@/components/layout/ConditionBar";
 import { List } from "@/components/layout/List";
@@ -14,8 +13,6 @@ export default function Crm() {
   const [page, setPage] = useState<number>(0);
   const [storeId, setStoreId] = useState<string | null>(null);
   const [storeName, setStoreName] = useState<string | null>(null);
-
-  const managedStoreList = useGetManagedStoreList();
 
   // CRM 로그 목록 조회 API
   const { data, isLoading, isError, refetch } = useCrmControllerGetCrmLogList(
@@ -67,18 +64,12 @@ export default function Crm() {
     [],
   );
 
-  useEffect(() => {
-    if (storeId || !managedStoreList[0]) return;
-
-    setStoreName(managedStoreList[0].name);
-    return setStoreId(managedStoreList[0].id);
-  }, [storeId, managedStoreList]);
-
   return (
     <div className="flex flex-col h-full px-[20px] md:px-[40px] lg:px-[80px] py-[40px] overflow-y-auto">
       <SimpleConditionBar
         storeId={storeId}
         setStoreId={setStoreId}
+        setStoreName={setStoreName}
         showEntireStore={false}
       />
 

@@ -11,7 +11,8 @@ import { DateRange, DayPicker } from "react-day-picker";
 import { ko } from "date-fns/locale";
 import "react-day-picker/style.css";
 import dayjs from "dayjs";
-import { useGetManagedStoreList, useResizeHandler } from "@/hooks";
+import { useStoreControllerGetManagedStoreList } from "@/api/store/store";
+import { useResizeHandler } from "@/hooks";
 import { SelectOption } from "@/types";
 import { Callout } from "@/components/ui/Callout";
 import {
@@ -50,13 +51,21 @@ export const ConditionBar = ({
 }: Props) => {
   const { isDesktop } = useResizeHandler();
 
-  const managedStoreList = useGetManagedStoreList();
-
   const [showDaypicker, setShowDaypicker] = useState<boolean>(false);
   const [range, setRange] = useState<DateRange | undefined>(undefined);
   const [period, setPeriod] = useState<Period>(
     startDate && endDate ? "30일" : "기타",
   );
+
+  //  관리자 권한 있는 매장 목록 조회 API
+  const { data } = useStoreControllerGetManagedStoreList({
+    query: {
+      staleTime: 1000 * 60 * 30, // 30분 동안 캐시 신선
+      gcTime: 1000 * 60 * 60, // 1시간 동안 메모리에 데이터 캐싱
+      refetchOnWindowFocus: false, // 창 포커스 시 재요청 막기
+      queryKey: ["managedStoreList"],
+    },
+  });
 
   // 기간 선택
   const handleSelectPeriod = () => {
@@ -120,23 +129,25 @@ export const ConditionBar = ({
   };
 
   const selectOptions: SelectOption[] = useMemo(() => {
-    const stores = managedStoreList.map((store) => ({
+    if (!data) return [];
+
+    const stores = data.data.map((store) => ({
       value: store.id,
       label: store.name,
     }));
 
-    if (managedStoreList.length <= 1 || !showEntireStore) {
+    if (data.data.length <= 1 || !showEntireStore) {
       return stores;
     }
 
     return [{ value: null, label: "전체 매장" }, ...stores];
-  }, [managedStoreList]);
+  }, [data]);
 
   useEffect(() => {
-    if (managedStoreList.length === 1) {
-      setStoreId(managedStoreList[0].id);
+    if (data?.data.length === 1) {
+      setStoreId(data.data[0].id);
     }
-  }, [managedStoreList]);
+  }, [data]);
 
   useEffect(() => {
     if (!startDate || !endDate) return;
