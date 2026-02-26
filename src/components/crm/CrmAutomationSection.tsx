@@ -112,8 +112,8 @@ export const CrmAutomationSection = ({
 
         <div className="flex flex-1  items-center mt-[20px] p-[20px] bg-gray1 border border-line rounded-[8px]">
           <p className="text-[14px]">
-            [{storeName}] 고객님, {storeName}을 방문해주셔서 감사합니다. 😊 다음
-            방문도 더 만족스러운 서비스로 보답하겠습니다.
+            김OO 고객님, {storeName}을 방문해주셔서 감사합니다. 😊 다음 방문도
+            더 만족스러운 서비스로 보답하겠습니다.
           </p>
         </div>
       </Callout>
