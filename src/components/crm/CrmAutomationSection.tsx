@@ -74,7 +74,7 @@ export const CrmAutomationSection = ({
             <div className="flex flex-col">
               <p className="text-[18px] font-semibold">이용 중단 고객 케어</p>
               <p className="mt-[4px] text-gray5 text-[14px]">
-                장기 미방문 고객 자동 메세지 발송
+                장기 미방문 고객 자동 쿠폰 메세지 발송
               </p>
             </div>
           </div>
@@ -107,8 +107,9 @@ export const CrmAutomationSection = ({
 
         <div className="flex flex-1 items-center mt-[20px] p-[20px] bg-gray1 border border-line rounded-[8px]">
           <p className="text-[14px]">
-            [{storeName}] 고객님, 세차하신지 10일이 지났네요! 소중한 내 차를
-            위해 오랜만에 세차 어떠세요? 🚗✨
+            김OO 고객님, {storeName}에서 세차하신지 30일이 지났네요! 소중한 내
+            차를 위해 오랜만에 세차 어떠세요? ${storeName}에서 고객님을 위해
+            쿠폰을 보내드려요! 🚗
           </p>
         </div>
       </Callout>
