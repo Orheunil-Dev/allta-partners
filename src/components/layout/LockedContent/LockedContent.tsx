@@ -17,7 +17,7 @@ export const LockedContent = ({
   onClick,
 }: Props) => {
   return (
-    <div className="absolute flex flex-col justify-center items-center w-full h-full top-0 right-0 text-center bg-white/70 backdrop-blur-[3px] rounded-[20px] z-[1]">
+    <div className="absolute flex flex-col justify-center items-center w-full h-full top-0 right-0 text-center bg-white/80 backdrop-blur-[3px] rounded-[20px] z-[1]">
       <div className="flex justify-center items-center size-[40px] bg-gray1 rounded-full">
         <Image
           src={lockIcon}
