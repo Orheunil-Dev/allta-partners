@@ -16,8 +16,6 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
-  ChangeStoreAdminPasswordRequest,
-  ChangeStoreAdminPasswordResponse,
   PartnersLoginRequest
 } from '.././models';
 
@@ -195,63 +193,6 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
       > => {
 
       const mutationOptions = getAuthControllerPartnersAdminlogoutMutationOptions(options);
-
-      return useMutation(mutationOptions, queryClient);
-    }
-    export const authControllerChangeStoreAdminPassword = (
-    changeStoreAdminPasswordRequest: ChangeStoreAdminPasswordRequest,
- options?: SecondParameter<typeof customInstance>,) => {
-      
-      
-      return customInstance<ChangeStoreAdminPasswordResponse>(
-      {url: `/auth/password`, method: 'PATCH',
-      headers: {'Content-Type': 'application/json', },
-      data: changeStoreAdminPasswordRequest
-    },
-      options);
-    }
-  
-
-
-export const getAuthControllerChangeStoreAdminPasswordMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerChangeStoreAdminPassword>>, TError,{data: ChangeStoreAdminPasswordRequest}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof authControllerChangeStoreAdminPassword>>, TError,{data: ChangeStoreAdminPasswordRequest}, TContext> => {
-
-const mutationKey = ['authControllerChangeStoreAdminPassword'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
-
-      
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof authControllerChangeStoreAdminPassword>>, {data: ChangeStoreAdminPasswordRequest}> = (props) => {
-          const {data} = props ?? {};
-
-          return  authControllerChangeStoreAdminPassword(data,requestOptions)
-        }
-
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type AuthControllerChangeStoreAdminPasswordMutationResult = NonNullable<Awaited<ReturnType<typeof authControllerChangeStoreAdminPassword>>>
-    export type AuthControllerChangeStoreAdminPasswordMutationBody = ChangeStoreAdminPasswordRequest
-    export type AuthControllerChangeStoreAdminPasswordMutationError = unknown
-
-    export const useAuthControllerChangeStoreAdminPassword = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerChangeStoreAdminPassword>>, TError,{data: ChangeStoreAdminPasswordRequest}, TContext>, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof authControllerChangeStoreAdminPassword>>,
-        TError,
-        {data: ChangeStoreAdminPasswordRequest},
-        TContext
-      > => {
-
-      const mutationOptions = getAuthControllerChangeStoreAdminPasswordMutationOptions(options);
 
       return useMutation(mutationOptions, queryClient);
     }

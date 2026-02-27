@@ -2,10 +2,8 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import * as z from "zod";
-import {
-  useAuthControllerChangeStoreAdminPassword,
-  useAuthControllerPartnersAdminlogout,
-} from "@/api/auth/auth";
+import { useAdminControllerChangeStoreAdminPassword } from "@/api/admin/admin";
+import { useAuthControllerPartnersAdminlogout } from "@/api/auth/auth";
 import { ChangeStoreAdminPasswordRequest } from "@/api/models";
 import { regexPassword } from "@/utils";
 import { CustomModal } from "../ui/Modal";
@@ -63,7 +61,7 @@ export const ChangePasswordModal = ({ visible, onClose }: Props) => {
     mutate: changePassword,
     isPending: changePasswordLoading,
     isError: changePasswordError,
-  } = useAuthControllerChangeStoreAdminPassword();
+  } = useAdminControllerChangeStoreAdminPassword();
 
   // 로그아웃 API
   const {
