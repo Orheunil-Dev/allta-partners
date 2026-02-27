@@ -1,15 +1,14 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import Cookies from "js-cookie";
-import { AdminCookie } from "@/types";
+import { useAuthControllerPartnersAdminlogout } from "@/api/auth/auth";
+import { useAdminControllerGetStoreAdminProfile } from "@/api/admin/admin";
 import { MenuItem, menuItems } from "@/constants";
 import {
   blackCloseIcon,
   logoutIcon,
   sidebarLogo,
 } from "../../../../public/images";
-import { useAuthControllerPartnersAdminlogout } from "@/api/auth/auth";
 
 interface Props {
   isOpen: boolean;
@@ -20,9 +19,19 @@ export const MobileSidebar = ({ isOpen, setIsOpen }: Props) => {
   const router = useRouter();
   const currentPath = router.pathname;
 
-  const cookie = Cookies.get("ptAdmin");
-
-  const [admin, setAdmin] = useState<AdminCookie | null>(null);
+  // 관리자 프로필 조회 API
+  const {
+    data: profileData,
+    isLoading: profileLoading,
+    isError: prfileError,
+  } = useAdminControllerGetStoreAdminProfile({
+    query: {
+      staleTime: 1000 * 60 * 30, // 1시간 동안 캐시 신선
+      gcTime: 1000 * 60 * 60, // 2시간 동안 메모리에 데이터 캐싱
+      refetchOnWindowFocus: false, // 창 포커스 시 재요청 막기
+      queryKey: ["profile"],
+    },
+  });
 
   // 로그아웃 API
   const {
@@ -73,10 +82,6 @@ export const MobileSidebar = ({ isOpen, setIsOpen }: Props) => {
     return router.push(value);
   };
 
-  useEffect(() => {
-    setAdmin(cookie ? JSON.parse(cookie) : null);
-  }, [cookie]);
-
   return (
     <>
       <div
@@ -108,13 +113,17 @@ export const MobileSidebar = ({ isOpen, setIsOpen }: Props) => {
 
           {/* 계정 정보 */}
           <div className="flex flex-col pt-[20px] pb-[16px] border-b border-line">
-            <p className="text-[20px] font-semibold">{admin?.storeName}</p>
-            <p className="mt-[4px] text-gray5 text-[14px]">{admin?.identity}</p>
+            <p className="text-[20px] font-semibold">
+              {profileData?.data.storeName ?? ""}
+            </p>
+            <p className="mt-[4px] text-gray5 text-[14px]">
+              {profileData?.data.identity ?? ""}
+            </p>
 
             <div className="flex justify-between items-center mt-[20px] py-[8px]">
               <p className="text-[14px]">구독 정보</p>
               <div className="px-[8px] py-[2.5px] text-main text-[12px] bg-back4 rounded-[6px]">
-                BASIC
+                {profileData?.data.membership ?? "BASIC"}
               </div>
             </div>
           </div>
@@ -136,7 +145,7 @@ export const MobileSidebar = ({ isOpen, setIsOpen }: Props) => {
                 {items
                   .filter((item) =>
                     hasPermission(
-                      admin?.level ?? 0,
+                      profileData?.data.level ?? 0,
                       item.minLevel,
                       item.maxLevel,
                     ),
