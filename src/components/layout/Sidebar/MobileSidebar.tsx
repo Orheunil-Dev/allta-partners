@@ -107,9 +107,16 @@ export const MobileSidebar = ({ isOpen, setIsOpen }: Props) => {
           </div>
 
           {/* 계정 정보 */}
-          <div className="flex flex-col pt-[20px] pb-[28px] border-b border-line">
+          <div className="flex flex-col pt-[20px] pb-[16px] border-b border-line">
             <p className="text-[20px] font-semibold">{admin?.storeName}</p>
             <p className="mt-[4px] text-gray5 text-[14px]">{admin?.identity}</p>
+
+            <div className="flex justify-between items-center mt-[20px] py-[8px]">
+              <p className="text-[14px]">구독 정보</p>
+              <div className="px-[8px] py-[2.5px] text-main text-[12px] bg-back4 rounded-[6px]">
+                BASIC
+              </div>
+            </div>
           </div>
 
           {/* 메뉴 */}

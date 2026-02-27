@@ -1,12 +1,12 @@
 import Image from "next/image";
 import ReactSwitch from "react-switch";
 import dayjs from "dayjs";
+import { useStoreMarketingProductControllerGetStoreMarketingProductList } from "@/api/store-marketing-product/store-marketing-product";
 import { useCrmControllerGetCrmLogCount } from "@/api/crm/crm";
 import { Callout } from "../ui/Callout";
 import { LockedContent } from "../layout/LockedContent";
 import { discontinueIcon } from "../../../public/images";
 import { colors } from "@/styles";
-import { useStoreMarketingProductControllerGetStoreMarketingProductList } from "@/api/store-marketing-product/store-marketing-product";
 
 interface Props {
   storeId: string | null;
@@ -54,14 +54,12 @@ export const CrmAutomationSection = ({
     },
   );
 
-  console.log(marketingProductListData);
-
   return (
     <div className="flex flex-col xl:grid xl:grid-cols-2 mt-[24px] gap-[24px]">
       <Callout position="relative">
         {isLocked && <LockedContent />}
 
-        <div className="flex justify-between items-start">
+        <div className="flex flex-col lg:flex-row justify-between items-start">
           <div className="flex">
             <div className="flex justify-center items-center size-[40px] mr-[16px] bg-back4 rounded-full">
               <Image
@@ -79,7 +77,7 @@ export const CrmAutomationSection = ({
             </div>
           </div>
 
-          <div className="flex items-center">
+          <div className="flex items-center mt-[20px] lg:mt-0">
             <p className="mr-[4px] text-gray7 text-[14px]">오늘 발송</p>
 
             <div className="mr-[16px] px-[10px] py-[2px] text-main text-[14px] font-medium bg-back4 rounded-[50px]">
@@ -117,7 +115,7 @@ export const CrmAutomationSection = ({
       <Callout position="relative">
         {isLocked && <LockedContent />}
 
-        <div className="flex justify-between items-start">
+        <div className="flex flex-col lg:flex-row justify-between items-start">
           <div className="flex">
             <div className="flex justify-center items-center size-[40px] mr-[16px] bg-back4 rounded-full">
               <Image
@@ -135,7 +133,7 @@ export const CrmAutomationSection = ({
             </div>
           </div>
 
-          <div className="flex items-center">
+          <div className="flex items-center mt-[20px] lg:mt-0">
             <p className="mr-[4px] text-gray7 text-[14px]">오늘 발송</p>
 
             <div className="mr-[16px] px-[10px] py-[2px] text-main text-[14px] font-medium bg-back4 rounded-[50px]">

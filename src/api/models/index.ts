@@ -54,6 +54,8 @@ export * from './getServiceStatByWeekdayItem';
 export * from './getServiceStatByWeekdayResponse';
 export * from './getServiceStatResponse';
 export * from './getStaffListResponse';
+export * from './getStoreAdminProfileResponse';
+export * from './getStoreAdminProfileResult';
 export * from './getStoreDetailResponse';
 export * from './getStoreListResponse';
 export * from './getStoreMarketingProductListResponse';

@@ -1,10 +1,9 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import Cookies from "js-cookie";
+import { useAdminControllerGetStoreAdminProfile } from "@/api/admin/admin";
 import { useAuthControllerPartnersAdminlogout } from "@/api/auth/auth";
 import { useResizeHandler } from "@/hooks";
-import { AdminCookie } from "@/types";
 import { menuItems } from "@/constants";
 import { dropdownArrowIcon, hamburgerIcon } from "../../../../public/images";
 
@@ -17,13 +16,24 @@ export const BreadCrumb = ({ isOpen, setIsOpen }: Props) => {
   const router = useRouter();
   const currentPath = router.pathname;
 
-  const cookie = Cookies.get("ptAdmin");
-
   const [breadcrumb, setBreadcrumb] = useState<string[] | null>(null);
-  const [isMouseEnter, setIsMouseEnter] = useState<boolean>(false);
-  const [admin, setAdmin] = useState<AdminCookie | null>(null);
+  const [isProfileOpen, setIsProfileOpen] = useState<boolean>(false);
 
   const { isMobile } = useResizeHandler();
+
+  // 관리자 프로필 조회 API
+  const {
+    data: profileData,
+    isLoading: profileLoading,
+    isError: prfileError,
+  } = useAdminControllerGetStoreAdminProfile({
+    query: {
+      staleTime: 1000 * 60 * 30, // 1시간 동안 캐시 신선
+      gcTime: 1000 * 60 * 60, // 2시간 동안 메모리에 데이터 캐싱
+      refetchOnWindowFocus: false, // 창 포커스 시 재요청 막기
+      queryKey: ["profile"],
+    },
+  });
 
   // 로그아웃 API
   const {
@@ -81,10 +91,6 @@ export const BreadCrumb = ({ isOpen, setIsOpen }: Props) => {
     setBreadcrumb(breadcrumbData);
   }, [router.pathname]);
 
-  useEffect(() => {
-    setAdmin(cookie ? JSON.parse(cookie) : null);
-  }, [cookie]);
-
   return (
     <div className="fixed flex items-center w-full md:w-[calc(100vw-260px)] h-[62px] top-0 px-[20px] md:px-[44px] bg-white border-b border-gray2 z-[3]">
       <div className="flex justify-between items-center w-full h-full">
@@ -106,38 +112,45 @@ export const BreadCrumb = ({ isOpen, setIsOpen }: Props) => {
           </button>
         ) : (
           <div className="relative flex h-full">
-            <div
-              onMouseEnter={() => setIsMouseEnter(true)}
-              onMouseLeave={() => setIsMouseEnter(false)}
-              className="flex items-center cursor-pointer h-full"
+            <button
+              onClick={() => setIsProfileOpen(!isProfileOpen)}
+              className="flex items-center h-full cursor-pointer select-none"
             >
-              <span>{admin?.storeName}</span>
+              <span>{profileData?.data.storeName}</span>
 
               <Image
                 src={dropdownArrowIcon}
                 alt="프로필 메뉴"
-                className={`w-[24px] h-[24px] ml-[4px] duration-300 ${isMouseEnter && "rotate-180"}`}
+                className={`w-[24px] h-[24px] ml-[4px] duration-300 ${isProfileOpen && "rotate-180"}`}
               />
-            </div>
+            </button>
 
-            {isMouseEnter && (
+            {isProfileOpen && (
               <div
-                onMouseEnter={() => setIsMouseEnter(true)}
-                onMouseLeave={() => setIsMouseEnter(false)}
                 style={{ boxShadow: "0 4px 10px 2px rgba(28, 28, 44, 0.04)" }}
-                className="absolute flex flex-col w-[180px] md:w-[264px] top-[50px] right-0 bg-white rounded-[20px]"
+                className="absolute flex flex-col w-[180px] md:w-[264px] top-[50px] right-0 bg-white rounded-[20px] cursor-default overflow-hidden"
               >
-                <div className="flex flex-col px-[20px] py-[16px] border-b border-b-gray1">
+                <div className="flex flex-col w-full px-[20px] py-[16px] border-b border-b-gray1">
                   <p className="text-[16px] font-semibold">
-                    {admin?.storeName}
+                    {profileData?.data.storeName ?? ""}
                   </p>
-                  <p className="text-gray5 text-[14px]">{admin?.identity}</p>
+                  <p className="text-gray5 text-[14px]">
+                    {profileData?.data.identity ?? ""}
+                  </p>
                 </div>
 
-                <div className="flex flex-col px-[20px] py-[16px]">
+                <div className="flex justify-between items-center w-full px-[20px] py-[16px]">
+                  <p>구독 정보</p>
+
+                  <div className="px-[8px] py-[4px] text-main text-[14px] bg-back4 rounded-[8px]">
+                    {profileData?.data.membership ?? "BASIC"}
+                  </div>
+                </div>
+
+                <div className="flex flex-col w-full px-[20px] py-[16px]">
                   <button
                     onClick={handleLogout}
-                    className="w-fit text-[16px] cursor-pointer"
+                    className="w-full text-start text-[16px] cursor-pointer"
                   >
                     로그아웃
                   </button>
