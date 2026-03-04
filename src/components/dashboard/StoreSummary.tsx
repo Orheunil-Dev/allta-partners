@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import Image from "next/image";
 import dayjs from "dayjs";
 import {
@@ -5,54 +6,59 @@ import {
   useSalesControllerGetTotalSales,
   useSalesControllerGetYoYSales,
 } from "@/api/sales/sales";
-import { useStatControllerGetSalesStat } from "@/api/stat/stat";
+import { GetManagedStoresSalesListItem } from "@/api/models";
 import { getChangedRate, getDateBeforeDays } from "@/utils";
 import { Callout } from "../ui/Callout";
-import { decreaseIcon, increaseIcon } from "../../../public/images";
+import {
+  decreaseIcon,
+  grayRightArrowIcon,
+  increaseIcon,
+} from "../../../public/images";
 
 interface Props {
-  storeId: string;
-  storeName: string;
+  data: GetManagedStoresSalesListItem;
 }
 
-export const StoreSummary = ({ storeId, storeName }: Props) => {
-  // 금일 매출 조회 API
-  const {
-    data: todaySalesData,
-    isLoading: todaySalesLoading,
-    isError: todaySalesError,
-  } = useSalesControllerGetTotalSales({
-    storeIds: [storeId],
-    startDate: getDateBeforeDays(0),
-  });
+export const StoreSummary = ({ data }: Props) => {
+  const router = useRouter();
 
-  // 이번달 매출 조회 API
-  const {
-    data: monthSalesData,
-    isLoading: monthSalesLoading,
-    isError: monthSalesError,
-  } = useSalesControllerGetTotalSales({
-    storeIds: [storeId],
-    startDate: dayjs().startOf("month").format("YYYY-MM-DD"),
-  });
+  // // 금일 매출 조회 API
+  // const {
+  //   data: todaySalesData,
+  //   isLoading: todaySalesLoading,
+  //   isError: todaySalesError,
+  // } = useSalesControllerGetTotalSales({
+  //   storeIds: [storeId],
+  //   startDate: getDateBeforeDays(0),
+  // });
 
-  // 전월 대비 매출 조회 API
-  const {
-    data: momSalesData,
-    isLoading: momSalesLoading,
-    isError: momSalesError,
-  } = useSalesControllerGetMoMSales({
-    storeIds: [storeId],
-  });
+  // // 이번달 매출 조회 API
+  // const {
+  //   data: monthSalesData,
+  //   isLoading: monthSalesLoading,
+  //   isError: monthSalesError,
+  // } = useSalesControllerGetTotalSales({
+  //   storeIds: [storeId],
+  //   startDate: dayjs().startOf("month").format("YYYY-MM-DD"),
+  // });
 
-  // 전년 대비 매출 조회 API
-  const {
-    data: yoySalesData,
-    isLoading: yoySalesLoading,
-    isError: yoySalesError,
-  } = useSalesControllerGetYoYSales({
-    storeIds: [storeId],
-  });
+  // // 전월 대비 매출 조회 API
+  // const {
+  //   data: momSalesData,
+  //   isLoading: momSalesLoading,
+  //   isError: momSalesError,
+  // } = useSalesControllerGetMoMSales({
+  //   storeIds: [storeId],
+  // });
+
+  // // 전년 대비 매출 조회 API
+  // const {
+  //   data: yoySalesData,
+  //   isLoading: yoySalesLoading,
+  //   isError: yoySalesError,
+  // } = useSalesControllerGetYoYSales({
+  //   storeIds: [storeId],
+  // });
 
   // 증감률 표시
   const renderChangedRate = (curSales: number, prevSales: number) => {
@@ -87,71 +93,80 @@ export const StoreSummary = ({ storeId, storeName }: Props) => {
 
   return (
     <Callout>
-      <p className="text-[16px] font-semibold">{storeName}</p>
+      <p className="text-[16px] font-semibold">{data.storeName}</p>
 
-      <div className="flex mt-[12px] gap-x-[16px]">
-        <div className="flex flex-col flex-1 p-[12px] bg-gray1 rounded-[8px]">
-          <p className="text-gray5 text-[13px] font-medium">금일 매출</p>
-          <p className="mt-[4px] text-[16px] font-medium">
-            {todaySalesData?.data.totalSales
-              ? todaySalesData.data.totalSales.toLocaleString()
-              : 0}{" "}
-            원
-          </p>
-        </div>
+      <div className="flex justify-between mt-[12px] pr-[4px] pl-[8px] py-[8px] items-center">
+        <p className="text-gray5 text-[14px]">금일 매출</p>
 
-        <div className="flex flex-col flex-1 p-[12px] bg-gray1 rounded-[8px]">
-          <p className="text-gray5 text-[13px] font-medium">이번달 매출</p>
-          <p className="mt-[4px] text-[16px] font-medium">
-            {monthSalesData?.data.totalSales
-              ? monthSalesData.data.totalSales.toLocaleString()
-              : 0}{" "}
-            원
-          </p>
+        <div className="flex items-center">
+          <p className="text-[16px] font-medium">{data.totalSales} 원</p>
+          <button
+            onClick={() => router.push("/sales-report")}
+            className="cursor-pointer"
+          >
+            <Image
+              src={grayRightArrowIcon}
+              alt="금일 매출"
+              className="size-[20px] ml-[8px]"
+            />
+          </button>
         </div>
       </div>
 
-      <div className="flex flex-col mt-[16px] p-[12px] bg-gray1 rounded-[8px]">
-        <p className="text-gray5 text-[13px] font-medium">전월 동기 매출</p>
+      <div className="flex justify-between pr-[4px] pl-[8px] py-[8px] items-center">
+        <p className="text-gray5 text-[14px]">세차 건수</p>
 
-        <div className="flex justify-between items-center">
-          <p className="mt-[4px] text-[16px] font-medium">
-            {momSalesData?.data.currentSales
-              ? momSalesData.data.currentSales.totalSales.toLocaleString()
-              : 0}{" "}
-            원
-          </p>
+        <div className="flex items-center">
+          <p className="text-[16px] font-medium">{data.serviceCount} 회</p>
 
-          {momSalesData && momSalesData.data.previousSales.totalSales > 0 ? (
-            renderChangedRate(
-              momSalesData.data.currentSales.totalSales,
-              momSalesData.data.previousSales.totalSales,
-            )
-          ) : (
-            <p className="text-gray5 text-[16px] font-medium">-</p>
-          )}
+          <button
+            onClick={() => router.push("/wash")}
+            className="cursor-pointer"
+          >
+            <Image
+              src={grayRightArrowIcon}
+              alt="이용 횟수"
+              className="size-[20px] ml-[8px]"
+            />
+          </button>
         </div>
       </div>
 
-      <div className="flex flex-col mt-[16px] p-[12px] bg-gray1 rounded-[8px]">
-        <p className="text-gray5 text-[13px] font-medium">전년 동기 매출</p>
+      <div className="flex justify-between pr-[4px] pl-[8px] py-[8px] items-center">
+        <p className="text-gray5 text-[14px]">무료세차 횟수</p>
 
-        <div className="flex justify-between items-center">
-          <p className="mt-[4px] text-[16px] font-medium">
-            {yoySalesData?.data.currentSales
-              ? yoySalesData.data.currentSales.totalSales.toLocaleString()
-              : 0}{" "}
-            원
-          </p>
+        <div className="flex items-center">
+          <p className="text-[16px] font-medium">{data.freeWashCount} 회</p>
 
-          {yoySalesData && yoySalesData.data.previousSales.totalSales > 0 ? (
-            renderChangedRate(
-              yoySalesData.data.currentSales.totalSales,
-              yoySalesData.data.previousSales.totalSales,
-            )
-          ) : (
-            <p className="text-gray5 text-[16px] font-medium">-</p>
-          )}
+          <button
+            onClick={() => router.push("/free-wash")}
+            className="cursor-pointer"
+          >
+            <Image
+              src={grayRightArrowIcon}
+              alt="무료세차 횟수"
+              className="size-[20px] ml-[8px]"
+            />
+          </button>
+        </div>
+      </div>
+
+      <div className="flex justify-between pr-[4px] pl-[8px] py-[8px] items-center">
+        <p className="text-gray5 text-[14px]">차량당 매출</p>
+
+        <div className="flex items-center">
+          <p className="text-[16px] font-medium">{data.salesPerService} 원</p>
+
+          <button
+            onClick={() => router.push("/sales-report")}
+            className="cursor-pointer"
+          >
+            <Image
+              src={grayRightArrowIcon}
+              alt="차량당 매출"
+              className="size-[20px] ml-[8px]"
+            />
+          </button>
         </div>
       </div>
     </Callout>

@@ -25,6 +25,8 @@ export * from './getComplimentaryServiceHistoryListResponse';
 export * from './getCrmLogCountResponse';
 export * from './getCrmLogListResponse';
 export * from './getManagedStoreListResponse';
+export * from './getManagedStoresSalesListItem';
+export * from './getManagedStoresSalesListResponse';
 export * from './getMoMMarketingROIResponse';
 export * from './getMoMMarketingROIResponseData';
 export * from './getMoMMarketingROIResult';

@@ -19,4 +19,12 @@ startDate?: string;
  * 종료일(YYYY-MM-DD)
  */
 endDate?: string;
+/**
+ * 가져올 데이터 수
+ */
+take: number;
+/**
+ * 건너뛸 데이터 수
+ */
+skip: number;
 };
