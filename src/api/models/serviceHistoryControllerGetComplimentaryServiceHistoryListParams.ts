@@ -12,6 +12,10 @@ export type ServiceHistoryControllerGetComplimentaryServiceHistoryListParams = {
  */
 storeIds?: string[];
 /**
+ * 차량번호
+ */
+carNumber?: string;
+/**
  * 시작일(YYYY-MM-DD)
  */
 startDate?: string;

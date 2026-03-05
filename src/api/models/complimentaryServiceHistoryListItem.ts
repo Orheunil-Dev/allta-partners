@@ -6,7 +6,7 @@
  * OpenAPI spec version: 1.0
  */
 
-export interface GetComplimentaryServiceHistoryListItem {
+export interface ComplimentaryServiceHistoryListItem {
   /** ID */
   id: string;
   /** 결제 수단 */
@@ -20,4 +20,6 @@ export interface GetComplimentaryServiceHistoryListItem {
   carNumber?: string | null;
   /** 생성일 */
   createdAt: string;
+  /** 회원명 */
+  userName?: string[];
 }

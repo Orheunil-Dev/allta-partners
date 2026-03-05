@@ -27,6 +27,7 @@ export const config = {
     "/wash",
     "/payment/:path*",
     "/service-history/:path*",
+    "/free-wash",
     "/sales-report",
     "/marketing",
     "/crm",

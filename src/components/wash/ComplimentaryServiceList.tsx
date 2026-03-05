@@ -1,7 +1,10 @@
-import { useServiceHistoryControllerGetComplimentaryServiceHistoryList } from "@/api/service-history/service-history";
+import { useRouter } from "next/router";
+import Image from "next/image";
 import dayjs from "dayjs";
+import { useServiceHistoryControllerGetComplimentaryServiceHistoryList } from "@/api/service-history/service-history";
+import { formatFreeWashReason } from "@/utils";
 import { Callout } from "../ui/Callout";
-import { formatPaymentMethod } from "@/utils";
+import { grayRightArrowIcon } from "../../../public/images";
 
 interface Props {
   storeId?: string | null;
@@ -14,6 +17,8 @@ export const ComplimentaryServiceList = ({
   startDate,
   endDate,
 }: Props) => {
+  const router = useRouter();
+
   // 무료세차 내역 목록 조회 API
   const {
     data: complimentaryServiceListData,
@@ -23,11 +28,26 @@ export const ComplimentaryServiceList = ({
     storeIds: storeId ? [storeId] : [],
     startDate,
     endDate,
+    take: 9999,
+    skip: 0,
   });
 
   return (
     <Callout flex={1}>
-      <p className="text-[16px] font-semibold">무료 세차 내역</p>
+      <div className="flex justify-between items-center">
+        <p className="text-[16px] font-semibold">무료세차 내역</p>
+
+        <button
+          onClick={() => router.push("/free-wash")}
+          className="cursor-pointer"
+        >
+          <Image
+            src={grayRightArrowIcon}
+            alt="무료세차 내역"
+            className="size-[24px]"
+          />
+        </button>
+      </div>
 
       <div className="flex flex-col flex-1 min-h-[160px] mt-[20px] px-[8px] gap-y-[8px] overflow-y-auto">
         {complimentaryServiceListData?.data.map((value, index) => (
@@ -39,7 +59,7 @@ export const ComplimentaryServiceList = ({
 
               <div className="mt-[4px] flex items-center text-gray5 text-[12px]">
                 <p className="text-[14px] font-medium">
-                  {formatPaymentMethod(value.paymentMethod)}
+                  {formatFreeWashReason(value.paymentMethod)}
                 </p>
                 <div className="w-[1px] h-[8px] mx-[4px] bg-gray3" />
                 <p className="text-[14px] font-medium">

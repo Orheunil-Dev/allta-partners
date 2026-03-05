@@ -1,13 +1,13 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import { useMarketingControllerGetVisitCohort } from "@/api/marketing/marketing";
 import { GetVisitCohortItem } from "@/api/models";
 import { getPercent } from "@/utils";
-import { CustomButton } from "../ui/Button";
 import { mockVisitCohort } from "@/mock";
-import { infoIcon, lockIcon } from "../../../public/images";
-import { colors } from "@/styles";
 import { LockedContent } from "../layout/LockedContent";
+import { infoIcon } from "../../../public/images";
+import { colors } from "@/styles";
 
 const PANEL_COLORS = [
   { min: 100, color: "#5959E8" },
@@ -22,6 +22,8 @@ interface Props {
 
 export const VisitCohortChart = ({ storeId }: Props) => {
   if (!storeId) return;
+
+  const router = useRouter();
 
   const [showInfo, setShowInfo] = useState<boolean>(false);
 
@@ -99,11 +101,7 @@ export const VisitCohortChart = ({ storeId }: Props) => {
             "고객 재방문율 및 이탈 분석 기능은\n유료 플랜에서 제공됩니다."
           }
           buttonText="멤버쉽 업그레이드"
-          onClick={() =>
-            alert(
-              "멤버십 업그레이드는 맞춤형 계약으로 제공됩니다.\n계약 기간 및 요금은 상담을 통해 안내드립니다.\n문의 전화번호: 1668-1620",
-            )
-          }
+          onClick={() => router.push("price")}
         />
       )}
 

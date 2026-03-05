@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { useRouter } from "next/router";
 import { CellContext, ColumnDef } from "@tanstack/react-table";
 import dayjs from "dayjs";
 import { useCrmControllerGetCrmLogList } from "@/api/crm/crm";
@@ -10,6 +11,8 @@ import { LockedContent } from "@/components/layout/LockedContent";
 import { CrmAutomationSection } from "@/components/crm";
 
 export default function Crm() {
+  const router = useRouter();
+
   const [page, setPage] = useState<number>(0);
   const [storeId, setStoreId] = useState<string | null>(null);
   const [storeName, setStoreName] = useState<string | null>(null);
@@ -100,11 +103,7 @@ export default function Crm() {
               title="Pro 전용"
               content="자동 실행 내역은 유료 플랜에서 제공됩니다."
               buttonText="멤버쉽 업그레이드"
-              onClick={() =>
-                alert(
-                  "멤버십 업그레이드는 맞춤형 계약으로 제공됩니다.\n계약 기간 및 요금은 상담을 통해 안내드립니다.\n문의 전화번호: 1668-1620",
-                )
-              }
+              onClick={() => router.push("price")}
             />
           )
         }

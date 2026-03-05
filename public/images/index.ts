@@ -77,6 +77,7 @@ export { default as roiIcon } from "./roi-icon.png";
 export { default as lockIcon } from "./lock-icon.png";
 export { default as discontinueIcon } from "./discontinue-icon.png";
 export { default as thanksIcon } from "./thanks-icon.png";
+export { default as checkIcon } from "./check-icon.png";
 
 // 설정
 export { default as showPasswordIcon } from "./show-password-icon.png";
