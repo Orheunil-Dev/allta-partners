@@ -237,25 +237,9 @@ export const formatPaymentMethod = (value: string) => {
     case "KIOSK_VOUCHER":
       return "현금보관증";
 
-    case "REWASH":
-      return "무료세차(재세차)";
+    case "TEST":
+      return "테스트";
 
-    case "ERROR":
-      return "무료세차(오류)";
-
-    case "STAFF":
-      return "무료세차(직원)";
-
-    case "ACQUAINTANCE":
-      return "무료세차(지인)";
-
-    default:
-      return value;
-  }
-};
-
-export const formatFreeWashReason = (value: string) => {
-  switch (value) {
     case "REWASH":
       return "재세차";
 
@@ -267,6 +251,52 @@ export const formatFreeWashReason = (value: string) => {
 
     case "ACQUAINTANCE":
       return "지인";
+
+    case "BUSINESS":
+      return "거래처";
+
+    case "REFUNDED_CARD":
+      return "환불(카드)";
+
+    case "REFUNDED_CASH":
+      return "환불(현금)";
+
+    case "REFUNDED_VOUCHER":
+      return "환불(현금보관증)";
+
+    default:
+      return value;
+  }
+};
+
+export const formatFreeWashReason = (value: string) => {
+  switch (value) {
+    case "TEST":
+      return "테스트";
+
+    case "REWASH":
+      return "재세차";
+
+    case "ERROR":
+      return "오류";
+
+    case "STAFF":
+      return "직원";
+
+    case "ACQUAINTANCE":
+      return "지인";
+
+    case "BUSINESS":
+      return "거래처";
+
+    case "REFUNDED_CARD":
+      return "환불(카드)";
+
+    case "REFUNDED_CASH":
+      return "환불(현금)";
+
+    case "REFUNDED_VOUCHER":
+      return "환불(현금보관증)";
 
     default:
       return value;

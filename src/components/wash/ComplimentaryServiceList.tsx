@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import Image from "next/image";
 import dayjs from "dayjs";
-import { useServiceHistoryControllerGetComplimentaryServiceHistoryList } from "@/api/service-history/service-history";
+import { useFreeWashControllerGetFreeWashHistoryList } from "@/api/free-wash/free-wash";
 import { formatFreeWashReason } from "@/utils";
 import { Callout } from "../ui/Callout";
 import { grayRightArrowIcon } from "../../../public/images";
@@ -24,7 +24,7 @@ export const ComplimentaryServiceList = ({
     data: complimentaryServiceListData,
     isLoading: complimentaryServiceListLoading,
     isError: complimentaryServiceListErro,
-  } = useServiceHistoryControllerGetComplimentaryServiceHistoryList({
+  } = useFreeWashControllerGetFreeWashHistoryList({
     storeIds: storeId ? [storeId] : [],
     startDate,
     endDate,

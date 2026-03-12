@@ -33,6 +33,7 @@ export const config = {
     "/crm",
     "/user/:path*",
     "/store/:path*",
+    "/car",
     "/setting",
   ],
 };

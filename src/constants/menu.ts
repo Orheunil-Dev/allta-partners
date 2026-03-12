@@ -20,6 +20,8 @@ import {
   crmOff,
   marketingOn,
   marketingOff,
+  carOn,
+  carOff,
 } from "../../public/images";
 
 export type MenuItem = {
@@ -95,6 +97,13 @@ export const menuItems: MenuItem[] = [
     route: "/store",
     activeIcon: storeOn,
     inactiveIcon: storeOff,
+  },
+  {
+    category: "시스템",
+    name: "차량 관리",
+    route: "/car",
+    activeIcon: carOn,
+    inactiveIcon: carOff,
   },
   {
     category: "시스템",

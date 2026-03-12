@@ -5,14 +5,14 @@
  * Allta Partners 서버 문서입니다.
  * OpenAPI spec version: 1.0
  */
-import type { ComplimentaryServiceHistoryListItem } from './complimentaryServiceHistoryListItem';
+import type { FreeWashHistoryListItem } from './freeWashHistoryListItem';
 import type { PaginationMetaEntity } from './paginationMetaEntity';
 
-export interface GetComplimentaryServiceHistoryListResponse {
+export interface GetFreeWashHistoryListResponse {
   /** 결과 여부 */
   ok: boolean;
   /** 응답 데이터 */
-  data: ComplimentaryServiceHistoryListItem[];
+  data: FreeWashHistoryListItem[];
   /** 메타 정보 */
   meta: PaginationMetaEntity;
 }

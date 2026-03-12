@@ -1,13 +1,13 @@
 import { useEffect, useMemo, useState } from "react";
 import { CellContext, ColumnDef } from "@tanstack/react-table";
 import dayjs from "dayjs";
-import { useServiceHistoryControllerGetComplimentaryServiceHistoryList } from "@/api/service-history/service-history";
-import { ComplimentaryServiceHistoryListItem } from "@/api/models";
+import { useFreeWashControllerGetFreeWashHistoryList } from "@/api/free-wash/free-wash";
+import { FreeWashHistoryListItem } from "@/api/models";
 import { formatFreeWashReason } from "@/utils";
 import { List } from "@/components/layout/List";
 import { ConditionBar } from "@/components/layout/ConditionBar";
 
-export default function FreeWashListist() {
+export default function FreeWashList() {
   const [page, setPage] = useState<number>(0);
   const [storeId, setStoreId] = useState<string | null>(null);
   const [carNumber, setCarNumber] = useState<string>("");
@@ -17,7 +17,7 @@ export default function FreeWashListist() {
 
   // 무료세차 내역 목록 조회 API
   const { data, isLoading, isError, refetch } =
-    useServiceHistoryControllerGetComplimentaryServiceHistoryList({
+    useFreeWashControllerGetFreeWashHistoryList({
       storeIds: storeId ? [storeId] : [],
       ...(carNumber && { carNumber }),
       ...(startDate && { startDate }),
@@ -26,15 +26,14 @@ export default function FreeWashListist() {
       skip: 10 * page,
     });
 
-  const columns = useMemo<ColumnDef<ComplimentaryServiceHistoryListItem>[]>(
+  const columns = useMemo<ColumnDef<FreeWashHistoryListItem>[]>(
     () => [
       {
         id: "createdAt",
         header: "방문일시",
         accessorFn: (row) => row.createdAt,
-        cell: (
-          info: CellContext<ComplimentaryServiceHistoryListItem, unknown>,
-        ) => dayjs(info.getValue() as string).format("YYYY.MM.DD HH:mm"),
+        cell: (info: CellContext<FreeWashHistoryListItem, unknown>) =>
+          dayjs(info.getValue() as string).format("YYYY.MM.DD HH:mm"),
         enableSorting: false,
       },
       {
@@ -43,12 +42,12 @@ export default function FreeWashListist() {
         accessorFn: (row) => row.storeName,
         enableSorting: false,
       },
-      {
-        id: "userName",
-        header: "회원명",
-        accessorFn: (row) => row.userName ?? "-",
-        enableSorting: false,
-      },
+      // {
+      //   id: "userName",
+      //   header: "회원명",
+      //   accessorFn: (row) => row.userName ?? "-",
+      //   enableSorting: false,
+      // },
       {
         id: "carNumber",
         header: "차량번호",
@@ -56,12 +55,17 @@ export default function FreeWashListist() {
         enableSorting: false,
       },
       {
+        id: "memo",
+        header: "메모",
+        accessorFn: (row) => row.memo ?? "-",
+        enableSorting: false,
+      },
+      {
         id: "reason",
         header: "무료세차 사유",
         accessorFn: (row) => row.paymentMethod,
-        cell: (
-          info: CellContext<ComplimentaryServiceHistoryListItem, unknown>,
-        ) => formatFreeWashReason(info.getValue() as string),
+        cell: (info: CellContext<FreeWashHistoryListItem, unknown>) =>
+          formatFreeWashReason(info.getValue() as string),
         enableSorting: false,
       },
     ],

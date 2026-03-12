@@ -6,7 +6,7 @@
  * OpenAPI spec version: 1.0
  */
 
-export interface ComplimentaryServiceHistoryListItem {
+export interface FreeWashHistoryListItem {
   /** ID */
   id: string;
   /** 결제 수단 */
@@ -20,6 +20,6 @@ export interface ComplimentaryServiceHistoryListItem {
   carNumber?: string | null;
   /** 생성일 */
   createdAt: string;
-  /** 회원명 */
-  userName?: string[];
+  /** 차량 메모 */
+  memo?: string[];
 }

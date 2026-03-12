@@ -27,9 +27,7 @@ import type {
 import type {
   CancelServiceRequest,
   CancelServiceResponse,
-  GetComplimentaryServiceHistoryListResponse,
   GetServiceHistoryListResponse,
-  ServiceHistoryControllerGetComplimentaryServiceHistoryListParams,
   ServiceHistoryControllerGetServiceHistoryListParams
 } from '.././models';
 
@@ -183,89 +181,4 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
       return useMutation(mutationOptions, queryClient);
     }
-    export const serviceHistoryControllerGetComplimentaryServiceHistoryList = (
-    params: ServiceHistoryControllerGetComplimentaryServiceHistoryListParams,
- options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
-) => {
-      
-      
-      return customInstance<GetComplimentaryServiceHistoryListResponse>(
-      {url: `/service-history/complimentary`, method: 'GET',
-        params, signal
-    },
-      options);
-    }
-  
-
-
-
-export const getServiceHistoryControllerGetComplimentaryServiceHistoryListQueryKey = (params?: ServiceHistoryControllerGetComplimentaryServiceHistoryListParams,) => {
-    return [
-    `/service-history/complimentary`, ...(params ? [params]: [])
-    ] as const;
-    }
-
     
-export const getServiceHistoryControllerGetComplimentaryServiceHistoryListQueryOptions = <TData = Awaited<ReturnType<typeof serviceHistoryControllerGetComplimentaryServiceHistoryList>>, TError = unknown>(params: ServiceHistoryControllerGetComplimentaryServiceHistoryListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof serviceHistoryControllerGetComplimentaryServiceHistoryList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getServiceHistoryControllerGetComplimentaryServiceHistoryListQueryKey(params);
-
-  
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof serviceHistoryControllerGetComplimentaryServiceHistoryList>>> = ({ signal }) => serviceHistoryControllerGetComplimentaryServiceHistoryList(params, requestOptions, signal);
-
-      
-
-      
-
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof serviceHistoryControllerGetComplimentaryServiceHistoryList>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
-}
-
-export type ServiceHistoryControllerGetComplimentaryServiceHistoryListQueryResult = NonNullable<Awaited<ReturnType<typeof serviceHistoryControllerGetComplimentaryServiceHistoryList>>>
-export type ServiceHistoryControllerGetComplimentaryServiceHistoryListQueryError = unknown
-
-
-export function useServiceHistoryControllerGetComplimentaryServiceHistoryList<TData = Awaited<ReturnType<typeof serviceHistoryControllerGetComplimentaryServiceHistoryList>>, TError = unknown>(
- params: ServiceHistoryControllerGetComplimentaryServiceHistoryListParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof serviceHistoryControllerGetComplimentaryServiceHistoryList>>, TError, TData>> & Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof serviceHistoryControllerGetComplimentaryServiceHistoryList>>,
-          TError,
-          Awaited<ReturnType<typeof serviceHistoryControllerGetComplimentaryServiceHistoryList>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient
-  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useServiceHistoryControllerGetComplimentaryServiceHistoryList<TData = Awaited<ReturnType<typeof serviceHistoryControllerGetComplimentaryServiceHistoryList>>, TError = unknown>(
- params: ServiceHistoryControllerGetComplimentaryServiceHistoryListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof serviceHistoryControllerGetComplimentaryServiceHistoryList>>, TError, TData>> & Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof serviceHistoryControllerGetComplimentaryServiceHistoryList>>,
-          TError,
-          Awaited<ReturnType<typeof serviceHistoryControllerGetComplimentaryServiceHistoryList>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useServiceHistoryControllerGetComplimentaryServiceHistoryList<TData = Awaited<ReturnType<typeof serviceHistoryControllerGetComplimentaryServiceHistoryList>>, TError = unknown>(
- params: ServiceHistoryControllerGetComplimentaryServiceHistoryListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof serviceHistoryControllerGetComplimentaryServiceHistoryList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-
-export function useServiceHistoryControllerGetComplimentaryServiceHistoryList<TData = Awaited<ReturnType<typeof serviceHistoryControllerGetComplimentaryServiceHistoryList>>, TError = unknown>(
- params: ServiceHistoryControllerGetComplimentaryServiceHistoryListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof serviceHistoryControllerGetComplimentaryServiceHistoryList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient 
- ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-
-  const queryOptions = getServiceHistoryControllerGetComplimentaryServiceHistoryListQueryOptions(params,options)
-
-  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
-
-  query.queryKey = queryOptions.queryKey ;
-
-  return query;
-}
-
-
-

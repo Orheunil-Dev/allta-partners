@@ -6,7 +6,7 @@
  * OpenAPI spec version: 1.0
  */
 
-export type ServiceHistoryControllerGetComplimentaryServiceHistoryListParams = {
+export type FreeWashControllerGetFreeWashHistoryListParams = {
 /**
  * 매장 ID 목록
  */

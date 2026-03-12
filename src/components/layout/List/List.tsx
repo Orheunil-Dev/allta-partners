@@ -22,6 +22,7 @@ interface Props<TData> {
   margin?: CSSProperties["margin"];
   emptyMessage?: string;
   lockMessage?: ReactNode;
+  extraButton?: ReactNode;
 }
 
 export const List = <TData,>({
@@ -40,6 +41,7 @@ export const List = <TData,>({
   margin = "24px 0 0 0",
   emptyMessage,
   lockMessage,
+  extraButton,
 }: Props<TData>) => {
   return (
     <Callout position="relative" margin={margin}>
@@ -73,6 +75,8 @@ export const List = <TData,>({
               />
             </div>
           )}
+
+          {extraButton}
 
           {onDownload && (
             <button

@@ -5,6 +5,7 @@ export { default as dashboardOff } from "./dashboard-off.png";
 export { default as conditionBarIcon } from "./condition-bar-store-icon.png";
 export { default as graySearchIcon } from "./gray-search-icon.png";
 export { default as infoIcon } from "./info-icon.png";
+export { default as trashCanIcon } from "./trash-can-icon.png";
 
 // 사이드바
 export { default as washOn } from "./wash-on.png";
@@ -23,6 +24,8 @@ export { default as marketingOn } from "./marketing_on.png";
 export { default as marketingOff } from "./marketing_off.png";
 export { default as crmOn } from "./crm-on.png";
 export { default as crmOff } from "./crm-off.png";
+export { default as carOn } from "./car-on.png";
+export { default as carOff } from "./car-off.png";
 export { default as settingOn } from "./setting-on.png";
 export { default as settingOff } from "./setting-off.png";
 export { default as logoutIcon } from "./logout-icon.png";
