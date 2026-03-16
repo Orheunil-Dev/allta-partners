@@ -352,7 +352,7 @@ export const PettyCash = ({
           </p>
         </CustomButton>
 
-        {depositList?.length && (
+        {depositList && depositList.length > 0 && (
           <div className="flex flex-col w-full mt-[20px] text-[14px]">
             <div className="p-[8px] font-medium border border-line">
               중간 입금 내역
