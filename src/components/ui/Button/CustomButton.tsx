@@ -13,6 +13,7 @@ interface Props {
   borderWidth?: React.CSSProperties["borderWidth"];
   borderColor?: React.CSSProperties["borderColor"];
   borderRadius?: React.CSSProperties["borderRadius"];
+  cursor?: React.CSSProperties["cursor"];
   disabled?: boolean;
 }
 
@@ -29,6 +30,7 @@ export const CustomButton = ({
   borderWidth,
   borderColor,
   borderRadius = "8px",
+  cursor = "pointer",
   disabled,
 }: Props) => {
   return (
@@ -46,7 +48,7 @@ export const CustomButton = ({
         borderWidth,
         borderColor,
         borderRadius,
-        cursor: "pointer",
+        cursor,
       }}
     >
       {children}

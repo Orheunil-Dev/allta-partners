@@ -6,26 +6,213 @@
  * OpenAPI spec version: 1.0
  */
 import {
-  useMutation
+  useMutation,
+  useQuery
 } from '@tanstack/react-query';
 import type {
+  DataTag,
+  DefinedInitialDataOptions,
+  DefinedUseQueryResult,
   MutationFunction,
   QueryClient,
+  QueryFunction,
+  QueryKey,
+  UndefinedInitialDataOptions,
   UseMutationOptions,
-  UseMutationResult
+  UseMutationResult,
+  UseQueryOptions,
+  UseQueryResult
 } from '@tanstack/react-query';
 
 import type {
   CloseStoreRequest,
   CloseStoreResponse,
+  DepositCashRequest,
+  DepositCashResponse,
+  GetMonthlyStoreOperationListResponse,
+  GetTodayStoreOperationResponse,
   OpenStoreRequest,
-  OpenStoreResponse
+  OpenStoreResponse,
+  StoreOperationControllerGetMonthlyStoreOperationListParams,
+  StoreOperationControllerGetTodayStoreOperationParams
 } from '.././models';
 
 import { customInstance } from '../../libs/custom-instance';
 
 
 type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
+
+
+
+export const storeOperationControllerGetTodayStoreOperation = (
+    params: StoreOperationControllerGetTodayStoreOperationParams,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<GetTodayStoreOperationResponse>(
+      {url: `/store-operation/today`, method: 'GET',
+        params, signal
+    },
+      options);
+    }
+  
+
+
+
+export const getStoreOperationControllerGetTodayStoreOperationQueryKey = (params?: StoreOperationControllerGetTodayStoreOperationParams,) => {
+    return [
+    `/store-operation/today`, ...(params ? [params]: [])
+    ] as const;
+    }
+
+    
+export const getStoreOperationControllerGetTodayStoreOperationQueryOptions = <TData = Awaited<ReturnType<typeof storeOperationControllerGetTodayStoreOperation>>, TError = unknown>(params: StoreOperationControllerGetTodayStoreOperationParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof storeOperationControllerGetTodayStoreOperation>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getStoreOperationControllerGetTodayStoreOperationQueryKey(params);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof storeOperationControllerGetTodayStoreOperation>>> = ({ signal }) => storeOperationControllerGetTodayStoreOperation(params, requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof storeOperationControllerGetTodayStoreOperation>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type StoreOperationControllerGetTodayStoreOperationQueryResult = NonNullable<Awaited<ReturnType<typeof storeOperationControllerGetTodayStoreOperation>>>
+export type StoreOperationControllerGetTodayStoreOperationQueryError = unknown
+
+
+export function useStoreOperationControllerGetTodayStoreOperation<TData = Awaited<ReturnType<typeof storeOperationControllerGetTodayStoreOperation>>, TError = unknown>(
+ params: StoreOperationControllerGetTodayStoreOperationParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof storeOperationControllerGetTodayStoreOperation>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof storeOperationControllerGetTodayStoreOperation>>,
+          TError,
+          Awaited<ReturnType<typeof storeOperationControllerGetTodayStoreOperation>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useStoreOperationControllerGetTodayStoreOperation<TData = Awaited<ReturnType<typeof storeOperationControllerGetTodayStoreOperation>>, TError = unknown>(
+ params: StoreOperationControllerGetTodayStoreOperationParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof storeOperationControllerGetTodayStoreOperation>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof storeOperationControllerGetTodayStoreOperation>>,
+          TError,
+          Awaited<ReturnType<typeof storeOperationControllerGetTodayStoreOperation>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useStoreOperationControllerGetTodayStoreOperation<TData = Awaited<ReturnType<typeof storeOperationControllerGetTodayStoreOperation>>, TError = unknown>(
+ params: StoreOperationControllerGetTodayStoreOperationParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof storeOperationControllerGetTodayStoreOperation>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+
+export function useStoreOperationControllerGetTodayStoreOperation<TData = Awaited<ReturnType<typeof storeOperationControllerGetTodayStoreOperation>>, TError = unknown>(
+ params: StoreOperationControllerGetTodayStoreOperationParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof storeOperationControllerGetTodayStoreOperation>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getStoreOperationControllerGetTodayStoreOperationQueryOptions(params,options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+export const storeOperationControllerGetMonthlyStoreOperationList = (
+    params: StoreOperationControllerGetMonthlyStoreOperationListParams,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<GetMonthlyStoreOperationListResponse>(
+      {url: `/store-operation/monthly`, method: 'GET',
+        params, signal
+    },
+      options);
+    }
+  
+
+
+
+export const getStoreOperationControllerGetMonthlyStoreOperationListQueryKey = (params?: StoreOperationControllerGetMonthlyStoreOperationListParams,) => {
+    return [
+    `/store-operation/monthly`, ...(params ? [params]: [])
+    ] as const;
+    }
+
+    
+export const getStoreOperationControllerGetMonthlyStoreOperationListQueryOptions = <TData = Awaited<ReturnType<typeof storeOperationControllerGetMonthlyStoreOperationList>>, TError = unknown>(params: StoreOperationControllerGetMonthlyStoreOperationListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof storeOperationControllerGetMonthlyStoreOperationList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getStoreOperationControllerGetMonthlyStoreOperationListQueryKey(params);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof storeOperationControllerGetMonthlyStoreOperationList>>> = ({ signal }) => storeOperationControllerGetMonthlyStoreOperationList(params, requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof storeOperationControllerGetMonthlyStoreOperationList>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type StoreOperationControllerGetMonthlyStoreOperationListQueryResult = NonNullable<Awaited<ReturnType<typeof storeOperationControllerGetMonthlyStoreOperationList>>>
+export type StoreOperationControllerGetMonthlyStoreOperationListQueryError = unknown
+
+
+export function useStoreOperationControllerGetMonthlyStoreOperationList<TData = Awaited<ReturnType<typeof storeOperationControllerGetMonthlyStoreOperationList>>, TError = unknown>(
+ params: StoreOperationControllerGetMonthlyStoreOperationListParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof storeOperationControllerGetMonthlyStoreOperationList>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof storeOperationControllerGetMonthlyStoreOperationList>>,
+          TError,
+          Awaited<ReturnType<typeof storeOperationControllerGetMonthlyStoreOperationList>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useStoreOperationControllerGetMonthlyStoreOperationList<TData = Awaited<ReturnType<typeof storeOperationControllerGetMonthlyStoreOperationList>>, TError = unknown>(
+ params: StoreOperationControllerGetMonthlyStoreOperationListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof storeOperationControllerGetMonthlyStoreOperationList>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof storeOperationControllerGetMonthlyStoreOperationList>>,
+          TError,
+          Awaited<ReturnType<typeof storeOperationControllerGetMonthlyStoreOperationList>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useStoreOperationControllerGetMonthlyStoreOperationList<TData = Awaited<ReturnType<typeof storeOperationControllerGetMonthlyStoreOperationList>>, TError = unknown>(
+ params: StoreOperationControllerGetMonthlyStoreOperationListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof storeOperationControllerGetMonthlyStoreOperationList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+
+export function useStoreOperationControllerGetMonthlyStoreOperationList<TData = Awaited<ReturnType<typeof storeOperationControllerGetMonthlyStoreOperationList>>, TError = unknown>(
+ params: StoreOperationControllerGetMonthlyStoreOperationListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof storeOperationControllerGetMonthlyStoreOperationList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getStoreOperationControllerGetMonthlyStoreOperationListQueryOptions(params,options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
 
 
 
@@ -142,6 +329,64 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
       > => {
 
       const mutationOptions = getStoreOperationControllerCloseStoreMutationOptions(options);
+
+      return useMutation(mutationOptions, queryClient);
+    }
+    export const storeOperationControllerDepositCash = (
+    depositCashRequest: DepositCashRequest,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<DepositCashResponse>(
+      {url: `/store-operation/deposit`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: depositCashRequest, signal
+    },
+      options);
+    }
+  
+
+
+export const getStoreOperationControllerDepositCashMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof storeOperationControllerDepositCash>>, TError,{data: DepositCashRequest}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof storeOperationControllerDepositCash>>, TError,{data: DepositCashRequest}, TContext> => {
+
+const mutationKey = ['storeOperationControllerDepositCash'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof storeOperationControllerDepositCash>>, {data: DepositCashRequest}> = (props) => {
+          const {data} = props ?? {};
+
+          return  storeOperationControllerDepositCash(data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type StoreOperationControllerDepositCashMutationResult = NonNullable<Awaited<ReturnType<typeof storeOperationControllerDepositCash>>>
+    export type StoreOperationControllerDepositCashMutationBody = DepositCashRequest
+    export type StoreOperationControllerDepositCashMutationError = unknown
+
+    export const useStoreOperationControllerDepositCash = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof storeOperationControllerDepositCash>>, TError,{data: DepositCashRequest}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof storeOperationControllerDepositCash>>,
+        TError,
+        {data: DepositCashRequest},
+        TContext
+      > => {
+
+      const mutationOptions = getStoreOperationControllerDepositCashMutationOptions(options);
 
       return useMutation(mutationOptions, queryClient);
     }

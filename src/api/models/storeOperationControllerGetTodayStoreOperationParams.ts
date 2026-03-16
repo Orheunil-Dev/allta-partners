@@ -6,9 +6,9 @@
  * OpenAPI spec version: 1.0
  */
 
-export interface OpenStoreRequest {
-  /** 매장 ID */
-  storeId: string;
-  /** 시재금 */
-  amount: number;
-}
+export type StoreOperationControllerGetTodayStoreOperationParams = {
+/**
+ * 매장 ID
+ */
+storeId: string;
+};

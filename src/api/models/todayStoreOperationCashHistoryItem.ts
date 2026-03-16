@@ -6,11 +6,11 @@
  * OpenAPI spec version: 1.0
  */
 
-export interface CloseStoreRequest {
-  /** 매장 ID */
-  storeId: string;
-  /** 시재금 */
+export interface TodayStoreOperationCashHistoryItem {
+  /** 시재 종류 */
+  type: string;
+  /** 금액 */
   amount: number;
-  /** 세차 횟수 */
-  serviceCount: number;
+  /** 생성일 */
+  createdAt: string;
 }

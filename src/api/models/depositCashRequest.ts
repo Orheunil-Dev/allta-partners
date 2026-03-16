@@ -6,11 +6,9 @@
  * OpenAPI spec version: 1.0
  */
 
-export interface CloseStoreRequest {
+export interface DepositCashRequest {
   /** 매장 ID */
   storeId: string;
-  /** 시재금 */
+  /** 입금액 */
   amount: number;
-  /** 세차 횟수 */
-  serviceCount: number;
 }

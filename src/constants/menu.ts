@@ -44,6 +44,13 @@ export const menuItems: MenuItem[] = [
   },
   {
     category: "운영",
+    name: "시재 관리",
+    route: "/store-operation",
+    activeIcon: washOn,
+    inactiveIcon: washOff,
+  },
+  {
+    category: "운영",
     name: "세차 관리",
     route: "/wash",
     activeIcon: washOn,

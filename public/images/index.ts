@@ -6,6 +6,8 @@ export { default as conditionBarIcon } from "./condition-bar-store-icon.png";
 export { default as graySearchIcon } from "./gray-search-icon.png";
 export { default as infoIcon } from "./info-icon.png";
 export { default as trashCanIcon } from "./trash-can-icon.png";
+export { default as prevMonthIcon } from "./prev-month-icon.png";
+export { default as nextMonthIcon } from "./next-month-icon.png";
 
 // 사이드바
 export { default as washOn } from "./wash-on.png";
