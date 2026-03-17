@@ -18,7 +18,7 @@ export default function StoreOperation() {
   const [storeName, setStoreName] = useState<string | null>(null);
   const [year, setYear] = useState<number>(dayjs().year());
   const [month, setMonth] = useState<number>(dayjs().month() + 1);
-  const [date, setDate] = useState<number>(dayjs().date());
+  const [date, setDate] = useState<dayjs.Dayjs>(dayjs());
 
   // 오늘 매장 운영 정보 조회 API
   const {
@@ -45,6 +45,8 @@ export default function StoreOperation() {
     { query: { enabled: !!storeId } },
   );
 
+  console.log(date.format("YYYY-MM-DD"));
+
   return (
     <div className="flex flex-col h-full px-[20px] md:px-[40px] lg:px-[80px] py-[40px] overflow-y-auto">
       <SimpleConditionBar
@@ -70,6 +72,7 @@ export default function StoreOperation() {
             setYear={setYear}
             month={month}
             setMonth={setMonth}
+            onClick={(d) => setDate(d)}
             item={(date) => {
               if (!monthlyData?.data) return;
 

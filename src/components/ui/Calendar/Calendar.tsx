@@ -16,12 +16,20 @@ interface Props {
   setYear: Dispatch<SetStateAction<number>>;
   month: number;
   setMonth: Dispatch<SetStateAction<number>>;
+  onClick?: (date: dayjs.Dayjs) => void;
   item?: (date: dayjs.Dayjs) => ReactNode;
 }
 
 const weekDays = ["일", "월", "화", "수", "목", "금", "토"];
 
-export const Calendar = ({ year, setYear, month, setMonth, item }: Props) => {
+export const Calendar = ({
+  year,
+  setYear,
+  month,
+  setMonth,
+  onClick,
+  item,
+}: Props) => {
   const [days, setDays] = useState<(number | null)[]>([]);
   const [holidays, setHolidays] = useState<number[]>([]);
 
@@ -128,7 +136,11 @@ export const Calendar = ({ year, setYear, month, setMonth, item }: Props) => {
           const isToday = dateObject.isSame(dayjs(), "day");
 
           return (
-            <div key={index} className="h-[126px] p-[8px] bg-white">
+            <div
+              key={index}
+              onClick={() => onClick?.(dateObject)}
+              className={`h-[126px] p-[8px] bg-white ${onClick ? "cursor-pointer" : "cursor-default"}`}
+            >
               <div
                 className="w-fit px-[8px] py-[1px] text-[16px] rounded-[40px]"
                 style={{
