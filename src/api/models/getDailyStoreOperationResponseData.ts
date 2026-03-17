@@ -5,10 +5,10 @@
  * Allta Partners 서버 문서입니다.
  * OpenAPI spec version: 1.0
  */
-import type { TodayStoreOperationResult } from './todayStoreOperationResult';
+import type { DailyStoreOperationResult } from './dailyStoreOperationResult';
 
 /**
  * 응답 데이터
  * @nullable
  */
-export type GetTodayStoreOperationResponseData = TodayStoreOperationResult | null;
+export type GetDailyStoreOperationResponseData = DailyStoreOperationResult | null;

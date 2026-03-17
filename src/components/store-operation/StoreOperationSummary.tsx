@@ -1,8 +1,8 @@
-import { TodayStoreOperationResult } from "@/api/models";
+import { DailyStoreOperationResult } from "@/api/models";
 import { Callout } from "../ui/Callout";
 
 interface Props {
-  data?: TodayStoreOperationResult | null;
+  data?: DailyStoreOperationResult | null;
 }
 
 export const StoreOperationSummary = ({ data }: Props) => {
@@ -18,7 +18,7 @@ export const StoreOperationSummary = ({ data }: Props) => {
     <Callout margin="0 0 24px 0">
       <p className="text-[16px] font-semibold">금일 시재 현황</p>
 
-      <div className="flex justify-between items-center w-full mt-[20px] gap-[24px]">
+      <div className="grid grid-cols-2 lg:flex lg:justify-between lg:items-center w-full mt-[20px] gap-[24px]">
         <div className="flex flex-col w-full px-[20px] py-[16px] bg-gray1 rounded-[8px]">
           <p className="text-gray7 text-[14px]">오픈 시재</p>
           <p className="mt-[8px] text-[20px] font-semibold">

@@ -6,9 +6,14 @@
  * OpenAPI spec version: 1.0
  */
 
-export type StoreOperationControllerGetTodayStoreOperationParams = {
+export type StoreOperationControllerGetDailyStoreOperationParams = {
 /**
  * 매장 ID
  */
 storeId: string;
+/**
+ * 날짜
+ * @nullable
+ */
+date?: string | null;
 };

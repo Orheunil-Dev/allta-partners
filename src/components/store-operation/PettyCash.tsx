@@ -6,16 +6,17 @@ import {
   useStoreOperationControllerDepositCash,
   useStoreOperationControllerOpenStore,
 } from "@/api/store-operation/store-operation";
-import { TodayStoreOperationResult } from "@/api/models";
+import { DailyStoreOperationResult } from "@/api/models";
 import { Callout } from "../ui/Callout";
 import { CustomButton } from "../ui/Button";
 import { colors } from "@/styles";
+import { useResizeHandler } from "@/hooks";
 
 dayjs.locale("ko");
 
 interface Props {
   storeId: string | null;
-  data?: TodayStoreOperationResult | null;
+  data?: DailyStoreOperationResult | null;
   dailyRefetch: () => void;
   monthlyRefetch: () => void;
 }
@@ -26,6 +27,8 @@ export const PettyCash = ({
   dailyRefetch,
   monthlyRefetch,
 }: Props) => {
+  const { isDesktop, isTablet, isMobile } = useResizeHandler();
+
   const [openingCash, setOpeningCash] = useState<number | null>(null);
   const [closingCash, setClosingCash] = useState<number | null>(null);
   const [serviceCount, setServiceCount] = useState<number | null>(null);
@@ -127,7 +130,7 @@ export const PettyCash = ({
         data: {
           storeId,
           amount: closingCash,
-          serviceCount,
+          expectedServiceCount: serviceCount,
         },
       },
       {
@@ -197,11 +200,11 @@ export const PettyCash = ({
 
     setOpeningCash(openCashHistory ? openCashHistory.amount : null);
     setClosingCash(closeCashHistory ? closeCashHistory.amount : null);
-    setServiceCount(data?.serviceCount ?? null);
+    setServiceCount(data?.expectedServiceCount ?? null);
   }, [data]);
 
   return (
-    <Callout width="284px" height="fit-content">
+    <Callout width={isDesktop ? "284px" : "100%"} height="fit-content">
       <p className="text-[20px] font-semibold">시재관리</p>
 
       <div className="flex justify-between items-center mt-[8px]">
@@ -239,9 +242,17 @@ export const PettyCash = ({
         <div className="flex justify-between items-center w-full mt-[12px] text-[14px]">
           <p className="text-gray7">시재 입력</p>
           <input
-            value={openingCash ?? ""}
+            value={openingCash !== null ? openingCash.toLocaleString() : ""}
             onChange={(e) => {
-              setOpeningCash(Number(e.target.value));
+              const value = e.target.value.replace(/,/g, "");
+
+              if (!value.trim()) {
+                return setOpeningCash(null);
+              }
+
+              if (!/^\d+$/.test(value)) return;
+
+              setOpeningCash(Number(value));
             }}
             disabled={isOpened}
             placeholder="금액(원)"
@@ -275,9 +286,17 @@ export const PettyCash = ({
         <div className="flex justify-between items-center w-full mt-[12px] text-[14px]">
           <p className="text-gray7">시재 입력</p>
           <input
-            value={closingCash ?? ""}
+            value={closingCash !== null ? closingCash.toLocaleString() : ""}
             onChange={(e) => {
-              setClosingCash(Number(e.target.value));
+              const value = e.target.value.replace(/,/g, "");
+
+              if (!value.trim()) {
+                return setClosingCash(null);
+              }
+
+              if (!/^\d+$/.test(value)) return;
+
+              setClosingCash(Number(value));
             }}
             disabled={!isOpened || isClosed}
             placeholder="금액(원)"
@@ -288,9 +307,17 @@ export const PettyCash = ({
         <div className="flex justify-between items-center w-full mt-[12px] text-[14px]">
           <p className="text-gray7">세차 횟수</p>
           <input
-            value={serviceCount ?? ""}
+            value={serviceCount !== null ? serviceCount.toLocaleString() : ""}
             onChange={(e) => {
-              setServiceCount(Number(e.target.value));
+              const value = e.target.value.replace(/,/g, "");
+
+              if (!value.trim()) {
+                return setServiceCount(null);
+              }
+
+              if (!/^\d+$/.test(value)) return;
+
+              setServiceCount(Number(value));
             }}
             disabled={!isOpened || isClosed}
             placeholder="세차 횟수(회)"
@@ -324,9 +351,17 @@ export const PettyCash = ({
         <div className="flex justify-between items-center w-full mt-[12px] text-[14px]">
           <p className="text-gray7">시재 입력</p>
           <input
-            value={depositCash ?? ""}
+            value={depositCash !== null ? depositCash.toLocaleString() : ""}
             onChange={(e) => {
-              setDepositCash(Number(e.target.value));
+              const value = e.target.value.replace(/,/g, "");
+
+              if (!value.trim()) {
+                return setDepositCash(null);
+              }
+
+              if (!/^\d+$/.test(value)) return;
+
+              setDepositCash(Number(value));
             }}
             disabled={!isOpened || isClosed}
             placeholder="금액(원)"

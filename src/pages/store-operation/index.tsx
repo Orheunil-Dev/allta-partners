@@ -1,24 +1,24 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import dayjs from "dayjs";
 import {
   useStoreOperationControllerGetMonthlyStoreOperationList,
-  useStoreOperationControllerGetTodayStoreOperation,
+  useStoreOperationControllerGetDailyStoreOperation,
 } from "@/api/store-operation/store-operation";
-import { useResizeHandler } from "@/hooks";
 import { SimpleConditionBar } from "@/components/layout/ConditionBar";
 import { Calendar } from "@/components/ui/Calendar";
-import { PettyCash } from "@/components/store-operation";
-import { StoreOperationSummary } from "@/components/store-operation/StoreOperationSummary";
+import {
+  CashHistoryModal,
+  PettyCash,
+  StoreOperationSummary,
+} from "@/components/store-operation";
 
 export default function StoreOperation() {
-  const { isDesktop } = useResizeHandler();
-
   const [storeId, setStoreId] = useState<string | null>(null);
   const [storeName, setStoreName] = useState<string | null>(null);
   const [year, setYear] = useState<number>(dayjs().year());
   const [month, setMonth] = useState<number>(dayjs().month() + 1);
-  const [date, setDate] = useState<dayjs.Dayjs>(dayjs());
+  const [date, setDate] = useState<dayjs.Dayjs | null>(null);
 
   // 오늘 매장 운영 정보 조회 API
   const {
@@ -26,7 +26,7 @@ export default function StoreOperation() {
     isLoading: dailyLoading,
     isError: dailyError,
     refetch: dailyRefetch,
-  } = useStoreOperationControllerGetTodayStoreOperation(
+  } = useStoreOperationControllerGetDailyStoreOperation(
     { storeId: storeId! },
     { query: { enabled: !!storeId } },
   );
@@ -45,10 +45,15 @@ export default function StoreOperation() {
     { query: { enabled: !!storeId } },
   );
 
-  console.log(date.format("YYYY-MM-DD"));
-
   return (
     <div className="flex flex-col h-full px-[20px] md:px-[40px] lg:px-[80px] py-[40px] overflow-y-auto">
+      <CashHistoryModal
+        storeId={storeId}
+        storeName={storeName}
+        date={date}
+        onClose={() => setDate(null)}
+      />
+
       <SimpleConditionBar
         storeId={storeId}
         setStoreId={setStoreId}

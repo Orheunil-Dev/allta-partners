@@ -112,49 +112,53 @@ export const Calendar = ({
         </button>
       </div>
 
-      {/* 요일 */}
-      <div className="grid grid-cols-7 w-full mt-[20px] gap-[1px]">
-        {weekDays.map((value) => (
-          <div
-            key={value}
-            className="flex items-center h-[46px] px-[14px] text-gray5 text-[16px] font-medium bg-white"
-          >
-            {value}
-          </div>
-        ))}
-      </div>
-
-      {/* 날짜 */}
-      <div className="grid grid-cols-7 w-full bg-line border border-line gap-[1px]">
-        {days.map((value, index) => {
-          if (!value) {
-            return <div key={index} className="h-[126px] p-[12px] bg-white" />;
-          }
-
-          const dateObject = getDateObject(value, index);
-          const isCurrentMonth = dateObject.month() + 1 === month;
-          const isToday = dateObject.isSame(dayjs(), "day");
-
-          return (
+      <div className="flex flex-col w-full overflow-x-auto">
+        {/* 요일 */}
+        <div className="grid grid-cols-[repeat(7,minmax(120px,1fr))] min-w-[848px] mt-[20px] gap-[1px]">
+          {weekDays.map((value) => (
             <div
-              key={index}
-              onClick={() => onClick?.(dateObject)}
-              className={`h-[126px] p-[8px] bg-white ${onClick ? "cursor-pointer" : "cursor-default"}`}
+              key={value}
+              className="flex items-center h-[46px] px-[14px] text-gray5 text-[16px] font-medium bg-white"
             >
-              <div
-                className="w-fit px-[8px] py-[1px] text-[16px] rounded-[40px]"
-                style={{
-                  color: isToday ? colors.white : getTextColor(dateObject),
-                  backgroundColor: isToday ? colors.main : colors.white,
-                }}
-              >
-                {value}
-              </div>
-
-              {isCurrentMonth && item?.(dateObject)}
+              {value}
             </div>
-          );
-        })}
+          ))}
+        </div>
+
+        {/* 날짜 */}
+        <div className="grid grid-cols-[repeat(7,minmax(120px,1fr))] min-w-[848px] bg-line border border-line gap-[1px]">
+          {days.map((value, index) => {
+            if (!value) {
+              return (
+                <div key={index} className="h-[126px] p-[12px] bg-white" />
+              );
+            }
+
+            const dateObject = getDateObject(value, index);
+            const isCurrentMonth = dateObject.month() + 1 === month;
+            const isToday = dateObject.isSame(dayjs(), "day");
+
+            return (
+              <div
+                key={index}
+                onClick={() => onClick?.(dateObject)}
+                className={`h-[126px] p-[8px] bg-white ${onClick ? "cursor-pointer" : "cursor-default"}`}
+              >
+                <div
+                  className="w-fit px-[8px] py-[1px] text-[16px] rounded-[40px]"
+                  style={{
+                    color: isToday ? colors.white : getTextColor(dateObject),
+                    backgroundColor: isToday ? colors.main : colors.white,
+                  }}
+                >
+                  {value}
+                </div>
+
+                {isCurrentMonth && item?.(dateObject)}
+              </div>
+            );
+          })}
+        </div>
       </div>
     </Callout>
   );

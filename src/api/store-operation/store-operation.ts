@@ -29,12 +29,12 @@ import type {
   CloseStoreResponse,
   DepositCashRequest,
   DepositCashResponse,
+  GetDailyStoreOperationResponse,
   GetMonthlyStoreOperationListResponse,
-  GetTodayStoreOperationResponse,
   OpenStoreRequest,
   OpenStoreResponse,
-  StoreOperationControllerGetMonthlyStoreOperationListParams,
-  StoreOperationControllerGetTodayStoreOperationParams
+  StoreOperationControllerGetDailyStoreOperationParams,
+  StoreOperationControllerGetMonthlyStoreOperationListParams
 } from '.././models';
 
 import { customInstance } from '../../libs/custom-instance';
@@ -44,14 +44,14 @@ type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 
 
 
-export const storeOperationControllerGetTodayStoreOperation = (
-    params: StoreOperationControllerGetTodayStoreOperationParams,
+export const storeOperationControllerGetDailyStoreOperation = (
+    params: StoreOperationControllerGetDailyStoreOperationParams,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
       
       
-      return customInstance<GetTodayStoreOperationResponse>(
-      {url: `/store-operation/today`, method: 'GET',
+      return customInstance<GetDailyStoreOperationResponse>(
+      {url: `/store-operation/daily`, method: 'GET',
         params, signal
     },
       options);
@@ -60,66 +60,66 @@ export const storeOperationControllerGetTodayStoreOperation = (
 
 
 
-export const getStoreOperationControllerGetTodayStoreOperationQueryKey = (params?: StoreOperationControllerGetTodayStoreOperationParams,) => {
+export const getStoreOperationControllerGetDailyStoreOperationQueryKey = (params?: StoreOperationControllerGetDailyStoreOperationParams,) => {
     return [
-    `/store-operation/today`, ...(params ? [params]: [])
+    `/store-operation/daily`, ...(params ? [params]: [])
     ] as const;
     }
 
     
-export const getStoreOperationControllerGetTodayStoreOperationQueryOptions = <TData = Awaited<ReturnType<typeof storeOperationControllerGetTodayStoreOperation>>, TError = unknown>(params: StoreOperationControllerGetTodayStoreOperationParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof storeOperationControllerGetTodayStoreOperation>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export const getStoreOperationControllerGetDailyStoreOperationQueryOptions = <TData = Awaited<ReturnType<typeof storeOperationControllerGetDailyStoreOperation>>, TError = unknown>(params: StoreOperationControllerGetDailyStoreOperationParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof storeOperationControllerGetDailyStoreOperation>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getStoreOperationControllerGetTodayStoreOperationQueryKey(params);
+  const queryKey =  queryOptions?.queryKey ?? getStoreOperationControllerGetDailyStoreOperationQueryKey(params);
 
   
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof storeOperationControllerGetTodayStoreOperation>>> = ({ signal }) => storeOperationControllerGetTodayStoreOperation(params, requestOptions, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof storeOperationControllerGetDailyStoreOperation>>> = ({ signal }) => storeOperationControllerGetDailyStoreOperation(params, requestOptions, signal);
 
       
 
       
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof storeOperationControllerGetTodayStoreOperation>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof storeOperationControllerGetDailyStoreOperation>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type StoreOperationControllerGetTodayStoreOperationQueryResult = NonNullable<Awaited<ReturnType<typeof storeOperationControllerGetTodayStoreOperation>>>
-export type StoreOperationControllerGetTodayStoreOperationQueryError = unknown
+export type StoreOperationControllerGetDailyStoreOperationQueryResult = NonNullable<Awaited<ReturnType<typeof storeOperationControllerGetDailyStoreOperation>>>
+export type StoreOperationControllerGetDailyStoreOperationQueryError = unknown
 
 
-export function useStoreOperationControllerGetTodayStoreOperation<TData = Awaited<ReturnType<typeof storeOperationControllerGetTodayStoreOperation>>, TError = unknown>(
- params: StoreOperationControllerGetTodayStoreOperationParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof storeOperationControllerGetTodayStoreOperation>>, TError, TData>> & Pick<
+export function useStoreOperationControllerGetDailyStoreOperation<TData = Awaited<ReturnType<typeof storeOperationControllerGetDailyStoreOperation>>, TError = unknown>(
+ params: StoreOperationControllerGetDailyStoreOperationParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof storeOperationControllerGetDailyStoreOperation>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof storeOperationControllerGetTodayStoreOperation>>,
+          Awaited<ReturnType<typeof storeOperationControllerGetDailyStoreOperation>>,
           TError,
-          Awaited<ReturnType<typeof storeOperationControllerGetTodayStoreOperation>>
+          Awaited<ReturnType<typeof storeOperationControllerGetDailyStoreOperation>>
         > , 'initialData'
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useStoreOperationControllerGetTodayStoreOperation<TData = Awaited<ReturnType<typeof storeOperationControllerGetTodayStoreOperation>>, TError = unknown>(
- params: StoreOperationControllerGetTodayStoreOperationParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof storeOperationControllerGetTodayStoreOperation>>, TError, TData>> & Pick<
+export function useStoreOperationControllerGetDailyStoreOperation<TData = Awaited<ReturnType<typeof storeOperationControllerGetDailyStoreOperation>>, TError = unknown>(
+ params: StoreOperationControllerGetDailyStoreOperationParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof storeOperationControllerGetDailyStoreOperation>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof storeOperationControllerGetTodayStoreOperation>>,
+          Awaited<ReturnType<typeof storeOperationControllerGetDailyStoreOperation>>,
           TError,
-          Awaited<ReturnType<typeof storeOperationControllerGetTodayStoreOperation>>
+          Awaited<ReturnType<typeof storeOperationControllerGetDailyStoreOperation>>
         > , 'initialData'
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useStoreOperationControllerGetTodayStoreOperation<TData = Awaited<ReturnType<typeof storeOperationControllerGetTodayStoreOperation>>, TError = unknown>(
- params: StoreOperationControllerGetTodayStoreOperationParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof storeOperationControllerGetTodayStoreOperation>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export function useStoreOperationControllerGetDailyStoreOperation<TData = Awaited<ReturnType<typeof storeOperationControllerGetDailyStoreOperation>>, TError = unknown>(
+ params: StoreOperationControllerGetDailyStoreOperationParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof storeOperationControllerGetDailyStoreOperation>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useStoreOperationControllerGetTodayStoreOperation<TData = Awaited<ReturnType<typeof storeOperationControllerGetTodayStoreOperation>>, TError = unknown>(
- params: StoreOperationControllerGetTodayStoreOperationParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof storeOperationControllerGetTodayStoreOperation>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export function useStoreOperationControllerGetDailyStoreOperation<TData = Awaited<ReturnType<typeof storeOperationControllerGetDailyStoreOperation>>, TError = unknown>(
+ params: StoreOperationControllerGetDailyStoreOperationParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof storeOperationControllerGetDailyStoreOperation>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient 
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getStoreOperationControllerGetTodayStoreOperationQueryOptions(params,options)
+  const queryOptions = getStoreOperationControllerGetDailyStoreOperationQueryOptions(params,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 

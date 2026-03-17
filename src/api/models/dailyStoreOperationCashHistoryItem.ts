@@ -6,7 +6,7 @@
  * OpenAPI spec version: 1.0
  */
 
-export interface TodayStoreOperationCashHistoryItem {
+export interface DailyStoreOperationCashHistoryItem {
   /** 시재 종류 */
   type: string;
   /** 금액 */

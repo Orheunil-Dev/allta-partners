@@ -12,5 +12,5 @@ export interface CloseStoreRequest {
   /** 시재금 */
   amount: number;
   /** 세차 횟수 */
-  serviceCount: number;
+  expectedServiceCount: number;
 }
