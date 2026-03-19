@@ -10,6 +10,7 @@ import dayjs from "dayjs";
 import { Callout } from "../Callout";
 import { nextMonthIcon, prevMonthIcon } from "../../../../public/images";
 import { colors } from "@/styles";
+import { it } from "node:test";
 
 interface Props {
   year: number;
@@ -31,11 +32,55 @@ export const Calendar = ({
   item,
 }: Props) => {
   const [days, setDays] = useState<(number | null)[]>([]);
-  const [holidays, setHolidays] = useState<number[]>([]);
+  const [holidays, setHolidays] = useState<{ name: string; date: string }[]>(
+    [],
+  );
 
   const firstDayOfMonth = dayjs(`${year}-${month}-01`);
   const firstDayIdx = firstDayOfMonth.day();
   const daysInMonth = firstDayOfMonth.daysInMonth();
+
+  const fetchHolidays = async (year: number, month: number) => {
+    try {
+      const res = await fetch(
+        `https://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getRestDeInfo?solYear=${year}&solMonth=${String(
+          month,
+        ).padStart(
+          2,
+          "0",
+        )}&ServiceKey=${process.env.NEXT_PUBLIC_DATAGOKR_API_KEY}`,
+      );
+
+      const text = await res.text();
+
+      // XML → JSON 변환
+      const parser = new DOMParser();
+      const xml = parser.parseFromString(text, "application/xml");
+
+      const items = Array.from(xml.getElementsByTagName("item"));
+
+      const holidays = items.map((item) => {
+        const dateName = item.getElementsByTagName("dateName")[0]?.textContent;
+        const locdate = item.getElementsByTagName("locdate")[0]?.textContent;
+
+        return {
+          name: dateName,
+          date: locdate,
+        };
+      });
+
+      return holidays;
+    } catch (err) {
+      console.error(err);
+      return [];
+    }
+  };
+
+  const isHoliday = (dateObj: dayjs.Dayjs) => {
+    const dateStr = dateObj.format("YYYYMMDD");
+
+    return holidays.find((h) => h.date === dateStr);
+  };
 
   const handleNextMonth = () => {
     if (month > 11) {
@@ -69,7 +114,9 @@ export const Calendar = ({
     if (!isCurrentMonth) return colors.gray4;
 
     const day = dateObj.day();
-    if (holidays.includes(dateObj.date()) || day === 0) return colors.red;
+    const holiday = isHoliday(dateObj);
+
+    if (holiday || day === 0) return colors.red;
     if (day === 6) return colors.main;
 
     return colors.black;
@@ -88,12 +135,15 @@ export const Calendar = ({
     }
 
     const totalCells = Math.ceil(newDays.length / 7) * 7;
+
     let nextDay = 1;
+
     while (newDays.length < totalCells) {
       newDays.push(nextDay++);
     }
 
     setDays(newDays);
+    fetchHolidays(year, month).then(setHolidays);
   }, [year, month]);
 
   return (
@@ -142,16 +192,24 @@ export const Calendar = ({
               <div
                 key={index}
                 onClick={() => onClick?.(dateObject)}
-                className={`h-[126px] p-[8px] bg-white ${onClick ? "cursor-pointer" : "cursor-default"}`}
+                className={`h-[126px] p-[6px] bg-white ${onClick ? "cursor-pointer" : "cursor-default"}`}
               >
-                <div
-                  className="w-fit px-[8px] py-[1px] text-[16px] rounded-[40px]"
-                  style={{
-                    color: isToday ? colors.white : getTextColor(dateObject),
-                    backgroundColor: isToday ? colors.main : colors.white,
-                  }}
-                >
-                  {value}
+                <div className="flex items-center">
+                  <p
+                    className="w-fit px-[6px] py-[1px] text-[16px] font-medium rounded-[8px]"
+                    style={{
+                      color: isToday ? colors.white : getTextColor(dateObject),
+                      backgroundColor: isToday ? colors.main : colors.white,
+                    }}
+                  >
+                    {value}
+                  </p>
+
+                  {isHoliday(dateObject) && (
+                    <p style={{ fontSize: "12px", color: colors.red }}>
+                      {isHoliday(dateObject)?.name}
+                    </p>
+                  )}
                 </div>
 
                 {isCurrentMonth && item?.(dateObject)}
