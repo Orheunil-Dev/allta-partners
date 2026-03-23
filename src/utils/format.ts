@@ -1,3 +1,5 @@
+import { normalizeWeather } from "./weather";
+
 export const formatPhoneNumber = (value: string) => {
   const digits = value.replace(/\D/g, "");
 
@@ -309,5 +311,78 @@ export const formatEllipsis = (text: string, length: number) => {
     return text.slice(0, length) + "...";
   } else {
     return text;
+  }
+};
+
+export const formatPrecipitationType = (value: string | null) => {
+  const normalized = normalizeWeather(value);
+
+  switch (normalized) {
+    case null:
+      return "맑음";
+
+    case "Rain":
+      return "비";
+
+    case "Snow":
+      return "눈";
+
+    case "Mixed":
+      return "눈 / 비";
+
+    default:
+      return value;
+  }
+};
+
+export const formatWeatherIcon = (code: string | null) => {
+  if (!code) {
+    return "화창";
+  }
+
+  if (
+    [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "30",
+      "31",
+      "32",
+      "33",
+      "34",
+      "35",
+      "36",
+      "37",
+    ].includes(code)
+  ) {
+    return "화창";
+  } else if (["6", "7", "8", "11", "38"].includes(code)) {
+    return "흐림";
+  } else if (
+    [
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
+      "26",
+      "39",
+      "40",
+      "41",
+      "42",
+      "43",
+    ].includes(code)
+  ) {
+    return "비";
+  } else if (
+    ["19", "20", "21", "22", "23", "24", "25", "29", "44"].includes(code)
+  ) {
+    return "눈";
+  } else {
+    return "화창";
   }
 };

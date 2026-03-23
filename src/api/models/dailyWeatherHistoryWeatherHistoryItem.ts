@@ -5,7 +5,6 @@
  * Allta Partners 서버 문서입니다.
  * OpenAPI spec version: 1.0
  */
-import type { DailyWeatherHistoryWeatherHistoryItemPrecipitationType } from './dailyWeatherHistoryWeatherHistoryItemPrecipitationType';
 
 export interface DailyWeatherHistoryWeatherHistoryItem {
   /** 일시 */
@@ -22,8 +21,11 @@ export interface DailyWeatherHistoryWeatherHistoryItem {
   temperature: number;
   /** 강수 여부 */
   hasPrecipitation: boolean;
-  /** 강수 유형 */
-  precipitationType: DailyWeatherHistoryWeatherHistoryItemPrecipitationType;
+  /**
+   * 강수 유형
+   * @nullable
+   */
+  precipitationType?: string | null;
   /** 현재 강우량 */
   currentPrecipitation: number;
 }

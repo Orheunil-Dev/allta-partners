@@ -8,8 +8,6 @@
 import type { DailyWeatherHistoryWeatherHistoryItem } from './dailyWeatherHistoryWeatherHistoryItem';
 
 export interface DailyWeatherHistoryResult {
-  /** ID */
-  id: string;
   /** 날짜 */
   date: string;
   /**
@@ -31,7 +29,7 @@ export interface DailyWeatherHistoryResult {
    * 전날 평균 기온
    * @nullable
    */
-  averageTemperature1day?: number | null;
+  averageTemperatureYesterday?: number | null;
   /**
    * 3일 평균 기온
    * @nullable
@@ -51,7 +49,7 @@ export interface DailyWeatherHistoryResult {
    * 전날 누적 강우량
    * @nullable
    */
-  precipitation1day?: number | null;
+  precipitationYesterday?: number | null;
   /**
    * 3일 누적 강우량
    * @nullable
@@ -69,6 +67,11 @@ export interface DailyWeatherHistoryResult {
    * @nullable
    */
   precipitationType?: string | null;
+  /**
+   * 마지막으로 비 온 일수
+   * @nullable
+   */
+  lastPrecipitationDays?: number | null;
   /** 날씨 히스토리 목록 */
   weatherHistories: DailyWeatherHistoryWeatherHistoryItem[];
 }

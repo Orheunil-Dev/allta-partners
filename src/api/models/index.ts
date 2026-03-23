@@ -21,7 +21,6 @@ export * from './dailyStoreOperationCashHistoryItem';
 export * from './dailyStoreOperationResult';
 export * from './dailyWeatherHistoryResult';
 export * from './dailyWeatherHistoryWeatherHistoryItem';
-export * from './dailyWeatherHistoryWeatherHistoryItemPrecipitationType';
 export * from './deleteStoreCarResponse';
 export * from './depositCashRequest';
 export * from './depositCashResponse';

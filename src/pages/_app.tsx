@@ -9,8 +9,12 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
+import dayjs from "dayjs";
+import "dayjs/locale/ko";
 import { useResizeHandler } from "@/hooks";
 import "@/styles/globals.css";
+
+dayjs.locale("ko");
 
 const pretendard = localFont({
   src: "../../public/fonts/PretendardVariable.woff2",

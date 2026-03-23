@@ -11,6 +11,8 @@ export interface MonthlyWeatherHistoryListItem {
   id: string;
   /** 날짜 */
   date: string;
+  /** 총 매출 */
+  totalSales: number;
   /**
    * 당일 최고 기온
    * @nullable

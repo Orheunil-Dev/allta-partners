@@ -76,6 +76,13 @@ export { default as calendarIcon } from "./calendar-icon.png";
 export { default as addressIcon } from "./address-icon.png";
 export { default as phoneIcon } from "./phone-icon.png";
 
+// 날씨
+export { default as sunnyIcon } from "./sunny-icon.png";
+export { default as rainIcon } from "./rain-icon.png";
+export { default as snowIcon } from "./snow-icon.png";
+export { default as rainSnowIcon } from "./rain-snow-icon.png";
+export { default as cloudIcon } from "./cloud-icon.png";
+
 // 마케팅
 export { default as conversionRateIcon } from "./conversion-rate-icon.png";
 export { default as roiIcon } from "./roi-icon.png";

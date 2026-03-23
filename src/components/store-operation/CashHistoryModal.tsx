@@ -198,6 +198,8 @@ export const CashHistoryModal = ({
               </div>
             </div>
           </div>
+        ) : isLoading ? (
+          <div />
         ) : (
           <p className="my-[80px] text-center text-gray5 text-[16px]">
             해당 일자의 시재 내역이 없습니다.

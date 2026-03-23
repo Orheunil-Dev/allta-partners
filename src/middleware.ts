@@ -30,6 +30,7 @@ export const config = {
     "/service-history/:path*",
     "/free-wash",
     "/sales-report",
+    "/weather",
     "/marketing",
     "/crm",
     "/user/:path*",

@@ -14,5 +14,5 @@ storeId: string;
 /**
  * 기간(월)
  */
-month: string;
+period: string;
 };

@@ -79,6 +79,13 @@ export const menuItems: MenuItem[] = [
   },
   {
     category: "분석",
+    name: "날씨 리포트",
+    activeIcon: salesReportOn,
+    inactiveIcon: saelsReportOff,
+    route: "/weather",
+  },
+  {
+    category: "분석",
     name: "회원 관리",
     route: "/user",
     activeIcon: userOn,

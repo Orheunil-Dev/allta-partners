@@ -6,11 +6,11 @@ import {
   useState,
 } from "react";
 import Image from "next/image";
+import axios from "axios";
 import dayjs from "dayjs";
 import { Callout } from "../Callout";
 import { nextMonthIcon, prevMonthIcon } from "../../../../public/images";
 import { colors } from "@/styles";
-import { it } from "node:test";
 
 interface Props {
   year: number;
@@ -42,26 +42,22 @@ export const Calendar = ({
 
   const fetchHolidays = async (year: number, month: number) => {
     try {
-      const res = await fetch(
-        `https://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getRestDeInfo?solYear=${year}&solMonth=${String(
-          month,
-        ).padStart(
-          2,
-          "0",
-        )}&ServiceKey=${process.env.NEXT_PUBLIC_DATAGOKR_API_KEY}`,
+      const res = await axios.get(
+        "https://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getRestDeInfo",
+        {
+          params: {
+            solYear: year,
+            solMonth: String(month).padStart(2, "0"),
+            ServiceKey: process.env.NEXT_PUBLIC_DATAGOKR_API_KEY,
+          },
+        },
       );
 
-      const text = await res.text();
+      const items = res.data.response.body.items.item;
 
-      // XML → JSON 변환
-      const parser = new DOMParser();
-      const xml = parser.parseFromString(text, "application/xml");
-
-      const items = Array.from(xml.getElementsByTagName("item"));
-
-      const holidays = items.map((item) => {
-        const dateName = item.getElementsByTagName("dateName")[0]?.textContent;
-        const locdate = item.getElementsByTagName("locdate")[0]?.textContent;
+      const holidays = items.map((value: any) => {
+        const dateName = value.dateName;
+        const locdate = String(value.locdate);
 
         return {
           name: dateName,
@@ -117,7 +113,7 @@ export const Calendar = ({
     const holiday = isHoliday(dateObj);
 
     if (holiday || day === 0) return colors.red;
-    if (day === 6) return colors.main;
+    if (day === 6) return colors.blue;
 
     return colors.black;
   };
