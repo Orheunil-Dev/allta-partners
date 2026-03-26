@@ -152,7 +152,9 @@ export const MobileSidebar = ({ isOpen, setIsOpen }: Props) => {
                   )
                   .map((item) => {
                     const isActive =
-                      item.route && currentPath.startsWith(item.route);
+                      item.route &&
+                      (currentPath === item.route ||
+                        currentPath.startsWith(item.route + "/"));
 
                     return (
                       <button

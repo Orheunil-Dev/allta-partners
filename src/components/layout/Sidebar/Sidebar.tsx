@@ -74,7 +74,9 @@ export const Sidebar = () => {
               )
               .map((item) => {
                 const isActive =
-                  item.route && currentPath.startsWith(item.route);
+                  item.route &&
+                  (currentPath === item.route ||
+                    currentPath.startsWith(item.route + "/"));
 
                 return (
                   <div
