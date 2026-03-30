@@ -1,5 +1,4 @@
 import { useMemo, useState } from "react";
-import Image from "next/image";
 import {
   Chart as ChartJS,
   LinearScale,
@@ -13,13 +12,11 @@ import {
   BarController,
 } from "chart.js";
 import { Chart } from "react-chartjs-2";
-import Select, { StylesConfig } from "react-select";
 import dayjs from "dayjs";
 import { useSalesControllerGetSalesStatByMarketingSpend } from "@/api/sales/sales";
 import { MarketingSpendSalesStatItem } from "@/api/models";
-import { SelectOption } from "@/types";
-import { periodOptions } from "@/constants";
-import { downloadIcon } from "../../../public/images";
+import { Period } from "@/types";
+import { PeriodSelect } from "../ui/Select";
 
 ChartJS.register(
   LinearScale,
@@ -40,7 +37,7 @@ interface Props {
 export const MarketingRoiChart = ({ storeId }: Props) => {
   if (!storeId) return;
 
-  const [period, setPeriod] = useState<"DAY" | "WEEK" | "MONTH">("DAY");
+  const [period, setPeriod] = useState<Period>("DAY");
 
   // 매출 대비 마케팅 지출 통계 조회 API
   const { data, isLoading, isError } =
@@ -112,20 +109,7 @@ export const MarketingRoiChart = ({ storeId }: Props) => {
         </div>
 
         <div className="flex items-center gap-x-[12px]">
-          <Select<SelectOption>
-            options={periodOptions}
-            value={periodOptions.find((option) => option.value === period)}
-            onChange={(option) => {
-              if (option && typeof option.value === "string") {
-                setPeriod(option.value as "DAY" | "WEEK" | "MONTH");
-              }
-            }}
-            components={{
-              IndicatorSeparator: () => null,
-            }}
-            isSearchable={false}
-            styles={selectStyles}
-          />
+          <PeriodSelect period={period} setPeriod={setPeriod} />
 
           {/* <button
             onClick={() => {}}
@@ -185,67 +169,4 @@ export const MarketingRoiChart = ({ storeId }: Props) => {
       />
     </div>
   );
-};
-
-const selectStyles: StylesConfig<SelectOption> = {
-  container: (provided) => ({
-    ...provided,
-    zIndex: 3,
-  }),
-  placeholder: (provided) => ({
-    ...provided,
-    fontSize: "13px",
-  }),
-  control: (provided) => ({
-    ...provided,
-    width: "60px",
-    minHeight: "34px",
-    padding: "6px 10px",
-    borderWidth: "1px",
-    borderColor: "#DDDDDF",
-    borderRadius: "8px",
-    outline: "none",
-    cursor: "pointer",
-  }),
-  input: (provided) => ({
-    ...provided,
-    outline: "none",
-  }),
-  valueContainer: (provided) => ({
-    ...provided,
-    width: "60px",
-    padding: 0,
-  }),
-  menu: (provided) => ({
-    ...provided,
-    width: "60px",
-    borderRadius: "8px",
-    overflow: "hidden",
-  }),
-  menuList: (provided) => ({
-    ...provided,
-    padding: 0,
-  }),
-  option: (provided, state) => ({
-    ...provided,
-    backgroundColor: state.isFocused ? "#F2F2FD" : "white",
-    color: "#262627",
-    textAlign: "start",
-    fontSize: "13px",
-    cursor: "pointer",
-    ":active": {
-      backgroundColor: "#D1D1F0",
-    },
-  }),
-  singleValue: (provided) => ({
-    ...provided,
-    color: "#262627",
-    fontWeight: "600",
-    fontSize: "13px",
-    padding: 0,
-  }),
-  dropdownIndicator: (provided) => ({
-    ...provided,
-    padding: 0,
-  }),
 };

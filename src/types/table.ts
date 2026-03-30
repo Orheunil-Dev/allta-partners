@@ -20,3 +20,5 @@ export type SelectOption = {
   value: string | boolean | null | undefined;
   label: string;
 };
+
+export type Period = "MONTH" | "WEEK" | "DAY";

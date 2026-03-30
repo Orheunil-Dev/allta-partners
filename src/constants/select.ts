@@ -116,9 +116,3 @@ export const faqCategoryOptions = [
   { value: "서비스이용", label: "서비스이용" },
   { value: "회원정보", label: "회원정보" },
 ];
-
-export const periodOptions = [
-  { value: "DAY", label: "일" },
-  { value: "WEEK", label: "주" },
-  { value: "MONTH", label: "월" },
-];

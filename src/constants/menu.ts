@@ -86,6 +86,13 @@ export const menuItems: MenuItem[] = [
   },
   {
     category: "분석",
+    name: "매출 트렌드",
+    activeIcon: salesReportOn,
+    inactiveIcon: saelsReportOff,
+    route: "/sales-trend",
+  },
+  {
+    category: "분석",
     name: "회원 관리",
     route: "/user",
     activeIcon: userOn,
