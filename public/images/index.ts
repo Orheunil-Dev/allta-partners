@@ -30,6 +30,10 @@ export { default as carOn } from "./car-on.png";
 export { default as carOff } from "./car-off.png";
 export { default as settingOn } from "./setting-on.png";
 export { default as settingOff } from "./setting-off.png";
+export { default as operationOn } from "./operation-on.png";
+export { default as operationOff } from "./operation-off.png";
+export { default as weatherOn } from "./weather-on.png";
+export { default as weatherOff } from "./weather-off.png";
 export { default as logoutIcon } from "./logout-icon.png";
 
 // 대시보드

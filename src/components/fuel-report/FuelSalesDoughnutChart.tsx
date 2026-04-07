@@ -7,17 +7,16 @@ import {
   Legend,
 } from "chart.js";
 import { Chart } from "react-chartjs-2";
-import { useSalesControllerGetSalesByProductType } from "@/api/sales/sales";
-import { formatProductType, getPercent } from "@/utils";
+import { useFuelSalesControllerGetSalesByFuelType } from "@/api/fuel-sales/fuel-sales";
+import { formatFuelType, getPercent } from "@/utils";
 import { colors } from "@/styles";
 
 ChartJS.register(ArcElement, DoughnutController, Tooltip, Legend);
 
-const productTypeColorMap: Record<string, string> = {
-  PREMIUM: "#5E5CE5",
-  STANDARD: "#5CA2E6",
-  TICKET: "#FFA425",
-  OFFLINE_TICKET: "#E2F14E",
+const fuelTypeColorMap: Record<string, string> = {
+  GASOLINE: "#5F5CE5",
+  DIESEL: "#FFA425",
+  PREMIUM_GASOLINE: "#E2F14E",
 };
 
 interface Props {
@@ -26,38 +25,36 @@ interface Props {
   endDate: string;
 }
 
-export const SalesByProductTypeChart = ({
+export const FuelSalesDoughnutChart = ({
   storeId,
   startDate,
   endDate,
 }: Props) => {
-  // 상품별 매출 조회 API
-  const {
-    data: salesByProductTypeData,
-    isLoading: salesByProductTypeLoading,
-    isError: salesByProductTypeError,
-  } = useSalesControllerGetSalesByProductType({
-    storeIds: storeId ? [storeId] : [],
-    startDate,
-    endDate,
-  });
+  // 유종별 매출 조회 API
+  const { data, isLoading, isError } = useFuelSalesControllerGetSalesByFuelType(
+    {
+      storeId,
+      startDate,
+      endDate,
+    },
+  );
 
   const chartData = useMemo(() => {
-    const rawData = salesByProductTypeData?.data?.productTypeSales ?? [];
+    const rawData = data?.data?.fuelTypeSales ?? [];
 
     return {
-      labels: rawData.map((item) => formatProductType(item.productType)),
+      labels: rawData.map((item) => formatFuelType(item.fuelType)),
       datasets: [
         {
           data: rawData.map((item) => item.salesAmount),
           backgroundColor: rawData.map(
-            (item) => productTypeColorMap[item.productType] ?? colors.gray5,
+            (item) => fuelTypeColorMap[item.fuelType] ?? colors.gray5,
           ),
           borderWidth: 0,
         },
       ],
     };
-  }, [salesByProductTypeData, startDate, endDate]);
+  }, [data, startDate, endDate]);
 
   return (
     <div
@@ -86,15 +83,21 @@ export const SalesByProductTypeChart = ({
           }}
         />
 
-        <div className="absolute flex flex-col items-center">
-          <p className="text-[13px]">Total</p>
-          <p className="font-medium">100%</p>
-        </div>
+        {data && data.data.totalSalesAmount > 0 ? (
+          <div className="absolute flex flex-col items-center">
+            <p className="text-[13px]">Total</p>
+            <p className="font-medium">100%</p>
+          </div>
+        ) : (
+          <div className="absolute flex flex-col items-center">
+            <p className="text-gray5 text-[16px]">매출 내역이 없습니다.</p>
+          </div>
+        )}
       </div>
 
       <div className="flex flex-col mt-[16px] gap-y-[4px]">
-        {salesByProductTypeData &&
-          salesByProductTypeData.data.productTypeSales.map((value, index) => (
+        {data &&
+          data.data.fuelTypeSales.map((value, index) => (
             <div
               key={index}
               className="flex justify-between text-gray7 text-[14px]"
@@ -104,16 +107,16 @@ export const SalesByProductTypeChart = ({
                   className="size-[8px] mr-[8px] rounded-full"
                   style={{
                     backgroundColor:
-                      productTypeColorMap[value.productType] ?? colors.gray5,
+                      fuelTypeColorMap[value.fuelType] ?? colors.gray5,
                   }}
                 />
-                <p>{formatProductType(value.productType)}</p>
+                <p>{formatFuelType(value.fuelType)}</p>
               </div>
 
               <p>
                 {getPercent(
                   value.salesAmount,
-                  salesByProductTypeData.data.totalSalesAmount,
+                  data.data.totalSalesAmount,
                 ).toFixed(0)}
                 %
               </p>

@@ -123,7 +123,7 @@ export default function Wash() {
         columns={columns}
         isLoading={isLoading}
         totalCount={data?.meta.totalCount}
-        take={20}
+        take={10}
         page={page}
         setPage={setPage}
         emptyMessage="세차 내역이 조회되지 않습니다."

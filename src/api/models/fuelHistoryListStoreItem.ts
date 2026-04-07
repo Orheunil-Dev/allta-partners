@@ -6,13 +6,9 @@
  * OpenAPI spec version: 1.0
  */
 
-export type ExpectControllerGetExpectedSalesParams = {
-/**
- * 매장 ID
- */
-storeId: string;
-/**
- * 기간(일, 주, 월)
- */
-period: string;
-};
+export interface FuelHistoryListStoreItem {
+  /** ID */
+  id: string;
+  /** 이름 */
+  name: string;
+}

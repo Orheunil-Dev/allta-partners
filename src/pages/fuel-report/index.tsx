@@ -1,16 +1,15 @@
 import { useMemo, useState } from "react";
 import { CellContext, ColumnDef } from "@tanstack/react-table";
 import dayjs from "dayjs";
-import { useSalesControllerGetSalesStatByProductType } from "@/api/sales/sales";
-import { ProductTypeSalesStatItem } from "@/api/models";
+import { useFuelSalesControllerGetSalesStatByFuelType } from "@/api/fuel-sales/fuel-sales";
+import { FuelTypeSalesStatItem } from "@/api/models";
 import { ConditionBar } from "@/components/layout/ConditionBar";
 import { List } from "@/components/layout/List";
 import {
-  SalesByPassTypeChart,
-  SalesByPaymentMethod,
-  SalesDoughnutChart,
-  SalesSummary,
-} from "@/components/sales-report";
+  FuelSalesByFuelTypeChart,
+  FuelSalesSummary,
+} from "@/components/fuel-report";
+import { FuelSalesDoughnutChart } from "@/components/fuel-report/FuelSalesDoughnutChart";
 
 export default function Dashboard() {
   const [storeId, setStoreId] = useState<string | null>(null);
@@ -20,10 +19,10 @@ export default function Dashboard() {
   const [endDate, setEndDate] = useState<string>(dayjs().format("YYYY-MM-DD"));
   const [page, setPage] = useState<number>(0);
 
-  // 매출 통계 조회 API
+  // 유종별 주유 매출 통계 조회 API
   const { data, isLoading, isError } =
-    useSalesControllerGetSalesStatByProductType({
-      storeIds: storeId ? [storeId] : [],
+    useFuelSalesControllerGetSalesStatByFuelType({
+      storeId,
       startDate,
       endDate,
     });
@@ -37,55 +36,48 @@ export default function Dashboard() {
     return data.data.slice(start, end);
   }, [data?.data, page]);
 
-  const columns = useMemo<ColumnDef<ProductTypeSalesStatItem>[]>(
+  const columns = useMemo<ColumnDef<FuelTypeSalesStatItem>[]>(
     () => [
       {
         id: "date",
         header: "일자",
         accessorFn: (row) => row.date,
-        cell: (info: CellContext<ProductTypeSalesStatItem, unknown>) =>
+        cell: (info: CellContext<FuelTypeSalesStatItem, unknown>) =>
           dayjs(info.getValue() as string).format("YYYY.MM.DD"),
       },
       {
         id: "totalSales",
         header: "전체 매출",
         accessorFn: (row) => row.totalSales,
-        cell: (info: CellContext<ProductTypeSalesStatItem, unknown>) =>
+        cell: (info: CellContext<FuelTypeSalesStatItem, unknown>) =>
           (info.getValue() as number).toLocaleString(),
       },
       {
-        id: "premiumSales",
-        header: "프리미엄",
-        accessorFn: (row) => row.premiumSales,
-        cell: (info: CellContext<ProductTypeSalesStatItem, unknown>) =>
+        id: "gasSales",
+        header: "휘발유",
+        accessorFn: (row) => row.gasSales,
+        cell: (info: CellContext<FuelTypeSalesStatItem, unknown>) =>
           (info.getValue() as number).toLocaleString(),
       },
       {
-        id: "standardSales",
-        header: "스탠다드",
-        accessorFn: (row) => row.standardSales,
-        cell: (info: CellContext<ProductTypeSalesStatItem, unknown>) =>
+        id: "dieselSales",
+        header: "경유",
+        accessorFn: (row) => row.dieselSales,
+        cell: (info: CellContext<FuelTypeSalesStatItem, unknown>) =>
           (info.getValue() as number).toLocaleString(),
       },
       {
-        id: "ticketSales",
-        header: "일회권",
-        accessorFn: (row) => row.ticketSales,
-        cell: (info: CellContext<ProductTypeSalesStatItem, unknown>) =>
-          (info.getValue() as number).toLocaleString(),
-      },
-      {
-        id: "offlineTicketSales",
-        header: "현장결제",
-        accessorFn: (row) => row.offlineTicketSales,
-        cell: (info: CellContext<ProductTypeSalesStatItem, unknown>) =>
+        id: "premiumGasSales",
+        header: "고급유",
+        accessorFn: (row) => row.premiumGasSales,
+        cell: (info: CellContext<FuelTypeSalesStatItem, unknown>) =>
           (info.getValue() as number).toLocaleString(),
       },
       {
         id: "dailyChangeRate",
         header: "전일대비",
         accessorFn: (row) => row.dailyChangeRate,
-        cell: (info: CellContext<ProductTypeSalesStatItem, unknown>) => {
+        cell: (info: CellContext<FuelTypeSalesStatItem, unknown>) => {
           const value = info.getValue() as number;
 
           switch (true) {
@@ -119,26 +111,24 @@ export default function Dashboard() {
         setEndDate={setEndDate}
       />
 
-      <SalesSummary storeId={storeId} startDate={startDate} endDate={endDate} />
+      <FuelSalesSummary
+        storeId={storeId}
+        startDate={startDate}
+        endDate={endDate}
+      />
 
       <div className="flex flex-col xl:flex-row gap-x-[24px]">
-        <SalesByPassTypeChart
+        <FuelSalesByFuelTypeChart
           storeId={storeId}
           startDate={startDate}
           endDate={endDate}
         />
-        <SalesDoughnutChart
+        <FuelSalesDoughnutChart
           storeId={storeId}
           startDate={startDate}
           endDate={endDate}
         />
       </div>
-
-      <SalesByPaymentMethod
-        storeId={storeId}
-        startDate={startDate}
-        endDate={endDate}
-      />
 
       <List
         title="일자별 매출 내역"

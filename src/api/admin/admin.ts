@@ -27,7 +27,8 @@ import type {
 import type {
   ChangeStoreAdminPasswordRequest,
   ChangeStoreAdminPasswordResponse,
-  GetStoreAdminProfileResponse
+  GetStoreAdminProfileResponse,
+  UpdateStoreAdminPhonenNumberRequest
 } from '.././models';
 
 import { customInstance } from '../../libs/custom-instance';
@@ -176,6 +177,63 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
       > => {
 
       const mutationOptions = getAdminControllerChangeStoreAdminPasswordMutationOptions(options);
+
+      return useMutation(mutationOptions, queryClient);
+    }
+    export const adminControllerUpdateStoreAdminPhoneNumber = (
+    updateStoreAdminPhonenNumberRequest: UpdateStoreAdminPhonenNumberRequest,
+ options?: SecondParameter<typeof customInstance>,) => {
+      
+      
+      return customInstance<ChangeStoreAdminPasswordResponse>(
+      {url: `/admin/phone-number`, method: 'PATCH',
+      headers: {'Content-Type': 'application/json', },
+      data: updateStoreAdminPhonenNumberRequest
+    },
+      options);
+    }
+  
+
+
+export const getAdminControllerUpdateStoreAdminPhoneNumberMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerUpdateStoreAdminPhoneNumber>>, TError,{data: UpdateStoreAdminPhonenNumberRequest}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof adminControllerUpdateStoreAdminPhoneNumber>>, TError,{data: UpdateStoreAdminPhonenNumberRequest}, TContext> => {
+
+const mutationKey = ['adminControllerUpdateStoreAdminPhoneNumber'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adminControllerUpdateStoreAdminPhoneNumber>>, {data: UpdateStoreAdminPhonenNumberRequest}> = (props) => {
+          const {data} = props ?? {};
+
+          return  adminControllerUpdateStoreAdminPhoneNumber(data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AdminControllerUpdateStoreAdminPhoneNumberMutationResult = NonNullable<Awaited<ReturnType<typeof adminControllerUpdateStoreAdminPhoneNumber>>>
+    export type AdminControllerUpdateStoreAdminPhoneNumberMutationBody = UpdateStoreAdminPhonenNumberRequest
+    export type AdminControllerUpdateStoreAdminPhoneNumberMutationError = unknown
+
+    export const useAdminControllerUpdateStoreAdminPhoneNumber = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerUpdateStoreAdminPhoneNumber>>, TError,{data: UpdateStoreAdminPhonenNumberRequest}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof adminControllerUpdateStoreAdminPhoneNumber>>,
+        TError,
+        {data: UpdateStoreAdminPhonenNumberRequest},
+        TContext
+      > => {
+
+      const mutationOptions = getAdminControllerUpdateStoreAdminPhoneNumberMutationOptions(options);
 
       return useMutation(mutationOptions, queryClient);
     }

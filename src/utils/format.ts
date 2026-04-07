@@ -386,3 +386,22 @@ export const formatWeatherIcon = (code: string | null) => {
     return "화창";
   }
 };
+
+export const formatFuelType = (value: string) => {
+  switch (value) {
+    case "GASOLINE":
+      return "휘발유";
+
+    case "DIESEL":
+      return "경유";
+
+    case "PREMIUM_GASOLINE":
+      return "고급유";
+
+    case "LPG":
+      return "LPG";
+
+    default:
+      return value;
+  }
+};
