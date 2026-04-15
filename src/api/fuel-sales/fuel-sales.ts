@@ -21,10 +21,10 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
-  FuelSalesControllerGetSalesByFuelTypeParams,
-  FuelSalesControllerGetSalesStatByFuelTypeParams,
-  GetSalesByFuelTypeResponse,
-  GetSalesStatByFuelTypeResponse
+  FuelSalesControllerGetFuelSalesByFuelTypeParams,
+  FuelSalesControllerGetFuelSalesStatByFuelTypeParams,
+  GetFuelSalesByFuelTypeResponse,
+  GetFuelSalesStatByFuelTypeResponse
 } from '.././models';
 
 import { customInstance } from '../../libs/custom-instance';
@@ -34,13 +34,13 @@ type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 
 
 
-export const fuelSalesControllerGetSalesByFuelType = (
-    params?: FuelSalesControllerGetSalesByFuelTypeParams,
+export const fuelSalesControllerGetFuelSalesByFuelType = (
+    params?: FuelSalesControllerGetFuelSalesByFuelTypeParams,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
       
       
-      return customInstance<GetSalesByFuelTypeResponse>(
+      return customInstance<GetFuelSalesByFuelTypeResponse>(
       {url: `/fuel-sales/fuel-type`, method: 'GET',
         params, signal
     },
@@ -50,66 +50,66 @@ export const fuelSalesControllerGetSalesByFuelType = (
 
 
 
-export const getFuelSalesControllerGetSalesByFuelTypeQueryKey = (params?: FuelSalesControllerGetSalesByFuelTypeParams,) => {
+export const getFuelSalesControllerGetFuelSalesByFuelTypeQueryKey = (params?: FuelSalesControllerGetFuelSalesByFuelTypeParams,) => {
     return [
     `/fuel-sales/fuel-type`, ...(params ? [params]: [])
     ] as const;
     }
 
     
-export const getFuelSalesControllerGetSalesByFuelTypeQueryOptions = <TData = Awaited<ReturnType<typeof fuelSalesControllerGetSalesByFuelType>>, TError = unknown>(params?: FuelSalesControllerGetSalesByFuelTypeParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof fuelSalesControllerGetSalesByFuelType>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export const getFuelSalesControllerGetFuelSalesByFuelTypeQueryOptions = <TData = Awaited<ReturnType<typeof fuelSalesControllerGetFuelSalesByFuelType>>, TError = unknown>(params?: FuelSalesControllerGetFuelSalesByFuelTypeParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof fuelSalesControllerGetFuelSalesByFuelType>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getFuelSalesControllerGetSalesByFuelTypeQueryKey(params);
+  const queryKey =  queryOptions?.queryKey ?? getFuelSalesControllerGetFuelSalesByFuelTypeQueryKey(params);
 
   
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof fuelSalesControllerGetSalesByFuelType>>> = ({ signal }) => fuelSalesControllerGetSalesByFuelType(params, requestOptions, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof fuelSalesControllerGetFuelSalesByFuelType>>> = ({ signal }) => fuelSalesControllerGetFuelSalesByFuelType(params, requestOptions, signal);
 
       
 
       
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof fuelSalesControllerGetSalesByFuelType>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof fuelSalesControllerGetFuelSalesByFuelType>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type FuelSalesControllerGetSalesByFuelTypeQueryResult = NonNullable<Awaited<ReturnType<typeof fuelSalesControllerGetSalesByFuelType>>>
-export type FuelSalesControllerGetSalesByFuelTypeQueryError = unknown
+export type FuelSalesControllerGetFuelSalesByFuelTypeQueryResult = NonNullable<Awaited<ReturnType<typeof fuelSalesControllerGetFuelSalesByFuelType>>>
+export type FuelSalesControllerGetFuelSalesByFuelTypeQueryError = unknown
 
 
-export function useFuelSalesControllerGetSalesByFuelType<TData = Awaited<ReturnType<typeof fuelSalesControllerGetSalesByFuelType>>, TError = unknown>(
- params: undefined |  FuelSalesControllerGetSalesByFuelTypeParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof fuelSalesControllerGetSalesByFuelType>>, TError, TData>> & Pick<
+export function useFuelSalesControllerGetFuelSalesByFuelType<TData = Awaited<ReturnType<typeof fuelSalesControllerGetFuelSalesByFuelType>>, TError = unknown>(
+ params: undefined |  FuelSalesControllerGetFuelSalesByFuelTypeParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof fuelSalesControllerGetFuelSalesByFuelType>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof fuelSalesControllerGetSalesByFuelType>>,
+          Awaited<ReturnType<typeof fuelSalesControllerGetFuelSalesByFuelType>>,
           TError,
-          Awaited<ReturnType<typeof fuelSalesControllerGetSalesByFuelType>>
+          Awaited<ReturnType<typeof fuelSalesControllerGetFuelSalesByFuelType>>
         > , 'initialData'
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useFuelSalesControllerGetSalesByFuelType<TData = Awaited<ReturnType<typeof fuelSalesControllerGetSalesByFuelType>>, TError = unknown>(
- params?: FuelSalesControllerGetSalesByFuelTypeParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof fuelSalesControllerGetSalesByFuelType>>, TError, TData>> & Pick<
+export function useFuelSalesControllerGetFuelSalesByFuelType<TData = Awaited<ReturnType<typeof fuelSalesControllerGetFuelSalesByFuelType>>, TError = unknown>(
+ params?: FuelSalesControllerGetFuelSalesByFuelTypeParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof fuelSalesControllerGetFuelSalesByFuelType>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof fuelSalesControllerGetSalesByFuelType>>,
+          Awaited<ReturnType<typeof fuelSalesControllerGetFuelSalesByFuelType>>,
           TError,
-          Awaited<ReturnType<typeof fuelSalesControllerGetSalesByFuelType>>
+          Awaited<ReturnType<typeof fuelSalesControllerGetFuelSalesByFuelType>>
         > , 'initialData'
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useFuelSalesControllerGetSalesByFuelType<TData = Awaited<ReturnType<typeof fuelSalesControllerGetSalesByFuelType>>, TError = unknown>(
- params?: FuelSalesControllerGetSalesByFuelTypeParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof fuelSalesControllerGetSalesByFuelType>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export function useFuelSalesControllerGetFuelSalesByFuelType<TData = Awaited<ReturnType<typeof fuelSalesControllerGetFuelSalesByFuelType>>, TError = unknown>(
+ params?: FuelSalesControllerGetFuelSalesByFuelTypeParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof fuelSalesControllerGetFuelSalesByFuelType>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useFuelSalesControllerGetSalesByFuelType<TData = Awaited<ReturnType<typeof fuelSalesControllerGetSalesByFuelType>>, TError = unknown>(
- params?: FuelSalesControllerGetSalesByFuelTypeParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof fuelSalesControllerGetSalesByFuelType>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export function useFuelSalesControllerGetFuelSalesByFuelType<TData = Awaited<ReturnType<typeof fuelSalesControllerGetFuelSalesByFuelType>>, TError = unknown>(
+ params?: FuelSalesControllerGetFuelSalesByFuelTypeParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof fuelSalesControllerGetFuelSalesByFuelType>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient 
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getFuelSalesControllerGetSalesByFuelTypeQueryOptions(params,options)
+  const queryOptions = getFuelSalesControllerGetFuelSalesByFuelTypeQueryOptions(params,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -120,13 +120,13 @@ export function useFuelSalesControllerGetSalesByFuelType<TData = Awaited<ReturnT
 
 
 
-export const fuelSalesControllerGetSalesStatByFuelType = (
-    params?: FuelSalesControllerGetSalesStatByFuelTypeParams,
+export const fuelSalesControllerGetFuelSalesStatByFuelType = (
+    params?: FuelSalesControllerGetFuelSalesStatByFuelTypeParams,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
       
       
-      return customInstance<GetSalesStatByFuelTypeResponse>(
+      return customInstance<GetFuelSalesStatByFuelTypeResponse>(
       {url: `/fuel-sales/fuel-type/stat`, method: 'GET',
         params, signal
     },
@@ -136,66 +136,66 @@ export const fuelSalesControllerGetSalesStatByFuelType = (
 
 
 
-export const getFuelSalesControllerGetSalesStatByFuelTypeQueryKey = (params?: FuelSalesControllerGetSalesStatByFuelTypeParams,) => {
+export const getFuelSalesControllerGetFuelSalesStatByFuelTypeQueryKey = (params?: FuelSalesControllerGetFuelSalesStatByFuelTypeParams,) => {
     return [
     `/fuel-sales/fuel-type/stat`, ...(params ? [params]: [])
     ] as const;
     }
 
     
-export const getFuelSalesControllerGetSalesStatByFuelTypeQueryOptions = <TData = Awaited<ReturnType<typeof fuelSalesControllerGetSalesStatByFuelType>>, TError = unknown>(params?: FuelSalesControllerGetSalesStatByFuelTypeParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof fuelSalesControllerGetSalesStatByFuelType>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export const getFuelSalesControllerGetFuelSalesStatByFuelTypeQueryOptions = <TData = Awaited<ReturnType<typeof fuelSalesControllerGetFuelSalesStatByFuelType>>, TError = unknown>(params?: FuelSalesControllerGetFuelSalesStatByFuelTypeParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof fuelSalesControllerGetFuelSalesStatByFuelType>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getFuelSalesControllerGetSalesStatByFuelTypeQueryKey(params);
+  const queryKey =  queryOptions?.queryKey ?? getFuelSalesControllerGetFuelSalesStatByFuelTypeQueryKey(params);
 
   
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof fuelSalesControllerGetSalesStatByFuelType>>> = ({ signal }) => fuelSalesControllerGetSalesStatByFuelType(params, requestOptions, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof fuelSalesControllerGetFuelSalesStatByFuelType>>> = ({ signal }) => fuelSalesControllerGetFuelSalesStatByFuelType(params, requestOptions, signal);
 
       
 
       
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof fuelSalesControllerGetSalesStatByFuelType>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof fuelSalesControllerGetFuelSalesStatByFuelType>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type FuelSalesControllerGetSalesStatByFuelTypeQueryResult = NonNullable<Awaited<ReturnType<typeof fuelSalesControllerGetSalesStatByFuelType>>>
-export type FuelSalesControllerGetSalesStatByFuelTypeQueryError = unknown
+export type FuelSalesControllerGetFuelSalesStatByFuelTypeQueryResult = NonNullable<Awaited<ReturnType<typeof fuelSalesControllerGetFuelSalesStatByFuelType>>>
+export type FuelSalesControllerGetFuelSalesStatByFuelTypeQueryError = unknown
 
 
-export function useFuelSalesControllerGetSalesStatByFuelType<TData = Awaited<ReturnType<typeof fuelSalesControllerGetSalesStatByFuelType>>, TError = unknown>(
- params: undefined |  FuelSalesControllerGetSalesStatByFuelTypeParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof fuelSalesControllerGetSalesStatByFuelType>>, TError, TData>> & Pick<
+export function useFuelSalesControllerGetFuelSalesStatByFuelType<TData = Awaited<ReturnType<typeof fuelSalesControllerGetFuelSalesStatByFuelType>>, TError = unknown>(
+ params: undefined |  FuelSalesControllerGetFuelSalesStatByFuelTypeParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof fuelSalesControllerGetFuelSalesStatByFuelType>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof fuelSalesControllerGetSalesStatByFuelType>>,
+          Awaited<ReturnType<typeof fuelSalesControllerGetFuelSalesStatByFuelType>>,
           TError,
-          Awaited<ReturnType<typeof fuelSalesControllerGetSalesStatByFuelType>>
+          Awaited<ReturnType<typeof fuelSalesControllerGetFuelSalesStatByFuelType>>
         > , 'initialData'
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useFuelSalesControllerGetSalesStatByFuelType<TData = Awaited<ReturnType<typeof fuelSalesControllerGetSalesStatByFuelType>>, TError = unknown>(
- params?: FuelSalesControllerGetSalesStatByFuelTypeParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof fuelSalesControllerGetSalesStatByFuelType>>, TError, TData>> & Pick<
+export function useFuelSalesControllerGetFuelSalesStatByFuelType<TData = Awaited<ReturnType<typeof fuelSalesControllerGetFuelSalesStatByFuelType>>, TError = unknown>(
+ params?: FuelSalesControllerGetFuelSalesStatByFuelTypeParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof fuelSalesControllerGetFuelSalesStatByFuelType>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof fuelSalesControllerGetSalesStatByFuelType>>,
+          Awaited<ReturnType<typeof fuelSalesControllerGetFuelSalesStatByFuelType>>,
           TError,
-          Awaited<ReturnType<typeof fuelSalesControllerGetSalesStatByFuelType>>
+          Awaited<ReturnType<typeof fuelSalesControllerGetFuelSalesStatByFuelType>>
         > , 'initialData'
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useFuelSalesControllerGetSalesStatByFuelType<TData = Awaited<ReturnType<typeof fuelSalesControllerGetSalesStatByFuelType>>, TError = unknown>(
- params?: FuelSalesControllerGetSalesStatByFuelTypeParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof fuelSalesControllerGetSalesStatByFuelType>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export function useFuelSalesControllerGetFuelSalesStatByFuelType<TData = Awaited<ReturnType<typeof fuelSalesControllerGetFuelSalesStatByFuelType>>, TError = unknown>(
+ params?: FuelSalesControllerGetFuelSalesStatByFuelTypeParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof fuelSalesControllerGetFuelSalesStatByFuelType>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useFuelSalesControllerGetSalesStatByFuelType<TData = Awaited<ReturnType<typeof fuelSalesControllerGetSalesStatByFuelType>>, TError = unknown>(
- params?: FuelSalesControllerGetSalesStatByFuelTypeParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof fuelSalesControllerGetSalesStatByFuelType>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export function useFuelSalesControllerGetFuelSalesStatByFuelType<TData = Awaited<ReturnType<typeof fuelSalesControllerGetFuelSalesStatByFuelType>>, TError = unknown>(
+ params?: FuelSalesControllerGetFuelSalesStatByFuelTypeParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof fuelSalesControllerGetFuelSalesStatByFuelType>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient 
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getFuelSalesControllerGetSalesStatByFuelTypeQueryOptions(params,options)
+  const queryOptions = getFuelSalesControllerGetFuelSalesStatByFuelTypeQueryOptions(params,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 

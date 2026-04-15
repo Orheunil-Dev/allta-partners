@@ -34,6 +34,10 @@ export { default as operationOn } from "./operation-on.png";
 export { default as operationOff } from "./operation-off.png";
 export { default as weatherOn } from "./weather-on.png";
 export { default as weatherOff } from "./weather-off.png";
+export { default as salesTrendOn } from "./sales-trend-on.png";
+export { default as salesTrendOff } from "./sales-trend-off.png";
+export { default as fuelStockOn } from "./fuel-stock-on.png";
+export { default as fuelStockOff } from "./fuel-stock-off.png";
 export { default as logoutIcon } from "./logout-icon.png";
 
 // 대시보드

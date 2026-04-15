@@ -6,7 +6,7 @@
  * OpenAPI spec version: 1.0
  */
 
-export type FuelSalesControllerGetSalesStatByFuelTypeParams = {
+export type FuelSalesControllerGetFuelSalesByFuelTypeParams = {
 /**
  * 매장 ID
  * @nullable

@@ -6,7 +6,7 @@
  * OpenAPI spec version: 1.0
  */
 
-export interface FuelTypeSalesItem {
+export interface FuelTypeFuelSalesItem {
   /** 유종 */
   fuelType: string;
   /** 매출액 */

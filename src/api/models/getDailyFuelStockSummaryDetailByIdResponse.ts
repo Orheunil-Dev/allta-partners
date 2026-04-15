@@ -5,11 +5,11 @@
  * Allta Partners 서버 문서입니다.
  * OpenAPI spec version: 1.0
  */
-import type { FuelTypeSalesResult } from './fuelTypeSalesResult';
+import type { DailyFuelStockSummaryDetailByIdResult } from './dailyFuelStockSummaryDetailByIdResult';
 
-export interface GetSalesByFuelTypeResponse {
+export interface GetDailyFuelStockSummaryDetailByIdResponse {
   /** 결과 여부 */
   ok: boolean;
   /** 응답 데이터 */
-  data: FuelTypeSalesResult;
+  data: DailyFuelStockSummaryDetailByIdResult;
 }

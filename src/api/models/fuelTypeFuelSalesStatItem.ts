@@ -6,7 +6,7 @@
  * OpenAPI spec version: 1.0
  */
 
-export interface FuelTypeSalesStatItem {
+export interface FuelTypeFuelSalesStatItem {
   /** 날짜 */
   date: string;
   /** 전체 매출 */

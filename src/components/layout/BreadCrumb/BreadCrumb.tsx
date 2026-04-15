@@ -61,6 +61,8 @@ export const BreadCrumb = ({ isOpen, setIsOpen }: Props) => {
             return [item.name];
           } else if (restPath.includes("/register")) {
             return [item.name, "등록"];
+          } else if (restPath.includes("/create")) {
+            return [item.name, "작성"];
           } else {
             return [item.name, "상세"];
           }

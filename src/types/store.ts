@@ -23,3 +23,5 @@ export type OfflinePriceItem = {
   price: Record<CarType, number>;
 };
 export type OfflinePrice = Partial<Record<MemberType, OfflinePriceItem[]>>;
+
+export type FuelType = "GASOLINE" | "DIESEL" | "PREMIUM_GASOLINE";

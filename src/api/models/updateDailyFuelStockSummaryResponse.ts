@@ -5,11 +5,8 @@
  * Allta Partners 서버 문서입니다.
  * OpenAPI spec version: 1.0
  */
-import type { FuelTypeSalesStatItem } from './fuelTypeSalesStatItem';
 
-export interface GetSalesStatByFuelTypeResponse {
+export interface UpdateDailyFuelStockSummaryResponse {
   /** 결과 여부 */
   ok: boolean;
-  /** 응답 데이터 */
-  data: FuelTypeSalesStatItem[];
 }

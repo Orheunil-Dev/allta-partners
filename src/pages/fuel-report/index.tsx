@@ -1,15 +1,15 @@
 import { useMemo, useState } from "react";
 import { CellContext, ColumnDef } from "@tanstack/react-table";
 import dayjs from "dayjs";
-import { useFuelSalesControllerGetSalesStatByFuelType } from "@/api/fuel-sales/fuel-sales";
-import { FuelTypeSalesStatItem } from "@/api/models";
+import { useFuelSalesControllerGetFuelSalesStatByFuelType } from "@/api/fuel-sales/fuel-sales";
+import { FuelTypeFuelSalesStatItem } from "@/api/models";
 import { ConditionBar } from "@/components/layout/ConditionBar";
 import { List } from "@/components/layout/List";
 import {
   FuelSalesByFuelTypeChart,
+  FuelSalesDoughnutChart,
   FuelSalesSummary,
 } from "@/components/fuel-report";
-import { FuelSalesDoughnutChart } from "@/components/fuel-report/FuelSalesDoughnutChart";
 
 export default function Dashboard() {
   const [storeId, setStoreId] = useState<string | null>(null);
@@ -21,7 +21,7 @@ export default function Dashboard() {
 
   // 유종별 주유 매출 통계 조회 API
   const { data, isLoading, isError } =
-    useFuelSalesControllerGetSalesStatByFuelType({
+    useFuelSalesControllerGetFuelSalesStatByFuelType({
       storeId,
       startDate,
       endDate,
@@ -36,48 +36,48 @@ export default function Dashboard() {
     return data.data.slice(start, end);
   }, [data?.data, page]);
 
-  const columns = useMemo<ColumnDef<FuelTypeSalesStatItem>[]>(
+  const columns = useMemo<ColumnDef<FuelTypeFuelSalesStatItem>[]>(
     () => [
       {
         id: "date",
         header: "일자",
         accessorFn: (row) => row.date,
-        cell: (info: CellContext<FuelTypeSalesStatItem, unknown>) =>
+        cell: (info: CellContext<FuelTypeFuelSalesStatItem, unknown>) =>
           dayjs(info.getValue() as string).format("YYYY.MM.DD"),
       },
       {
         id: "totalSales",
         header: "전체 매출",
         accessorFn: (row) => row.totalSales,
-        cell: (info: CellContext<FuelTypeSalesStatItem, unknown>) =>
+        cell: (info: CellContext<FuelTypeFuelSalesStatItem, unknown>) =>
           (info.getValue() as number).toLocaleString(),
       },
       {
         id: "gasSales",
         header: "휘발유",
         accessorFn: (row) => row.gasSales,
-        cell: (info: CellContext<FuelTypeSalesStatItem, unknown>) =>
+        cell: (info: CellContext<FuelTypeFuelSalesStatItem, unknown>) =>
           (info.getValue() as number).toLocaleString(),
       },
       {
         id: "dieselSales",
         header: "경유",
         accessorFn: (row) => row.dieselSales,
-        cell: (info: CellContext<FuelTypeSalesStatItem, unknown>) =>
+        cell: (info: CellContext<FuelTypeFuelSalesStatItem, unknown>) =>
           (info.getValue() as number).toLocaleString(),
       },
       {
         id: "premiumGasSales",
         header: "고급유",
         accessorFn: (row) => row.premiumGasSales,
-        cell: (info: CellContext<FuelTypeSalesStatItem, unknown>) =>
+        cell: (info: CellContext<FuelTypeFuelSalesStatItem, unknown>) =>
           (info.getValue() as number).toLocaleString(),
       },
       {
         id: "dailyChangeRate",
         header: "전일대비",
         accessorFn: (row) => row.dailyChangeRate,
-        cell: (info: CellContext<FuelTypeSalesStatItem, unknown>) => {
+        cell: (info: CellContext<FuelTypeFuelSalesStatItem, unknown>) => {
           const value = info.getValue() as number;
 
           switch (true) {

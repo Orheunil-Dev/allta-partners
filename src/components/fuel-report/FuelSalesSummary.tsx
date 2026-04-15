@@ -1,4 +1,4 @@
-import { useFuelSalesControllerGetSalesByFuelType } from "@/api/fuel-sales/fuel-sales";
+import { useFuelSalesControllerGetFuelSalesByFuelType } from "@/api/fuel-sales/fuel-sales";
 
 const fuelTypeMap: Record<string, string> = {
   GASOLINE: "휘발유",
@@ -15,13 +15,12 @@ interface Props {
 
 export const FuelSalesSummary = ({ storeId, startDate, endDate }: Props) => {
   // 유종별 매출 조회 API
-  const { data, isLoading, isError } = useFuelSalesControllerGetSalesByFuelType(
-    {
+  const { data, isLoading, isError } =
+    useFuelSalesControllerGetFuelSalesByFuelType({
       storeId,
       startDate,
       endDate,
-    },
-  );
+    });
 
   return (
     <div className="flex flex-col md:grid md:grid-cols-2 xl:flex xl:flex-row items-center gap-x-[24px] gap-y-[16px] overflow-x-auto">

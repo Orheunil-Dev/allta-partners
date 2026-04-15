@@ -19,6 +19,7 @@ interface Props {
   setMonth: Dispatch<SetStateAction<number>>;
   onClick?: (date: dayjs.Dayjs) => void;
   item?: (date: dayjs.Dayjs) => ReactNode;
+  button?: ReactNode;
 }
 
 const weekDays = ["일", "월", "화", "수", "목", "금", "토"];
@@ -30,6 +31,7 @@ export const Calendar = ({
   setMonth,
   onClick,
   item,
+  button,
 }: Props) => {
   const [days, setDays] = useState<(number | null)[]>([]);
   const [holidays, setHolidays] = useState<{ name: string; date: string }[]>(
@@ -145,17 +147,21 @@ export const Calendar = ({
   return (
     <Callout>
       {/* 기간(년-월) */}
-      <div className="flex">
-        <div className="w-[120px] text-[20px] font-semibold">
-          {year}년 {month}월
+      <div className="flex justify-between items-center">
+        <div className="flex items-center">
+          <div className="w-[120px] text-[20px] font-semibold">
+            {year}년 {month}월
+          </div>
+
+          <button onClick={handlePrevMonth} className="cursor-pointer">
+            <Image src={prevMonthIcon} alt="이전" className="size-[24px]" />
+          </button>
+          <button onClick={handleNextMonth} className="ml-[6px] cursor-pointer">
+            <Image src={nextMonthIcon} alt="다음" className="size-[24px]" />
+          </button>
         </div>
 
-        <button onClick={handlePrevMonth} className="cursor-pointer">
-          <Image src={prevMonthIcon} alt="이전" className="size-[24px]" />
-        </button>
-        <button onClick={handleNextMonth} className="ml-[6px] cursor-pointer">
-          <Image src={nextMonthIcon} alt="다음" className="size-[24px]" />
-        </button>
+        {button}
       </div>
 
       <div className="flex flex-col w-full overflow-x-auto">

@@ -26,6 +26,10 @@ import {
   operationOff,
   weatherOn,
   weatherOff,
+  salesTrendOn,
+  salesTrendOff,
+  fuelStockOn,
+  fuelStockOff,
 } from "../../public/images";
 
 export type MenuItem = {
@@ -78,8 +82,8 @@ export const menuItems: MenuItem[] = [
     category: "세차",
     name: "매출 트렌드",
     route: "/sales-trend",
-    activeIcon: salesReportOn,
-    inactiveIcon: saelsReportOff,
+    activeIcon: salesTrendOn,
+    inactiveIcon: salesTrendOff,
   },
   {
     category: "세차",
@@ -109,13 +113,13 @@ export const menuItems: MenuItem[] = [
     activeIcon: salesReportOn,
     inactiveIcon: saelsReportOff,
   },
-  // {
-  //   category: "주유",
-  //   name: "유류 재고",
-  //   route: "/fuel-sales",
-  //   activeIcon: userOn,
-  //   inactiveIcon: userOff,
-  // },
+  {
+    category: "주유",
+    name: "재고 관리",
+    route: "/fuel-stock",
+    activeIcon: fuelStockOn,
+    inactiveIcon: fuelStockOff,
+  },
   {
     category: "고객",
     name: "회원 관리",

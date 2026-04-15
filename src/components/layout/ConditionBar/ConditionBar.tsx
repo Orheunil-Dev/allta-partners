@@ -229,7 +229,7 @@ export const ConditionBar = ({
                       return (
                         <Image
                           src={calendarPrevIcon}
-                          alt="다음 달"
+                          alt="이전 달"
                           className="w-[20px] h-[20px]"
                         />
                       );

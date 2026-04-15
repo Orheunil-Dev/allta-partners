@@ -3,6 +3,8 @@ import { colors } from "@/styles";
 interface Props {
   children: React.ReactNode;
   onClick?: () => void;
+  display?: React.CSSProperties["display"];
+  alignSelf?: React.CSSProperties["alignSelf"];
   width?: React.CSSProperties["width"];
   height?: React.CSSProperties["height"];
   margin?: React.CSSProperties["margin"];
@@ -20,6 +22,8 @@ interface Props {
 export const CustomButton = ({
   children,
   onClick,
+  display,
+  alignSelf,
   width = "56px",
   height = "38px",
   margin,
@@ -38,6 +42,9 @@ export const CustomButton = ({
       onClick={onClick}
       disabled={disabled}
       style={{
+        display,
+        alignSelf,
+        flexShrink: 0,
         width,
         height,
         margin,

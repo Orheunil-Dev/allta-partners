@@ -14,14 +14,9 @@ import {
 } from "chart.js";
 import { Chart } from "react-chartjs-2";
 import dayjs from "dayjs";
-import { useSalesControllerGetSalesStatByPassType } from "@/api/sales/sales";
-import {
-  FuelTypeSalesStatItem,
-  GetSalesStatByPassTypeResponse,
-  PassTypeSalesStatItem,
-} from "@/api/models";
+import { useFuelSalesControllerGetFuelSalesStatByFuelType } from "@/api/fuel-sales/fuel-sales";
+import { FuelTypeFuelSalesStatItem } from "@/api/models";
 import { downloadIcon } from "../../../public/images";
-import { useFuelSalesControllerGetSalesStatByFuelType } from "@/api/fuel-sales/fuel-sales";
 
 ChartJS.register(
   LinearScale,
@@ -48,7 +43,7 @@ export const FuelSalesByFuelTypeChart = ({
 }: Props) => {
   // 매출 통계 조회 API
   const { data, isLoading, isError } =
-    useFuelSalesControllerGetSalesStatByFuelType({
+    useFuelSalesControllerGetFuelSalesStatByFuelType({
       storeId,
       startDate,
       endDate,
@@ -92,7 +87,7 @@ export const FuelSalesByFuelTypeChart = ({
   const chartData = useMemo(() => {
     const rawData = data?.data ?? [];
 
-    const labels = rawData.map((item: FuelTypeSalesStatItem) => {
+    const labels = rawData.map((item: FuelTypeFuelSalesStatItem) => {
       const dateObj = dayjs(item.date);
       return dateObj.format("MM.DD");
     });

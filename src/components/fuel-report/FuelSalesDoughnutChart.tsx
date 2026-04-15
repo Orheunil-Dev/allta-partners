@@ -7,7 +7,7 @@ import {
   Legend,
 } from "chart.js";
 import { Chart } from "react-chartjs-2";
-import { useFuelSalesControllerGetSalesByFuelType } from "@/api/fuel-sales/fuel-sales";
+import { useFuelSalesControllerGetFuelSalesByFuelType } from "@/api/fuel-sales/fuel-sales";
 import { formatFuelType, getPercent } from "@/utils";
 import { colors } from "@/styles";
 
@@ -31,13 +31,12 @@ export const FuelSalesDoughnutChart = ({
   endDate,
 }: Props) => {
   // 유종별 매출 조회 API
-  const { data, isLoading, isError } = useFuelSalesControllerGetSalesByFuelType(
-    {
+  const { data, isLoading, isError } =
+    useFuelSalesControllerGetFuelSalesByFuelType({
       storeId,
       startDate,
       endDate,
-    },
-  );
+    });
 
   const chartData = useMemo(() => {
     const rawData = data?.data?.fuelTypeSales ?? [];
