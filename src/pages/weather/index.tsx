@@ -97,11 +97,11 @@ export default function Weather() {
 
                 <p className="text-gray5">
                   <strong className="text-blue font-medium">
-                    {weather.averageTemperatureToday}°
+                    {weather.lowestTemperature}°
                   </strong>
                   /
                   <strong className="text-red font-medium">
-                    {weather.averageTemperatureToday}°
+                    {weather.highestTemperature}°
                   </strong>
                 </p>
               </div>
