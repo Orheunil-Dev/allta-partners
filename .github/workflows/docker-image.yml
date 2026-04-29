@@ -20,15 +20,15 @@ jobs:
       - name: Login to GHCR
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-      # 3. 이미지 빌드
+      # 3. 이미지 빌드 (SHA 태그)
       - name: Build Docker image
         run: |
-          docker build -t ghcr.io/orheunil-dev/allta-partners:latest .
+          docker build -t ghcr.io/orheunil-dev/allta-partners:${{ github.sha }} .
 
       # 4. GHCR에 push
       - name: Push Docker image
         run: |
-          docker push ghcr.io/orheunil-dev/allta-partners:latest
+          docker push ghcr.io/orheunil-dev/allta-partners:${{ github.sha }}
 
       # 5. VM 배포
       - name: Deploy to VM
@@ -39,6 +39,16 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd /home/shoh/allta-partners
-            docker compose pull
+
+            # .env 파일에 이미지 태그 저장
+            echo "IMAGE_TAG=${{ github.sha }}" > .env
+
+            # 최신 이미지 pull
+            docker pull ghcr.io/orheunil-dev/allta-partners:${{ github.sha }}
+
+            # 컨테이너 재생성
+            docker compose down
             docker compose up -d
+
+            # 정리
             docker image prune -f
