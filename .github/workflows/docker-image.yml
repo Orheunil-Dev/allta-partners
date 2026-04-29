@@ -40,15 +40,15 @@ jobs:
           script: |
             cd /home/shoh/allta-partners
 
-            # .env 파일에 이미지 태그 저장
-            echo "IMAGE_TAG=${{ github.sha }}" | tee .env
+             # GHCR 로그인
+            echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u orheunil --password-stdin
 
             # 최신 이미지 pull
             docker pull ghcr.io/orheunil-dev/allta-partners:${{ github.sha }}
 
             # 컨테이너 재생성
             docker compose down
-            docker compose up -d
+            IMAGE_TAG=${{ github.sha }} docker compose up -d
 
             # 정리
             docker image prune -f
