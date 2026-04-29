@@ -5,30 +5,38 @@
  * Allta Partners 서버 문서입니다.
  * OpenAPI spec version: 1.0
  */
+import type { DailyFuelStockSummaryDetailFuelStockHistoryItem } from './dailyFuelStockSummaryDetailFuelStockHistoryItem';
+import type { DailyFuelStockSummaryDetailByIdFuelSales } from './dailyFuelStockSummaryDetailByIdFuelSales';
 
 export interface DailyFuelStockSummaryDetailByIdResult {
   /** ID */
   id: string;
   /** 날짜 */
   date: string;
-  /** 휘발유 입고 단가(원/L) */
+  /** 휘발유 입고 평균 단가(원/L) */
   gasolineIncomePrice: number;
   /** 휘발유 입고량(L) */
   gasolineIncomeVolume: number;
+  /** 휘발유 재고 평균 단가(원/L) */
+  gasolineInventoryPrice: number;
   /** 휘발유 실측재고량(L) */
-  gasolineInventory: number;
-  /** 경유 입고 단가(원/L) */
+  gasolineInventoryVolume: number;
+  /** 경유 입고 평균 단가(원/L) */
   dieselIncomePrice: number;
   /** 경유 입고량(L) */
   dieselIncomeVolume: number;
+  /** 경유 재고 평균 단가(원/L) */
+  dieselInventoryPrice: number;
   /** 경유 실측재고량(L) */
-  dieselInventory: number;
-  /** 고급유 입고 단가(원/L) */
+  dieselInventoryVolume: number;
+  /** 고급유 입고 평균 단가(원/L) */
   premiumIncomePrice: number;
   /** 고급유 입고량(L) */
   premiumIncomeVolume: number;
+  /** 고급유 재고 평균 단가(원/L) */
+  premiumInventoryPrice: number;
   /** 고급유 실측재고량(L) */
-  premiumInventory: number;
+  premiumInventoryVolume: number;
   /**
    * 비고
    * @nullable
@@ -40,4 +48,16 @@ export interface DailyFuelStockSummaryDetailByIdResult {
   storeId: string;
   /** 매장명 */
   storeName: string;
+  /** 휘발유 전날 재고량(L) */
+  gasolinePrevInventoryVolume: number;
+  /** 경유 전날 재고량(L) */
+  dieselPrevInventoryVolume: number;
+  /** 고급유 전날 재고량(L) */
+  premiumPrevInventoryVolume: number;
+  /** 총 주유 매출액 */
+  totalFuelSales: number;
+  /** 유류 입고 내역 */
+  fuelStockHistories: DailyFuelStockSummaryDetailFuelStockHistoryItem[];
+  /** 유종 별 판매량 */
+  fuelSales: DailyFuelStockSummaryDetailByIdFuelSales[];
 }

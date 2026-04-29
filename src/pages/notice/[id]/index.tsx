@@ -11,7 +11,7 @@ import { Callout } from "@/components/ui/Callout";
 import { UpdateNoticeRequest } from "@/api/models";
 
 const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
-import "react-quill-new/dist/quill.snow.css";
+// import "react-quill-new/dist/quill.snow.css";
 
 export default function NoticeDetail() {
   const router = useRouter();
@@ -83,10 +83,10 @@ export default function NoticeDetail() {
           console.error(error);
 
           return alert(
-            error.message ?? "공지사항 수정 중 오류가 발생했습니다."
+            error.message ?? "공지사항 수정 중 오류가 발생했습니다.",
           );
         },
-      }
+      },
     );
   };
 

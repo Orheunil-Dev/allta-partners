@@ -27,14 +27,21 @@ import type {
 import type {
   CreateDailyFuelStockSummaryRequest,
   CreateDailyFuelStockSummaryResponse,
+  CreateFuelStockHistoryRequest,
+  CreateFuelStockHistoryResponse,
   DeleteDailyFuelStockSummaryResponse,
+  DeleteFuelStockHistoryResponse,
   FuelStockControllerGetDailyFuelStockSummaryDetailParams,
   FuelStockControllerGetMonthlyFuelStockSummaryListParams,
   GetDailyFuelStockSummaryDetailByIdResponse,
   GetDailyFuelStockSummaryDetailResponse,
   GetMonthlyFuelStockSummaryListResponse,
-  UpdateDailyFuelStockSummaryRequest,
-  UpdateDailyFuelStockSummaryResponse
+  UpdateDailyFuelSummaryNoteRequest,
+  UpdateDailyFuelSummaryNoteResponse,
+  UpdateFuelInventoryVolumeRequest,
+  UpdateFuelInventoryVolumeResponse,
+  UpdateFuelStockHistoryRequest,
+  UpdateFuelStockHistoryResponse
 } from '.././models';
 
 import { customInstance } from '../../libs/custom-instance';
@@ -51,7 +58,7 @@ export const fuelStockControllerCreateDailyFuelStockSummary = (
       
       
       return customInstance<CreateDailyFuelStockSummaryResponse>(
-      {url: `/fuel-stock`, method: 'POST',
+      {url: `/fuel-stock/daily`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: createDailyFuelStockSummaryRequest, signal
     },
@@ -102,26 +109,27 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
       return useMutation(mutationOptions, queryClient);
     }
-    export const fuelStockControllerUpdateDailyFuelStockSummary = (
-    updateDailyFuelStockSummaryRequest: UpdateDailyFuelStockSummaryRequest,
- options?: SecondParameter<typeof customInstance>,) => {
+    export const fuelStockControllerCreateFuelStockHistory = (
+    createFuelStockHistoryRequest: CreateFuelStockHistoryRequest,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
       
       
-      return customInstance<UpdateDailyFuelStockSummaryResponse>(
-      {url: `/fuel-stock/update`, method: 'PUT',
+      return customInstance<CreateFuelStockHistoryResponse>(
+      {url: `/fuel-stock/history`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
-      data: updateDailyFuelStockSummaryRequest
+      data: createFuelStockHistoryRequest, signal
     },
       options);
     }
   
 
 
-export const getFuelStockControllerUpdateDailyFuelStockSummaryMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof fuelStockControllerUpdateDailyFuelStockSummary>>, TError,{data: UpdateDailyFuelStockSummaryRequest}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof fuelStockControllerUpdateDailyFuelStockSummary>>, TError,{data: UpdateDailyFuelStockSummaryRequest}, TContext> => {
+export const getFuelStockControllerCreateFuelStockHistoryMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof fuelStockControllerCreateFuelStockHistory>>, TError,{data: CreateFuelStockHistoryRequest}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof fuelStockControllerCreateFuelStockHistory>>, TError,{data: CreateFuelStockHistoryRequest}, TContext> => {
 
-const mutationKey = ['fuelStockControllerUpdateDailyFuelStockSummary'];
+const mutationKey = ['fuelStockControllerCreateFuelStockHistory'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -131,10 +139,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
       
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof fuelStockControllerUpdateDailyFuelStockSummary>>, {data: UpdateDailyFuelStockSummaryRequest}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof fuelStockControllerCreateFuelStockHistory>>, {data: CreateFuelStockHistoryRequest}> = (props) => {
           const {data} = props ?? {};
 
-          return  fuelStockControllerUpdateDailyFuelStockSummary(data,requestOptions)
+          return  fuelStockControllerCreateFuelStockHistory(data,requestOptions)
         }
 
         
@@ -142,20 +150,132 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type FuelStockControllerUpdateDailyFuelStockSummaryMutationResult = NonNullable<Awaited<ReturnType<typeof fuelStockControllerUpdateDailyFuelStockSummary>>>
-    export type FuelStockControllerUpdateDailyFuelStockSummaryMutationBody = UpdateDailyFuelStockSummaryRequest
-    export type FuelStockControllerUpdateDailyFuelStockSummaryMutationError = unknown
+    export type FuelStockControllerCreateFuelStockHistoryMutationResult = NonNullable<Awaited<ReturnType<typeof fuelStockControllerCreateFuelStockHistory>>>
+    export type FuelStockControllerCreateFuelStockHistoryMutationBody = CreateFuelStockHistoryRequest
+    export type FuelStockControllerCreateFuelStockHistoryMutationError = unknown
 
-    export const useFuelStockControllerUpdateDailyFuelStockSummary = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof fuelStockControllerUpdateDailyFuelStockSummary>>, TError,{data: UpdateDailyFuelStockSummaryRequest}, TContext>, request?: SecondParameter<typeof customInstance>}
+    export const useFuelStockControllerCreateFuelStockHistory = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof fuelStockControllerCreateFuelStockHistory>>, TError,{data: CreateFuelStockHistoryRequest}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof fuelStockControllerUpdateDailyFuelStockSummary>>,
+        Awaited<ReturnType<typeof fuelStockControllerCreateFuelStockHistory>>,
         TError,
-        {data: UpdateDailyFuelStockSummaryRequest},
+        {data: CreateFuelStockHistoryRequest},
         TContext
       > => {
 
-      const mutationOptions = getFuelStockControllerUpdateDailyFuelStockSummaryMutationOptions(options);
+      const mutationOptions = getFuelStockControllerCreateFuelStockHistoryMutationOptions(options);
+
+      return useMutation(mutationOptions, queryClient);
+    }
+    export const fuelStockControllerUpdateFuelStockHistory = (
+    updateFuelStockHistoryRequest: UpdateFuelStockHistoryRequest,
+ options?: SecondParameter<typeof customInstance>,) => {
+      
+      
+      return customInstance<UpdateFuelStockHistoryResponse>(
+      {url: `/fuel-stock/history/update`, method: 'PATCH',
+      headers: {'Content-Type': 'application/json', },
+      data: updateFuelStockHistoryRequest
+    },
+      options);
+    }
+  
+
+
+export const getFuelStockControllerUpdateFuelStockHistoryMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof fuelStockControllerUpdateFuelStockHistory>>, TError,{data: UpdateFuelStockHistoryRequest}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof fuelStockControllerUpdateFuelStockHistory>>, TError,{data: UpdateFuelStockHistoryRequest}, TContext> => {
+
+const mutationKey = ['fuelStockControllerUpdateFuelStockHistory'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof fuelStockControllerUpdateFuelStockHistory>>, {data: UpdateFuelStockHistoryRequest}> = (props) => {
+          const {data} = props ?? {};
+
+          return  fuelStockControllerUpdateFuelStockHistory(data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type FuelStockControllerUpdateFuelStockHistoryMutationResult = NonNullable<Awaited<ReturnType<typeof fuelStockControllerUpdateFuelStockHistory>>>
+    export type FuelStockControllerUpdateFuelStockHistoryMutationBody = UpdateFuelStockHistoryRequest
+    export type FuelStockControllerUpdateFuelStockHistoryMutationError = unknown
+
+    export const useFuelStockControllerUpdateFuelStockHistory = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof fuelStockControllerUpdateFuelStockHistory>>, TError,{data: UpdateFuelStockHistoryRequest}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof fuelStockControllerUpdateFuelStockHistory>>,
+        TError,
+        {data: UpdateFuelStockHistoryRequest},
+        TContext
+      > => {
+
+      const mutationOptions = getFuelStockControllerUpdateFuelStockHistoryMutationOptions(options);
+
+      return useMutation(mutationOptions, queryClient);
+    }
+    export const fuelStockControllerDeleteFuelStockHistory = (
+    id: string,
+ options?: SecondParameter<typeof customInstance>,) => {
+      
+      
+      return customInstance<DeleteFuelStockHistoryResponse>(
+      {url: `/fuel-stock/history/${id}`, method: 'DELETE'
+    },
+      options);
+    }
+  
+
+
+export const getFuelStockControllerDeleteFuelStockHistoryMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof fuelStockControllerDeleteFuelStockHistory>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof fuelStockControllerDeleteFuelStockHistory>>, TError,{id: string}, TContext> => {
+
+const mutationKey = ['fuelStockControllerDeleteFuelStockHistory'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof fuelStockControllerDeleteFuelStockHistory>>, {id: string}> = (props) => {
+          const {id} = props ?? {};
+
+          return  fuelStockControllerDeleteFuelStockHistory(id,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type FuelStockControllerDeleteFuelStockHistoryMutationResult = NonNullable<Awaited<ReturnType<typeof fuelStockControllerDeleteFuelStockHistory>>>
+    
+    export type FuelStockControllerDeleteFuelStockHistoryMutationError = unknown
+
+    export const useFuelStockControllerDeleteFuelStockHistory = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof fuelStockControllerDeleteFuelStockHistory>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof fuelStockControllerDeleteFuelStockHistory>>,
+        TError,
+        {id: string},
+        TContext
+      > => {
+
+      const mutationOptions = getFuelStockControllerDeleteFuelStockHistoryMutationOptions(options);
 
       return useMutation(mutationOptions, queryClient);
     }
@@ -252,7 +372,7 @@ export const fuelStockControllerGetDailyFuelStockSummaryDetail = (
       
       
       return customInstance<GetDailyFuelStockSummaryDetailResponse>(
-      {url: `/fuel-stock/daily`, method: 'GET',
+      {url: `/fuel-stock/daily/detail`, method: 'GET',
         params, signal
     },
       options);
@@ -263,7 +383,7 @@ export const fuelStockControllerGetDailyFuelStockSummaryDetail = (
 
 export const getFuelStockControllerGetDailyFuelStockSummaryDetailQueryKey = (params?: FuelStockControllerGetDailyFuelStockSummaryDetailParams,) => {
     return [
-    `/fuel-stock/daily`, ...(params ? [params]: [])
+    `/fuel-stock/daily/detail`, ...(params ? [params]: [])
     ] as const;
     }
 
@@ -331,14 +451,128 @@ export function useFuelStockControllerGetDailyFuelStockSummaryDetail<TData = Awa
 
 
 
-export const fuelStockControllerGetDailyFuelStockSummaryDetailById = (
+export const fuelStockControllerUpdateFuelInventoryVolume = (
+    updateFuelInventoryVolumeRequest: UpdateFuelInventoryVolumeRequest,
+ options?: SecondParameter<typeof customInstance>,) => {
+      
+      
+      return customInstance<UpdateFuelInventoryVolumeResponse>(
+      {url: `/fuel-stock/daily/inventory`, method: 'PATCH',
+      headers: {'Content-Type': 'application/json', },
+      data: updateFuelInventoryVolumeRequest
+    },
+      options);
+    }
+  
+
+
+export const getFuelStockControllerUpdateFuelInventoryVolumeMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof fuelStockControllerUpdateFuelInventoryVolume>>, TError,{data: UpdateFuelInventoryVolumeRequest}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof fuelStockControllerUpdateFuelInventoryVolume>>, TError,{data: UpdateFuelInventoryVolumeRequest}, TContext> => {
+
+const mutationKey = ['fuelStockControllerUpdateFuelInventoryVolume'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof fuelStockControllerUpdateFuelInventoryVolume>>, {data: UpdateFuelInventoryVolumeRequest}> = (props) => {
+          const {data} = props ?? {};
+
+          return  fuelStockControllerUpdateFuelInventoryVolume(data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type FuelStockControllerUpdateFuelInventoryVolumeMutationResult = NonNullable<Awaited<ReturnType<typeof fuelStockControllerUpdateFuelInventoryVolume>>>
+    export type FuelStockControllerUpdateFuelInventoryVolumeMutationBody = UpdateFuelInventoryVolumeRequest
+    export type FuelStockControllerUpdateFuelInventoryVolumeMutationError = unknown
+
+    export const useFuelStockControllerUpdateFuelInventoryVolume = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof fuelStockControllerUpdateFuelInventoryVolume>>, TError,{data: UpdateFuelInventoryVolumeRequest}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof fuelStockControllerUpdateFuelInventoryVolume>>,
+        TError,
+        {data: UpdateFuelInventoryVolumeRequest},
+        TContext
+      > => {
+
+      const mutationOptions = getFuelStockControllerUpdateFuelInventoryVolumeMutationOptions(options);
+
+      return useMutation(mutationOptions, queryClient);
+    }
+    export const fuelStockControllerUpdateDailyFuelSummaryNote = (
+    updateDailyFuelSummaryNoteRequest: UpdateDailyFuelSummaryNoteRequest,
+ options?: SecondParameter<typeof customInstance>,) => {
+      
+      
+      return customInstance<UpdateDailyFuelSummaryNoteResponse>(
+      {url: `/fuel-stock/daily/note`, method: 'PATCH',
+      headers: {'Content-Type': 'application/json', },
+      data: updateDailyFuelSummaryNoteRequest
+    },
+      options);
+    }
+  
+
+
+export const getFuelStockControllerUpdateDailyFuelSummaryNoteMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof fuelStockControllerUpdateDailyFuelSummaryNote>>, TError,{data: UpdateDailyFuelSummaryNoteRequest}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof fuelStockControllerUpdateDailyFuelSummaryNote>>, TError,{data: UpdateDailyFuelSummaryNoteRequest}, TContext> => {
+
+const mutationKey = ['fuelStockControllerUpdateDailyFuelSummaryNote'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof fuelStockControllerUpdateDailyFuelSummaryNote>>, {data: UpdateDailyFuelSummaryNoteRequest}> = (props) => {
+          const {data} = props ?? {};
+
+          return  fuelStockControllerUpdateDailyFuelSummaryNote(data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type FuelStockControllerUpdateDailyFuelSummaryNoteMutationResult = NonNullable<Awaited<ReturnType<typeof fuelStockControllerUpdateDailyFuelSummaryNote>>>
+    export type FuelStockControllerUpdateDailyFuelSummaryNoteMutationBody = UpdateDailyFuelSummaryNoteRequest
+    export type FuelStockControllerUpdateDailyFuelSummaryNoteMutationError = unknown
+
+    export const useFuelStockControllerUpdateDailyFuelSummaryNote = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof fuelStockControllerUpdateDailyFuelSummaryNote>>, TError,{data: UpdateDailyFuelSummaryNoteRequest}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof fuelStockControllerUpdateDailyFuelSummaryNote>>,
+        TError,
+        {data: UpdateDailyFuelSummaryNoteRequest},
+        TContext
+      > => {
+
+      const mutationOptions = getFuelStockControllerUpdateDailyFuelSummaryNoteMutationOptions(options);
+
+      return useMutation(mutationOptions, queryClient);
+    }
+    export const fuelStockControllerGetDailyFuelStockSummaryDetailById = (
     id: string,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
       
       
       return customInstance<GetDailyFuelStockSummaryDetailByIdResponse>(
-      {url: `/fuel-stock/${id}`, method: 'GET', signal
+      {url: `/fuel-stock/daily/${id}`, method: 'GET', signal
     },
       options);
     }
@@ -348,7 +582,7 @@ export const fuelStockControllerGetDailyFuelStockSummaryDetailById = (
 
 export const getFuelStockControllerGetDailyFuelStockSummaryDetailByIdQueryKey = (id?: string,) => {
     return [
-    `/fuel-stock/${id}`
+    `/fuel-stock/daily/${id}`
     ] as const;
     }
 
@@ -422,7 +656,7 @@ export const fuelStockControllerDeleteDailyFuelStockSummary = (
       
       
       return customInstance<DeleteDailyFuelStockSummaryResponse>(
-      {url: `/fuel-stock/${id}`, method: 'DELETE'
+      {url: `/fuel-stock/daily/${id}`, method: 'DELETE'
     },
       options);
     }

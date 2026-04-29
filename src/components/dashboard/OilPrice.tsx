@@ -1,11 +1,6 @@
 import { useOilPriceControllerGetStoreOilPrice } from "@/api/oil-price/oil-price";
 import { colors } from "@/styles";
-
-const oilTypeColorMap: Record<string, string> = {
-  휘발유: "#EB8723",
-  경유: "#3B67D7",
-  고급유: "#4CD168",
-};
+import { getFuelTypeColor } from "@/utils";
 
 interface Props {
   storeId?: string | null;
@@ -73,10 +68,7 @@ export const OilPrice = ({ storeId }: Props) => {
 
               <div
                 className="absolute w-[10px] h-[10px] right-[16px] top-[16px] rounded-full"
-                style={{
-                  backgroundColor:
-                    oilTypeColorMap[value.oilType] ?? colors.gray5,
-                }}
+                style={{ backgroundColor: getFuelTypeColor(value.oilType) }}
               />
             </div>
           ))}

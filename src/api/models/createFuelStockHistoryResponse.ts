@@ -6,7 +6,7 @@
  * OpenAPI spec version: 1.0
  */
 
-export interface UpdateDailyFuelStockSummaryResponse {
+export interface CreateFuelStockHistoryResponse {
   /** 결과 여부 */
   ok: boolean;
 }

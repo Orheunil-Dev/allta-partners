@@ -7,24 +7,24 @@
  */
 
 export interface CreateDailyFuelStockSummaryRequest {
-  /** 휘발유 입고 단가(원/L) */
+  /** 휘발유 입고 평균 단가(원/L) */
   gasolineIncomePrice: number;
   /** 휘발유 입고량(L) */
   gasolineIncomeVolume: number;
   /** 휘발유 실측재고량(L) */
-  gasolineInventory: number;
-  /** 경유 입고 단가(원/L) */
+  gasolineInventoryVolume: number;
+  /** 경유 입고 평균 단가(원/L) */
   dieselIncomePrice: number;
   /** 경유 입고량(L) */
   dieselIncomeVolume: number;
   /** 경유 실측재고량(L) */
-  dieselInventory: number;
-  /** 고급유 입고 단가(원/L) */
+  dieselInventoryVolume: number;
+  /** 고급유 입고 평균 단가(원/L) */
   premiumIncomePrice: number;
   /** 고급유 입고량(L) */
   premiumIncomeVolume: number;
   /** 고급유 실측재고량(L) */
-  premiumInventory: number;
+  premiumInventoryVolume: number;
   /**
    * 비고
    * @nullable
@@ -32,6 +32,4 @@ export interface CreateDailyFuelStockSummaryRequest {
   note?: string | null;
   /** 매장 ID */
   storeId: string;
-  /** 날짜 */
-  date: string;
 }

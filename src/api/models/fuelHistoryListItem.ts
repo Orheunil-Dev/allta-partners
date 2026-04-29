@@ -13,10 +13,10 @@ export interface FuelHistoryListItem {
   id: string;
   /** 유종 */
   fuelType: string;
-  /** 주유량(L) */
-  volume: I;
   /** 리터 당 단가 */
   pricePerLiter: number;
+  /** 주유량(L) */
+  volume: I;
   /** 총 결제금액 */
   totalAmount: number;
   /**

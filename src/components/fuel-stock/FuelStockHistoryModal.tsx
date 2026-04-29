@@ -3,6 +3,7 @@ import Image from "next/image";
 import dayjs from "dayjs";
 import { useFuelStockControllerGetDailyFuelStockSummaryDetail } from "@/api/fuel-stock/fuel-stock";
 import { useResizeHandler } from "@/hooks";
+import { getFuelTypeColor } from "@/utils";
 import { FuelType } from "@/types";
 import { CustomModal } from "../ui/Modal";
 import { CustomButton } from "../ui/Button";
@@ -38,26 +39,29 @@ export const FuelStockHistoryModal = ({
   const fuelMap = {
     GASOLINE: {
       name: "휘발유",
-      textColor: "text-[#EB8723]",
+      textColor: getFuelTypeColor("GASOLINE"),
       incomePrice: data?.data.gasolineIncomePrice ?? 0,
       incomeVolume: data?.data.gasolineIncomeVolume ?? 0,
-      inventory: data?.data.gasolineInventory ?? 0,
+      inventoryPrice: data?.data.gasolineInventoryPrice ?? 0,
+      inventoryVolume: data?.data.gasolineInventoryVolume ?? 0,
       prevInventory: data?.data.gasolinePrevInventory ?? 0,
     },
     DIESEL: {
       name: "경유",
-      textColor: "text-[#3B67D7]",
+      textColor: getFuelTypeColor("DIESEL"),
       incomePrice: data?.data.dieselIncomePrice ?? 0,
       incomeVolume: data?.data.dieselIncomeVolume ?? 0,
-      inventory: data?.data.dieselInventory ?? 0,
+      inventoryPrice: data?.data.dieselInventoryPrice ?? 0,
+      inventoryVolume: data?.data.dieselInventoryVolume ?? 0,
       prevInventory: data?.data.dieselPrevInventory ?? 0,
     },
     PREMIUM_GASOLINE: {
       name: "고급유",
-      textColor: "text-[#4BD168]",
+      textColor: getFuelTypeColor("PREMIUM"),
       incomePrice: data?.data.premiumIncomePrice ?? 0,
       incomeVolume: data?.data.premiumIncomeVolume ?? 0,
-      inventory: data?.data.premiumInventory ?? 0,
+      inventoryPrice: data?.data.premiumInventoryPrice ?? 0,
+      inventoryVolume: data?.data.premiumInventoryVolume ?? 0,
       prevInventory: data?.data.premiumPrevInventory ?? 0,
     },
   };
@@ -108,6 +112,7 @@ export const FuelStockHistoryModal = ({
                   <th>전일재고(L)</th>
                   <th>예상재고(L)</th>
                   <th>실측재고(L)</th>
+                  <th>예상 재고 단가(원/L)</th>
                   <th>매출액(원)</th>
                 </tr>
               </thead>
@@ -116,7 +121,8 @@ export const FuelStockHistoryModal = ({
                 {rows?.map((row, idx) => (
                   <tr key={idx} className="border-t border-line text-center">
                     <td
-                      className={`p-[12px] text-left font-medium ${row.textColor}`}
+                      className="p-[12px] text-left font-medium"
+                      style={{ color: row.textColor }}
                     >
                       {row.name}
                     </td>
@@ -125,7 +131,8 @@ export const FuelStockHistoryModal = ({
                     <td>{row.salesVolume.toLocaleString()}</td>
                     <td>{row.prevInventory.toLocaleString()}</td>
                     <td>{row.expectedInventory.toLocaleString()}</td>
-                    <td>{row.inventory.toLocaleString()}</td>
+                    <td>{row.inventoryVolume.toLocaleString()}</td>
+                    <td>{row.inventoryPrice.toLocaleString()}</td>
                     <td className="font-semibold">
                       {row.salesAmount.toLocaleString()}
                     </td>
@@ -159,9 +166,10 @@ export const FuelStockHistoryModal = ({
                   </td>
                   <td>
                     {rows
-                      ?.reduce((sum, r) => sum + (r.inventory ?? 0), 0)
+                      ?.reduce((sum, r) => sum + (r.inventoryVolume ?? 0), 0)
                       .toLocaleString()}
                   </td>
+                  <td>-</td>
                   <td className="font-semibold">
                     {rows
                       ?.reduce((sum, r) => sum + r.salesAmount, 0)
@@ -188,7 +196,7 @@ export const FuelStockHistoryModal = ({
             }}
             backgroundColor={colors.main}
           >
-            <p className="text-white">수정</p>
+            <p className="text-white">상세</p>
           </CustomButton>
         ) : (
           <CustomButton

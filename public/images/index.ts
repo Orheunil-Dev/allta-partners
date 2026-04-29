@@ -91,6 +91,11 @@ export { default as snowIcon } from "./snow-icon.png";
 export { default as rainSnowIcon } from "./rain-snow-icon.png";
 export { default as cloudIcon } from "./cloud-icon.png";
 
+// 주유
+export { default as bluePlusIcon } from "./blue-plus-icon.png";
+export { default as editIcon } from "./edit-icon.png";
+export { default as trashIcon } from "./trash-icon.png";
+
 // 마케팅
 export { default as conversionRateIcon } from "./conversion-rate-icon.png";
 export { default as roiIcon } from "./roi-icon.png";
