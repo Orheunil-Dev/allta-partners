@@ -41,7 +41,7 @@ jobs:
             cd /home/shoh/allta-partners
 
             # .env 파일에 이미지 태그 저장
-            echo "IMAGE_TAG=${{ github.sha }}" > .env
+            echo "IMAGE_TAG=${{ github.sha }}" | tee .env
 
             # 최신 이미지 pull
             docker pull ghcr.io/orheunil-dev/allta-partners:${{ github.sha }}
